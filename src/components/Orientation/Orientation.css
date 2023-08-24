@@ -1,0 +1,58 @@
+.orientation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+}
+.orientation__vertical {
+    width: 149px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.orientation__title {
+    color: #FFF;
+    font-family: 'Nipigaz Basic';
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+.active .main__btn{
+    display: none;
+}
+.active .orientation__vertical{
+    width: 200px;
+    text-align: center;
+}
+/*смена ориентации*/
+@media screen and (orientation:portrait) {
+    .orientation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 999;
+    }
+    
+    .main{
+        display: none;
+    }
+
+}
+
+@media screen and (orientation:landscape) {
+    .orientation.active{
+        display: none;
+    }
+    .orientation.no-active~.main{
+        display: none;
+    }
+    .orientation .orientation__vertical{
+        display: none;
+    }
+ }

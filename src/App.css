@@ -1,42 +1,49 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
+@import url('assets/fonts/fonts.css');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nipigaz Basic', sans-serif;
+    font-weight: 700;
+}
+#root{
+    background: linear-gradient(rgba(0, 140, 149, 0.80), rgba(0, 140, 149, 0.80)), url('./assets/images/bg.png');
+    background-repeat: repeat, no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.btn {
+    color: #008C95;
+    font-family: Nunito Sans;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    text-align: center;
+    width: 122px;
+    padding: 14px 0px;
+    background: #fff;
+    border-radius: 15px;
+    border: none;
+    outline: none;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+@media screen and (orientation:portrait) {
+    #root {
+        background-position-x: 33%;
+    }
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.main {
+  display: grid;
+  grid-template-columns: auto auto ;
+  margin: auto;
+  padding-top: 47px;
+  width: 95%;
+  height: 100vh;
+  justify-items: center;
+  position: relative;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
