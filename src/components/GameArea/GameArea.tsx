@@ -1,10 +1,10 @@
 import './GameArea.css'
 import { useAppSelector, useAppDispatch } from '../../store/store'
-import {saveActive} from '../../store/reducers/activeQuestion'
+import {saveActive} from '../../store/reducers/activeQuestionReducer'
 
 
 interface IProps {
-  openTask : 	()=>void
+  openTask : 	() => void;
 }
 
 function GameArea(props:IProps) {

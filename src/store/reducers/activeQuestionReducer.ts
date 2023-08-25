@@ -12,8 +12,6 @@ export const activeSlice = createSlice({
   reducers: {
     saveActive(state, action: PayloadAction<number[]>) {
       state.activeQuestion = action.payload;
-      console.log(state.activeQuestion);
-      
     },
   },
 });

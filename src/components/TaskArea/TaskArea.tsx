@@ -1,5 +1,13 @@
 import './TaskArea.css'
-function TaskArea() {
+interface IProps {
+    changePoints: (data: number) => void;
+}
+
+function TaskArea(props: IProps) {
+
+    const answerUser = () =>{
+        props.changePoints(100);
+    }
 
   return (
     <>
@@ -17,7 +25,7 @@ function TaskArea() {
                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, dolor?
 
                 </div>
-                <button className="btn task__btn">ГОТОВО</button>
+                <button className="btn task__btn" onClick={answerUser}>ГОТОВО</button>
 
             </div>
         </div>

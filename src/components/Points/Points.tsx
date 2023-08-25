@@ -1,5 +1,12 @@
 import './Points.css'
-function Points() {
+
+interface IProps {
+  val: number;
+}
+function Points(props: IProps) {
+
+  const {val} = props;
+  
 
   return (
     <>
@@ -7,7 +14,7 @@ function Points() {
             <img src="/src/assets/images/logo.svg" alt="logo" className="points__logo"/>
             <div className="points__balance">
                 <p className="points__title">БАЛАНС</p>
-                <span className="points__num">1400</span>
+                <span className="points__num">{val}</span>
             </div>
         </div>
     </>
