@@ -1,5 +1,7 @@
 import './GameArea.css'
-import { useAppSelector } from '../../store/store'
+import { useAppSelector, useAppDispatch } from '../../store/store'
+import {saveActive} from '../../store/reducers/activeQuestion'
+
 
 interface IProps {
   openTask : 	()=>void
@@ -7,9 +9,20 @@ interface IProps {
 
 function GameArea(props:IProps) {
     const {arrQuestions} = useAppSelector((state)=>state.arrQuestionsReducer);
+    
+
+    const dispatch = useAppDispatch();
     const category = ["деятельность", "география", "цифры", "работа у нас" ];
+
     
-    
+    const sendDataTask = (data:number[])=>{
+      if(arrQuestions[data[0]][data[1]] === 0) return;
+      
+      props.openTask();
+      dispatch(saveActive(data));
+
+      return;
+    }
 
   return (
     <>
@@ -19,10 +32,10 @@ function GameArea(props:IProps) {
                       if(index === 0){
                         return  <>
                         <div className="game__category" key={index*arrIndex}>{category[arrIndex]}</div>
-                        <div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={props.openTask}>{(index + 1)*100}</div>
+                        <div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={()=>sendDataTask([arrIndex, index])}>{(index + 1)*100}</div>
                         </>
                       }
-                      return<div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={props.openTask}>{(index + 1)*100}</div>
+                      return <div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={()=>sendDataTask([arrIndex, index])}>{(index + 1)*100}</div>
                     })
                 })}
         </div>

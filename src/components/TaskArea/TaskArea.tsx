@@ -3,7 +3,7 @@ function TaskArea() {
 
   return (
     <>
-        <div className="main__task task success">
+        <div className="main__task task">
             <div className="task__wrapper">
                 <div className="task__head">
                     <div className="task__heading">

@@ -7,7 +7,7 @@ const initialState: IArrQuestions = {
     arrQuestions: [[ 100, 200, 300, 400], [100, 200, 300, 400],[ 100, 200, 300, 400],[100, 200, 300, 400],],
 };
 
-export const searchSlice = createSlice({
+export const arrQuestionsSlice = createSlice({
   name: 'questions',
   initialState,
   reducers: {
@@ -17,4 +17,4 @@ export const searchSlice = createSlice({
   },
 });
 
-export default searchSlice.reducer;
+export default arrQuestionsSlice.reducer;

@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import arrQuestionsReducer from './reducers/arrQuestionsReducer';
+import activeQuestion from './reducers/activeQuestion';
 
 
 const rootReducer = combineReducers({
-    arrQuestionsReducer
+    arrQuestionsReducer,
+    activeQuestion
 
 });
 
