@@ -1,9 +1,10 @@
-import './TaskArea.css'
+import './Task00.css'
 interface IProps {
     changePoints: (data: number) => void;
 }
 
-function TaskArea(props: IProps) {
+function Task00(props: IProps) {
+
     const answerUser = () =>{
         props.changePoints(100);
     }
@@ -32,4 +33,4 @@ function TaskArea(props: IProps) {
   )
 }
 
-export default TaskArea
+export default Task00;
