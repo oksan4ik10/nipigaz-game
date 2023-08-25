@@ -1,12 +1,13 @@
 import './TaskArea.css'
-interface IProps {
-    changePoints: (data: number) => void;
-}
+import { useAppDispatch } from '../../store/store';
+import { setPoints } from '../../store/reducers/pointsReducer';
 
-function TaskArea(props: IProps) {
+function TaskArea() {
+    const dispatch = useAppDispatch();
     const answerUser = () =>{
-        props.changePoints(100);
+        dispatch(setPoints(300));
     }
+
 
   return (
     <>
