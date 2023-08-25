@@ -1,17 +1,28 @@
 import './GameArea.css'
 import { useAppSelector } from '../../store/store'
 
-function GameArea() {
-    // const arrQuestionsPoints = [["деятельность", 100, 200, 300, 400], ["география", 100, 200, 300, 400],["цифры и даты", 100, 200, 300, 400],["работа у нас", 100, 200, 300, 400],]
+interface IProps {
+  openTask : 	()=>void
+}
+
+function GameArea(props:IProps) {
     const {arrQuestions} = useAppSelector((state)=>state.arrQuestionsReducer);
+    const category = ["деятельность", "география", "цифры", "работа у нас" ];
+    
+    
 
   return (
     <>
             <div className="main__game game">
                 {arrQuestions.map((arr, arrIndex)=>{
                     return arr.map((item, index)=>{
-                        return index === 0 ? <div className="game__category" key={index}>{item}</div> :
-                        <div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index}>{index*100}</div>
+                      if(index === 0){
+                        return  <>
+                        <div className="game__category" key={index*arrIndex}>{category[arrIndex]}</div>
+                        <div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={props.openTask}>{(index + 1)*100}</div>
+                        </>
+                      }
+                      return<div className={"game__item" + (item === 0 ? " disable" : "")} key={arrIndex + " " + index} onClick={props.openTask}>{(index + 1)*100}</div>
                     })
                 })}
         </div>

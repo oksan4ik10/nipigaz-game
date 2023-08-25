@@ -47,3 +47,16 @@
   position: relative;
 }
 
+.blur{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(5px);
+    z-index: 1;
+    display: none;
+ }
+ .blur.active{
+    display: block;
+ }

@@ -4,7 +4,7 @@ export interface IArrQuestions {
   arrQuestions: Array<number | string>[];
 }
 const initialState: IArrQuestions = {
-    arrQuestions: [["деятельность", 100, 200, 300, 400], ["география", 100, 200, 300, 400],["цифры и даты", 100, 200, 300, 400],["работа у нас", 100, 200, 300, 400],],
+    arrQuestions: [[ 100, 200, 300, 400], [100, 200, 300, 400],[ 100, 200, 300, 400],[100, 200, 300, 400],],
 };
 
 export const searchSlice = createSlice({
