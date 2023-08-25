@@ -37,7 +37,7 @@
     background: #FFF;
     text-align: center;
 }
-.game__item_disable{
+.game__item.disable{
     background-color: rgba(0, 0, 0, .3);
     color: rgba(255, 255, 255, .6);
 }
