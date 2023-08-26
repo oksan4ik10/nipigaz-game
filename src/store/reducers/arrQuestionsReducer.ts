@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IArrQuestions {
-  arrQuestions: Array<number | string>[];
+  arrQuestions: Array<number>[];
 }
 const initialState: IArrQuestions = {
     arrQuestions: [[ 100, 200, 300, 400], [100, 200, 300, 400],[ 100, 200, 300, 400],[100, 200, 300, 400],],

@@ -4,12 +4,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import arrQuestionsReducer from './reducers/arrQuestionsReducer';
 import activeQuestion from './reducers/activeQuestionReducer';
 import points from './reducers/pointsReducer';
+import checkAnswerReducer from './reducers/checkAnswerReducer';
 
 
 const rootReducer = combineReducers({
     arrQuestionsReducer,
     activeQuestion,
-    points
+    points,
+    checkAnswerReducer
 
 });
 
