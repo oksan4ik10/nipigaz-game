@@ -5,7 +5,16 @@ import Task00 from '../Tasks/Task00/Task00';
 import { TStateAnswer } from '../../store/reducers/checkAnswerReducer';
 import { useState } from 'react';
 
-function TaskArea() {
+interface IProps {
+    openFirework: () => void;
+}
+
+function TaskArea(props: IProps) {
+
+    const {openFirework} = props;
+
+    const [checkClick, setCheckClick] = useState(false);
+
     const dispatch = useAppDispatch();
 
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
@@ -30,14 +39,18 @@ function TaskArea() {
         if(endGame) {
 
             //ПРОПИСАТЬ ЛОГИКУ ЗАКРЫТИЯ ОКОН
-            
+
             return
         }
         //увеличить поинтсы на активную ячейку
         setUserAnswerTask(useAnswer);
-        if(useAnswer === "true") dispatch(setPoints(activeQuestionPoints));
+        if(useAnswer === "true") {
+            openFirework();
+            dispatch(setPoints(activeQuestionPoints));
+        }
         setStartGame(false);
         setEndGame(true);
+        setCheckClick(true);
     }
 
 
@@ -47,7 +60,7 @@ function TaskArea() {
     <>
         <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger")}>
             <div className="task__wrapper">
-                <Task00 selectAnswer = {selectAnswer} points={activeQuestionPoints}/>
+                <Task00 selectAnswer = {selectAnswer} points={activeQuestionPoints} checkClick={checkClick}/>
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
 
             </div>

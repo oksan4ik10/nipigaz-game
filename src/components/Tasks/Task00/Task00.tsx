@@ -5,16 +5,18 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 interface IProps {
     selectAnswer: () => void;
     points: number;
+    checkClick: boolean;
 }
 
 function Task00(props: IProps) {
     const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
+    const {selectAnswer, points, checkClick} = props;
 
 const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
     const target = e.target as HTMLInputElement;
 
-    props.selectAnswer(); //пользователь выбрал хотя бы один вариант
+    selectAnswer(); //пользователь выбрал хотя бы один вариант
 
     if(target.value === "dzen"){
         dispatch(setCheckAnswer("true"));
@@ -29,8 +31,8 @@ const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
     <>
                 <div className="task__head">
                     <div className="task__heading">
-                        <div className="task__points">{props.points}</div>
-                        <h3 className="task__title">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h3>
+                        <div className="task__points">{points}</div>
+                        <h3 className={"task__title " + (checkClick ? "answer" : "")}>{!checkClick ? "Вопрос":"Ответ"}</h3>
                     </div>
                 </div>
 
