@@ -2,18 +2,24 @@ import './TaskArea.css'
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { setPoints } from '../../store/reducers/pointsReducer';
 import Task00 from '../Tasks/Task00/Task00';
+import TaskEnd from '../Tasks/TaskEnd/TaskEnd';
 import { TStateAnswer } from '../../store/reducers/checkAnswerReducer';
 import { useState } from 'react';
+import { setCheckAnswer } from '../../store/reducers/checkAnswerReducer';
+import { removePoints } from '../../store/reducers/arrQuestionsReducer';
 
 interface IProps {
-    openFirework: () => void;
+    openFirework: (data: boolean) => void;
+    openTask: () => void;
 }
 
 function TaskArea(props: IProps) {
 
-    const {openFirework} = props;
+    const {openFirework, openTask} = props;
 
     const [checkClick, setCheckClick] = useState(false);
+
+    const [taskEnd, setTaskEnd] = useState(false);
 
     const dispatch = useAppDispatch();
 
@@ -35,19 +41,38 @@ function TaskArea(props: IProps) {
 
     //логика работы кнопки готово
     const answerUser = () =>{
-        if(!startGame) return; //пока пользователь не выбрал ответ
         if(endGame) {
+            setCheckAnswer("wait");
+            setUserAnswerTask("wait");
+            openFirework(false);
+            setCheckClick(false);
 
-            //ПРОПИСАТЬ ЛОГИКУ ЗАКРЫТИЯ ОКОН
+        
+            
 
+            //если все вопросы закончились
+            if(arrQuestions.flat().filter((item)=>item===0).length === 3){
+                setTaskEnd(true);
+                return
+            }
+
+
+            openTask();
+            console.log(arrQuestions);
+
+        
             return
         }
+        if(!startGame) return; //пока пользователь не выбрал ответ
         //увеличить поинтсы на активную ячейку
         setUserAnswerTask(useAnswer);
         if(useAnswer === "true") {
-            openFirework();
+            openFirework(true);
             dispatch(setPoints(activeQuestionPoints));
         }
+   
+        
+        dispatch(removePoints(arrActiveQuestion));
         setStartGame(false);
         setEndGame(true);
         setCheckClick(true);
@@ -60,8 +85,10 @@ function TaskArea(props: IProps) {
     <>
         <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger")}>
             <div className="task__wrapper">
-                <Task00 selectAnswer = {selectAnswer} points={activeQuestionPoints} checkClick={checkClick}/>
+                <Task00 selectAnswer = {selectAnswer} checkClick={checkClick}/>
+                {taskEnd && <TaskEnd/>}
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
+
 
             </div>
         </div>

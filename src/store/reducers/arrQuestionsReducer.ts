@@ -18,3 +18,4 @@ export const arrQuestionsSlice = createSlice({
 });
 
 export default arrQuestionsSlice.reducer;
+export const { removePoints } = arrQuestionsSlice.actions;

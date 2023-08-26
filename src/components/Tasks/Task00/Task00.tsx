@@ -1,37 +1,37 @@
 import './Task00.css'
 import { FormEvent, useState } from 'react';
-import { useAppDispatch } from '../../../store/store';
+import { useAppSelector, useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 interface IProps {
     selectAnswer: () => void;
-    points: number;
     checkClick: boolean;
 }
 
 function Task00(props: IProps) {
     const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
-    const {selectAnswer, points, checkClick} = props;
+    const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
+    const {selectAnswer, checkClick} = props;
 
-const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
-    const target = e.target as HTMLInputElement;
+    const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
+        const target = e.target as HTMLInputElement;
 
-    selectAnswer(); //пользователь выбрал хотя бы один вариант
+        selectAnswer(); //пользователь выбрал хотя бы один вариант
 
-    if(target.value === "dzen"){
-        dispatch(setCheckAnswer("true"));
-    } else {
-        dispatch(setCheckAnswer("false"));
+        if(target.value === "dzen"){
+            dispatch(setCheckAnswer("true"));
+        } else {
+            dispatch(setCheckAnswer("false"));
+        }
+    
+
     }
- 
-
-}
 
   return (
     <>
                 <div className="task__head">
                     <div className="task__heading">
-                        <div className="task__points">{points}</div>
+                        <div className="task__points">{(arrActiveQuestion[1] + 1) * 100}</div>
                         <h3 className={"task__title " + (checkClick ? "answer" : "")}>{!checkClick ? "Вопрос":"Ответ"}</h3>
                     </div>
                 </div>

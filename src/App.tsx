@@ -14,8 +14,8 @@ function App() {
     checkModal ? setCheckModal(false) : setCheckModal(true);
   }
 
-  const openFirework = ()=>{
-    checkFirework ? setCheckFirework(false) : setCheckFirework(true);
+  const openFirework = (data: boolean)=>{
+    setCheckFirework(data);
   }
   return (
     <>
@@ -24,7 +24,7 @@ function App() {
       <main className='main'>
         <GameArea openTask = {openModalTask} />
         <Points/>
-        {checkModal && <TaskArea openFirework = {openFirework}/>}
+        {checkModal && <TaskArea openFirework = {openFirework} openTask = {openModalTask}/>}
         {checkFirework && <Firework/>}
         <div className={"blur " + (checkModal ? "active" : "")}></div>
       </main>
