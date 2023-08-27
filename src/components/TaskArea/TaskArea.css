@@ -81,6 +81,9 @@
     line-height: 120%; /* 14.4px */
     letter-spacing: 0.24px; 
 }
+.task__subtitle.answer{
+   opacity: 0;
+}
 .task__btn {
     color: #008C95;
     font-family: Nunito Sans;

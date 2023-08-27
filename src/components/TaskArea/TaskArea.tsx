@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { setCheckAnswer } from '../../store/reducers/checkAnswerReducer';
 import { removePoints } from '../../store/reducers/arrQuestionsReducer';
 
+import { questionAnswerText } from '../../utils/questionAnswerText';
+
 interface IProps {
     openFirework: (data: boolean) => void;
     openTask: () => void;
@@ -26,6 +28,10 @@ function TaskArea(props: IProps) {
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const arrQuestions = useAppSelector((state)=>state.arrQuestionsReducer).arrQuestions;
     const activeQuestionPoints = arrQuestions[arrActiveQuestion[0]][arrActiveQuestion[1]];
+
+    const {answer, question, sizeAnswer } = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
+    const [ fontSize, setFontSize ] = useState("15px");
+    const styles = { "fontSize": fontSize };
 
     //ответ пользователя
     const useAnswer = useAppSelector((state)=>state.checkAnswerReducer).checkAnswer;
@@ -46,25 +52,16 @@ function TaskArea(props: IProps) {
             setUserAnswerTask("wait");
             openFirework(false);
             setCheckClick(false);
-
-        
-            
-
+            setFontSize("15px");
             //если все вопросы закончились
-            if(arrQuestions.flat().filter((item)=>item===0).length === 3){
+            if(arrQuestions.flat().filter((item)=>item===0).length === 16){
                 setTaskEnd(true);
                 return
             }
-
-
             openTask();
-            console.log(arrQuestions);
-
-        
             return
         }
         if(!startGame) return; //пока пользователь не выбрал ответ
-        //увеличить поинтсы на активную ячейку
         setUserAnswerTask(useAnswer);
         if(useAnswer === "true") {
             openFirework(true);
@@ -76,6 +73,7 @@ function TaskArea(props: IProps) {
         setStartGame(false);
         setEndGame(true);
         setCheckClick(true);
+        setFontSize(sizeAnswer)
     }
 
 
@@ -85,6 +83,12 @@ function TaskArea(props: IProps) {
     <>
         <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger")}>
             <div className="task__wrapper">
+                <div className="task__head">
+                    <div className="task__heading">
+                        <div className="task__points">{(arrActiveQuestion[1] + 1) * 100}</div>
+                        <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles}>{!checkClick ? question:answer}</h3>
+                    </div>
+                </div>
                 <Task00 selectAnswer = {selectAnswer} checkClick={checkClick}/>
                 {taskEnd && <TaskEnd/>}
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
