@@ -1,7 +1,9 @@
 import './TaskArea.css'
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { setPoints } from '../../store/reducers/pointsReducer';
-import Task00 from '../Tasks/Task00/Task00';
+
+import { Task } from '../../utils/Task';
+
 import TaskEnd from '../Tasks/TaskEnd/TaskEnd';
 import { TStateAnswer } from '../../store/reducers/checkAnswerReducer';
 import { useState } from 'react';
@@ -89,7 +91,8 @@ function TaskArea(props: IProps) {
                         <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles}>{!checkClick ? question:answer}</h3>
                     </div>
                 </div>
-                <Task00 selectAnswer = {selectAnswer} checkClick={checkClick}/>
+
+                <Task selectAnswer = {selectAnswer} checkClick={checkClick}/>
                 {taskEnd && <TaskEnd/>}
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
 
