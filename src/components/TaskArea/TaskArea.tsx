@@ -1,10 +1,10 @@
 import './TaskArea.css'
 import { useAppDispatch, useAppSelector } from '../../store/store';
 import { setPoints } from '../../store/reducers/pointsReducer';
+import { saveActive } from '../../store/reducers/activeQuestionReducer';
 
 import { Task } from '../../utils/Task';
 
-import TaskEnd from '../Tasks/TaskEnd/TaskEnd';
 import { TStateAnswer } from '../../store/reducers/checkAnswerReducer';
 import { useState } from 'react';
 import { setCheckAnswer } from '../../store/reducers/checkAnswerReducer';
@@ -14,14 +14,17 @@ import { questionAnswerText } from '../../utils/questionAnswerText';
 
 interface IProps {
     openFirework: (data: boolean) => void;
-    openTask: () => void;
+    openTask: (data: boolean) => void;
+    closePoints: () => void;
 }
 
 function TaskArea(props: IProps) {
 
-    const {openFirework, openTask} = props;
+    const {openFirework, openTask, closePoints} = props;
 
     const [checkClick, setCheckClick] = useState(false);
+
+
 
     const [taskEnd, setTaskEnd] = useState(false);
 
@@ -29,9 +32,17 @@ function TaskArea(props: IProps) {
 
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const arrQuestions = useAppSelector((state)=>state.arrQuestionsReducer).arrQuestions;
-    const activeQuestionPoints = arrQuestions[arrActiveQuestion[0]][arrActiveQuestion[1]];
+    let activeQuestionPoints = 0;
+    let answer = "Отличный результат!", question = "", sizeAnswer = "20px";
+    if(arrActiveQuestion[0] !== 4) {
+        activeQuestionPoints = arrQuestions[arrActiveQuestion[0]][arrActiveQuestion[1]];
+        const data = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
+        question = data.question;
+        answer = data.answer;
+        sizeAnswer = data.sizeAnswer;
+    }
 
-    const {answer, question, sizeAnswer } = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
+
     const [ fontSize, setFontSize ] = useState("15px");
     const styles = { "fontSize": fontSize };
 
@@ -55,12 +66,19 @@ function TaskArea(props: IProps) {
             openFirework(false);
             setCheckClick(false);
             setFontSize("15px");
+            openTask(false);
             //если все вопросы закончились
-            if(arrQuestions.flat().filter((item)=>item===0).length === 16){
+            if(arrQuestions.flat().filter((item)=>item===0).length === 2){
+                dispatch(saveActive([4, 4]));
+                setFontSize("20px");
+                setCheckClick(true);
+                closePoints();
                 setTaskEnd(true);
+                openTask(true);
+                openFirework(true);
                 return
             }
-            openTask();
+
             return
         }
         if(!startGame) return; //пока пользователь не выбрал ответ
@@ -83,7 +101,7 @@ function TaskArea(props: IProps) {
 
   return (
     <>
-        <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger")}>
+        <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger") + (taskEnd ? "end" : "")}>
             <div className="task__wrapper">
                 <div className="task__head">
                     <div className="task__heading">
@@ -93,7 +111,6 @@ function TaskArea(props: IProps) {
                 </div>
 
                 <Task selectAnswer = {selectAnswer} checkClick={checkClick}/>
-                {taskEnd && <TaskEnd/>}
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
 
 

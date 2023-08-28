@@ -132,3 +132,18 @@
 .danger .task__btn{
     color: #C00000;
 }
+
+/*конец игры*/
+.end .task__title{
+    text-align: center;
+    font-size: 20px;
+}
+.end .task__points{
+    display: none;
+}
+.end .task__btn{
+    display: none;
+}
+.end .task__heading{
+    padding-right: 21px;
+}

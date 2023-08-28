@@ -1,0 +1,21 @@
+.task__info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+.subtitels{
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+.points{
+    color: #FFF;
+    font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 0.7px; 
+}

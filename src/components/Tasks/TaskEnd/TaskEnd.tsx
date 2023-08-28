@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../../store/store';
-import './TaskEnd.css'
+import styles from "./TaskEnd.module.css"
 
 
 
@@ -7,14 +7,11 @@ function TaskEnd() {
 const points = useAppSelector((state)=>state.points).points;
   return (
     <>
-                <div className="task__head">
-                    <div className="task__heading">
-                        <h3 className="task__title ">Отличный результат!</h3>
-                    </div>
-                </div>
 
-                <div className="task__info">
-                        <h4 className="task__subtitle">Баланс {points}</h4>
+                <div className={styles.task__info}>
+                  
+                        <h4 className={styles.subtitels}>Баланс </h4>
+                        <p className={styles.points}>{points}</p>
 
                 </div>
             </>

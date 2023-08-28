@@ -16,6 +16,7 @@ import Task30 from '../components/Tasks/Task30/Task30';
 import Task31 from '../components/Tasks/Task31/Task31';
 import Task32 from '../components/Tasks/Task32/Task32';
 import Task33 from '../components/Tasks/Task33/Task33';
+import TaskEnd from '../components/Tasks/TaskEnd/TaskEnd';
 
 interface IProps {
     selectAnswer: () => void;
@@ -23,8 +24,9 @@ interface IProps {
 }
 
 export const Task = (props:IProps) => {
-    console.log(props);
     const active = useAppSelector((state)=>state.activeQuestion).activeQuestion.join("");
+    console.log(active);
+    
     switch (active) {
         case "00":{
             return <Task00 {...props}/>;
@@ -73,6 +75,9 @@ export const Task = (props:IProps) => {
         }
         case "33":{
             return <Task33 {...props}/>;
+        }
+        case "44":{
+            return <TaskEnd/>;
         }
     }
     

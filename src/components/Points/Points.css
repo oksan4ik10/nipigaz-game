@@ -32,3 +32,6 @@
     font-size: 35px;
     letter-spacing: 0.7px;
 }
+.points__balance.end{
+    display: none;
+}

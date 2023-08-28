@@ -9,9 +9,14 @@ import Firework from './components/Firework/Firework'
 function App() {
   const [checkModal, setCheckModal] = useState(false);
   const [checkFirework, setCheckFirework] = useState(false);
+  const [tasksEnd, setTasksEnd] = useState(false);
 
-  const openModalTask = ()=>{
-    checkModal ? setCheckModal(false) : setCheckModal(true);
+  const closePoints = ()=>{
+    setTasksEnd(true);
+  }
+
+  const openModalTask = (date: boolean)=>{
+    setCheckModal(date);
   }
 
   const openFirework = (data: boolean)=>{
@@ -23,8 +28,8 @@ function App() {
       <Orientation/>
       <main className='main'>
         <GameArea openTask = {openModalTask} />
-        <Points/>
-        {checkModal && <TaskArea openFirework = {openFirework} openTask = {openModalTask}/>}
+        <Points tasksEnd={tasksEnd}/>
+        {checkModal && <TaskArea openFirework = {openFirework} openTask = {openModalTask} closePoints={closePoints}/>}
         {checkFirework && <Firework/>}
         <div className={"blur " + (checkModal ? "active" : "")}></div>
       </main>

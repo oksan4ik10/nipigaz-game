@@ -4,7 +4,7 @@ import {saveActive} from '../../store/reducers/activeQuestionReducer'
 
 
 interface IProps {
-  openTask : 	() => void;
+  openTask : 	(data: boolean) => void;
 }
 
 function GameArea(props:IProps) {
@@ -18,7 +18,7 @@ function GameArea(props:IProps) {
     const sendDataTask = (data:number[])=>{
       if(arrQuestions[data[0]][data[1]] === 0) return;
       
-      props.openTask();
+      props.openTask(true);
       dispatch(saveActive(data));
 
       return;
