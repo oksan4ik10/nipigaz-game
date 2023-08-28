@@ -1,0 +1,116 @@
+.task__info{
+  margin-top: -20px;
+}
+.form{
+  width: 319px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.numbers, .numbersActive{
+  margin-top: 38px;
+  display: flex;
+  justify-content: space-between;
+  color: #FFF;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.numbersActive{
+  justify-content: center;
+}
+.numbers>span:last-child{
+  color: #B2D2D8;
+}
+.numbers .userAnswer{
+  margin-left: -10px;
+}
+
+.range {
+    -webkit-appearance: none;
+    margin: auto;
+    width: 100%;
+    background: rgba(255, 255, 255, .4);;
+    accent-color: coral;
+    border-radius: 25px;
+  }
+  
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+  
+.range:focus {
+    outline: none;
+  }
+  
+.range::-ms-track {
+    width: 95%;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .4);;
+    border-color: transparent;
+    color: transparent;
+  }
+  /*#############Thumb##############*/
+  
+.range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -12px;
+    position: relative;
+  }
+  
+.range::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+.range::-ms-thumb {
+    width: 28px;
+    height: 28px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  /*#############Track##############*/
+  
+.range::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .4);
+  }
+  
+.range::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .4);
+  }
+  
+  .progress{
+    position: relative;
+    width: 95%;
+
+  }
+  .progress span{
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    background: #fff;
+    height: 5px;
+    width: 0;
+    border-radius: 25px;
+  }
