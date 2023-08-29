@@ -1,0 +1,64 @@
+.task__info{
+    margin-top: -20px;
+}
+.task{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 26px;
+    margin-left: -40px;
+
+}
+.task input{
+    transform: rotate(90deg);
+    appearance: none;
+    -webkit-appearance: none;
+    width: 118px;
+    background-color: rgba(255, 255, 255, .5);
+    background:url("../../../assets/images/Union.svg") no-repeat;
+}
+.task input::-moz-range-track {
+    height: 15px;
+    background: #ccc;
+    border-radius: 16px;
+  }
+  
+  /* Thumb: webkit */
+  .task input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none; 
+    height: 23px;
+    width: 23px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-top: -6px;
+    margin-left: -6px;
+  }
+  
+  
+  /* Thumb: Firefox */
+  .task input::-moz-range-thumb {
+    height: 23px;
+    width: 23px;
+    background-color: #fff;
+    border-radius: 50%;
+  }
+  
+.list{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 117px;
+    margin-left: -30px;
+    margin-top: -10px;
+}
+.list option{
+    color: #FFF;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 120%;
+    opacity: .5;
+    display: flex;
+    align-items: end;
+    gap: 15px;
+}
