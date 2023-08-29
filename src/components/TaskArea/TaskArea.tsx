@@ -33,18 +33,22 @@ function TaskArea(props: IProps) {
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const arrQuestions = useAppSelector((state)=>state.arrQuestionsReducer).arrQuestions;
     let activeQuestionPoints = 0;
-    let answer = "Отличный результат!", question = "", sizeAnswer = "20px";
+    let answer = "Отличный результат!", question = "", sizeAnswer = "20px", paddingAnswer = "0px", paddingQuestion = "0px";
     if(arrActiveQuestion[0] !== 4) {
         activeQuestionPoints = arrQuestions[arrActiveQuestion[0]][arrActiveQuestion[1]];
         const data = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
         question = data.question;
         answer = data.answer;
         sizeAnswer = data.sizeAnswer;
+        paddingAnswer = data.paddingAnswer;
+        paddingQuestion = data.paddingQuestion;
     }
 
 
     const [ fontSize, setFontSize ] = useState("15px");
     const styles = { "fontSize": fontSize };
+    const [padding, setPadding] = useState(paddingQuestion);
+    const stylesPadding = {"paddingRight": padding};
 
     //ответ пользователя
     const useAnswer = useAppSelector((state)=>state.checkAnswerReducer).checkAnswer;
@@ -93,7 +97,8 @@ function TaskArea(props: IProps) {
         setStartGame(false);
         setEndGame(true);
         setCheckClick(true);
-        setFontSize(sizeAnswer)
+        setFontSize(sizeAnswer);
+        setPadding(paddingAnswer);
     }
 
 
@@ -104,7 +109,7 @@ function TaskArea(props: IProps) {
         <div className={"main__task task " + (userAnswerTask === "wait" ? "" : userAnswerTask === "true"? "success" : "danger") + (taskEnd ? "end" : "")}>
             <div className="task__wrapper">
                 <div className="task__head">
-                    <div className="task__heading">
+                    <div className="task__heading" style = {stylesPadding}>
                         <div className="task__points">{(arrActiveQuestion[1] + 1) * 100}</div>
                         <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles}>{!checkClick ? question:answer}</h3>
                     </div>
