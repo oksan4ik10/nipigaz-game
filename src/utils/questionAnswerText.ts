@@ -3,7 +3,7 @@ export const questionAnswerText = [
         {
             "question":"Что из перечисленного не относится к услугам, оказываемым НИПИГАЗом?",
             "answer": "НИПИГАЗ управляет проектированием, поставками, логистикой и строительством масштабных объектов, а их дальнейшее функционирование (в т.ч. выпуск продукции) осуществляют сами Заказчики",
-            "sizeAnswer":"13px",
+            "sizeAnswer":"12.5px",
             "paddingQuestion": "56px",
             "paddingAnswer":"0px"
 
@@ -20,7 +20,8 @@ export const questionAnswerText = [
             "answer": "Engineering, procurement, and construction (EPC), Система автоматизированного проектирования (САПР) и Building Information Model (BIM) – это про нас, а вот User Genereted Content (UGC) – это что-то из области маркетинга :)",
             "sizeAnswer":"12px",
             "paddingQuestion": "10px",
-            "paddingAnswer":"10px"
+            "paddingAnswer":"10px",
+            "paddingAnswerBtm": "20px"
         },
         {
             "question":"Какого отдела нет в Инжиниринговом центре НИПИГАЗа?",

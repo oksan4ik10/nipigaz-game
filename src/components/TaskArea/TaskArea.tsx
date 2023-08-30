@@ -33,7 +33,7 @@ function TaskArea(props: IProps) {
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const arrQuestions = useAppSelector((state)=>state.arrQuestionsReducer).arrQuestions;
     let activeQuestionPoints = 0;
-    let answer = "Отличный результат!", question = "", sizeAnswer = "20px", paddingAnswer = "0px", paddingQuestion = "0px";
+    let answer = "Отличный результат!", question = "", sizeAnswer = "20px", paddingAnswer = "0px", paddingQuestion = "0px", paddingAnswerBtm  = "29px";
     if(arrActiveQuestion[0] !== 4) {
         activeQuestionPoints = arrQuestions[arrActiveQuestion[0]][arrActiveQuestion[1]];
         const data = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
@@ -42,13 +42,15 @@ function TaskArea(props: IProps) {
         sizeAnswer = data.sizeAnswer;
         paddingAnswer = data.paddingAnswer;
         paddingQuestion = data.paddingQuestion;
+        paddingAnswerBtm = data.paddingAnswerBtm ? data.paddingAnswerBtm : "29px";
     }
 
 
     const [ fontSize, setFontSize ] = useState("15px");
     const styles = { "fontSize": fontSize };
     const [padding, setPadding] = useState(paddingQuestion);
-    const stylesPadding = {"paddingRight": padding};
+    const [paddingBtm, setPaddingBtm] = useState("29px");
+    const stylesPadding = {"paddingRight": padding, "paddingBottom": paddingBtm};
 
     //ответ пользователя
     const useAnswer = useAppSelector((state)=>state.checkAnswerReducer).checkAnswer;
@@ -99,6 +101,7 @@ function TaskArea(props: IProps) {
         setCheckClick(true);
         setFontSize(sizeAnswer);
         setPadding(paddingAnswer);
+        setPaddingBtm(paddingAnswerBtm);
     }
 
 

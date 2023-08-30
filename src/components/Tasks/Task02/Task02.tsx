@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm} from 'react-hook-form';
 import styles from './Task02.module.css'
 import {useAppDispatch } from '../../../store/store';
@@ -16,11 +15,7 @@ function Task02(props: IProps) {
 
     const clickFormTest = ()=>{
         const {name1, name2 , name3, name4} = getValues();
-        
-        
-
         selectAnswer(); //пользователь выбрал хотя бы один вариант
-
         if(name1 && name2 && name3 && !name4){
             dispatch(setCheckAnswer("true"));
         } else {
