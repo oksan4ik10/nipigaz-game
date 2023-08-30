@@ -1,4 +1,4 @@
-import './Task30.css'
+// import styles from "./Task30.modules.css"
 import { FormEvent, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
@@ -29,6 +29,10 @@ function Task30(props: IProps) {
   return (
     <>
                 <div className="task__info">
+                    <div className="clock">
+                    <input type="range" min="1" max="12" step="1" list="list" />
+                    </div>
+
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
                         <form onChange={clickFormTest}>
                         <p><b>Какое у вас состояние разума?</b></p>

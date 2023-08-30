@@ -1,23 +1,27 @@
-import './Task02.css'
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { useForm} from 'react-hook-form';
+import styles from './Task02.module.css'
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
 }
 
 function Task02(props: IProps) {
-    const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
+    const { register, getValues } = useForm();
 
-    const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
-        const target = e.target as HTMLInputElement;
+    const clickFormTest = ()=>{
+        const {name1, name2 , name3, name4} = getValues();
+        
+        
 
         selectAnswer(); //пользователь выбрал хотя бы один вариант
 
-        if(target.value === "dzen"){
+        if(name1 && name2 && name3 && !name4){
             dispatch(setCheckAnswer("true"));
         } else {
             dispatch(setCheckAnswer("false"));
@@ -28,17 +32,31 @@ function Task02(props: IProps) {
 
   return (
     <>
-                <div className="task__info">
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
-                        <form onChange={clickFormTest}>
-                        <p><b>Какое у вас состояние разума?</b></p>
-                            <p><input name="dzen" type="radio" value="nedzen" defaultChecked={true} onChange={() => setChecked(!checked)}/> Не дзен</p>
-                            <p><input name="dzen" type="radio" value="dzen"/> Дзен</p>
-                            <p><input name="dzen" type="radio" value="pdzen"/> Полный дзен</p>
-                        </form> 
+                        <div className={styles.taskInfo}>
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Нажми на огоньки около верных вариантов ответа</h4>
+                        <form className={styles.form} onChange={(clickFormTest)}>
+                            <label className={styles.label}>
+                                <input type="checkbox" className={styles.input} value={1} {...register("name1")}/>
+                                Проектирование моделей в 3D
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" className={styles.input} value={2} {...register("name2")}/>
+                                VR-технологии для обучения сотрудников
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" className={styles.input} value={3} {...register("name3")}/>
+                                AR-очки для удаленной совместной работы
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" className={styles.input} value={4} {...register("name4")}/>
+                                Нейросети для создания проектной документации
+                            </label>
+
+                        </form>
+
 
                 </div>
-            </>
+    </>
   )
 }
 

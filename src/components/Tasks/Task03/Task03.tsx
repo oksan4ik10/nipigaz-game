@@ -1,4 +1,4 @@
-import './Task03.css'
+import styles from "./Task03.module.css";
 import { FormEvent, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
@@ -11,10 +11,12 @@ function Task03(props: IProps) {
     const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
+    console.log(23);
+    
 
     const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
         const target = e.target as HTMLInputElement;
-
+        console.log(target);
         selectAnswer(); //пользователь выбрал хотя бы один вариант
 
         if(target.value === "dzen"){
@@ -29,13 +31,27 @@ function Task03(props: IProps) {
   return (
     <>
                 <div className="task__info">
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
-                        <form onChange={clickFormTest}>
-                        <p><b>Какое у вас состояние разума?</b></p>
-                            <p><input name="dzen" type="radio" value="nedzen" defaultChecked={true} onChange={() => setChecked(!checked)}/> Не дзен</p>
-                            <p><input name="dzen" type="radio" value="dzen"/> Дзен</p>
-                            <p><input name="dzen" type="radio" value="pdzen"/> Полный дзен</p>
-                        </form> 
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Нажми на огоньки около верных вариантов ответа</h4>
+                        <form className={styles.form} onChange={clickFormTest}>
+                            <label className={styles.label}>
+                                <input type="checkbox" name="check" className={styles.input} value={1}/>
+                                Проектирование моделей в 3D
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" name="check" className={styles.input} value={1}/>
+                                VR-технологии для обучения сотрудников
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" name="check" className={styles.input} value={1}/>
+                                AR-очки для удаленной совместной работы
+                            </label>
+                            <label className={styles.label}>
+                                <input type="checkbox" name="check" className={styles.input} value={1}/>
+                                Нейросети для создания проектной документации
+                            </label>
+
+                        </form>
+
 
                 </div>
             </>
