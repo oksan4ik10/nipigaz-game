@@ -1,6 +1,6 @@
 import './Points.css'
 import { useAppSelector } from '../../store/store';
-import imgOrientationUrl from '../../assets/images/orientation.svg';
+import imgLogoUrl from '../../assets/images/logo.svg';
 
 interface IProps{
   tasksEnd: boolean;
@@ -13,7 +13,7 @@ function Points(props: IProps) {
   return (
     <>
         <div className="main__points points">
-            <img src={imgOrientationUrl} alt="logo" className="points__logo"/>
+            <img src={imgLogoUrl} alt="logo" className="points__logo"/>
             <div className={"points__balance " + (tasksEnd ? "end" : "")}>
                 <p className="points__title">БАЛАНС</p>
                 <span className="points__num">{points}</span>

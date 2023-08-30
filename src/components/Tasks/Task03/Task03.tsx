@@ -1,60 +1,55 @@
-import styles from "./Task03.module.css";
-import { FormEvent, useState } from 'react';
+import { useForm} from 'react-hook-form';
+import styles from './Task03.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
 }
 
 function Task03(props: IProps) {
-    const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
-    console.log(23);
-    
+    const { register, getValues } = useForm();
 
-    const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
-        const target = e.target as HTMLInputElement;
-        console.log(target);
+    const clickFormTest = ()=>{
+        const {name1} = getValues();
         selectAnswer(); //пользователь выбрал хотя бы один вариант
-
-        if(target.value === "dzen"){
+        if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
         } else {
             dispatch(setCheckAnswer("false"));
         }
-    
-
     }
 
   return (
     <>
-                <div className="task__info">
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Нажми на огоньки около верных вариантов ответа</h4>
-                        <form className={styles.form} onChange={clickFormTest}>
+                        <div className={styles.taskInfo}>
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Вычеркни выбранный ответ</h4>
+                        <form className={styles.form} onChange={(clickFormTest)}>
                             <label className={styles.label}>
-                                <input type="checkbox" name="check" className={styles.input} value={1}/>
-                                Проектирование моделей в 3D
+                                <input type="radio" className={styles.input} value={1} {...register("name1")}/>
+                                <span>Водоснабжение и канализация</span>
                             </label>
                             <label className={styles.label}>
-                                <input type="checkbox" name="check" className={styles.input} value={1}/>
-                                VR-технологии для обучения сотрудников
+                                <input type="radio" className={styles.input} value={2} {...register("name1")}/>
+                                <span>Машиностроение и робототехника</span>
                             </label>
                             <label className={styles.label}>
-                                <input type="checkbox" name="check" className={styles.input} value={1}/>
-                                AR-очки для удаленной совместной работы
+                                <input type="radio" className={styles.input} value={3} {...register("name1")}/>
+                                <span>Генплан и транспорт</span>
                             </label>
                             <label className={styles.label}>
-                                <input type="checkbox" name="check" className={styles.input} value={1}/>
-                                Нейросети для создания проектной документации
+                                <input type="radio" className={styles.input} value={4} {...register("name1")}/>
+                                <span>Связь, безопасность и телекоммуникации</span>
                             </label>
 
                         </form>
 
 
                 </div>
-            </>
+    </>
   )
 }
 

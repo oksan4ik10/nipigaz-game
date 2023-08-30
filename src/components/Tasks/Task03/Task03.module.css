@@ -1,0 +1,25 @@
+.taskInfo{
+    margin-top: -20px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 16px;
+}
+.label{
+    color: #FFF;
+    font-family: Nipigaz Basic;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 120%;
+    display: flex;
+    align-items: center;
+}
+.input{
+    appearance: none;
+}
+
+.input:checked ~ span{
+    text-decoration: line-through;
+}
