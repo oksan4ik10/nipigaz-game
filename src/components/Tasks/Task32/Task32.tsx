@@ -3,6 +3,8 @@ import styles from './Task32.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 
+import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
+
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
@@ -26,6 +28,7 @@ function Task32(props: IProps) {
   return (
     <>
                         <div className={styles.taskInfo}>
+                        {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Вычеркни выбранный ответ</h4>
                         <form className={styles.form} onChange={(clickFormTest)}>
                             <label className={styles.label}>

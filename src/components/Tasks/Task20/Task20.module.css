@@ -1,5 +1,6 @@
 .task__info{
   margin-top: -20px;
+  position: relative;
 }
 .form{
   width: 319px;

@@ -2,6 +2,7 @@ import './Task21.css'
 import { FormEvent, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
@@ -29,6 +30,7 @@ function Task21(props: IProps) {
   return (
     <>
                 <div className="task__info">
+                        {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
                         <form onChange={clickFormTest}>
                         <p><b>Какое у вас состояние разума?</b></p>

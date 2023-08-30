@@ -1,5 +1,6 @@
 .taskInfo{
     margin-top: -20px;
+    position: relative;
 }
 .form{
     display: flex;

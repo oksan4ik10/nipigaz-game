@@ -2,6 +2,7 @@ import styles from "./Task20.module.css"
 import {  useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
@@ -31,6 +32,7 @@ function Task20(props: IProps) {
   return (
     <>
                 <div className={styles.task__info}>
+                        {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
                         <form className = {styles.form}>
                             <div className={checked ? styles.numbers : styles.numbersActive}>

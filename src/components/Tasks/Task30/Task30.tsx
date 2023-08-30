@@ -2,6 +2,7 @@ import { useForm} from 'react-hook-form';
 import styles from '../Task02/Task02.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 
 interface IProps {
     selectAnswer: () => void;
@@ -28,6 +29,7 @@ function Task30(props: IProps) {
   return (
     <>
                         <div className={styles.taskInfo}>
+                        {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Нажми на огоньки около верных вариантов ответа</h4>
                         <form className={styles.form} onChange={(clickFormTest)}>
                             <label className={styles.label}>

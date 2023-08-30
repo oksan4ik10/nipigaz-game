@@ -2,6 +2,7 @@ import styles from "./Task00.module.css"
 import {useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
@@ -29,6 +30,7 @@ function Task00(props: IProps) {
   return (
     <>
                 <div className={styles.task__info}>
+                    {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Размести ползунок около верного ответае</h4>
                         <div className={styles.task}>
                             <input type="range" min="1" max="4" step="1" defaultValue="1" list="list" onChange={changeInput}/>
