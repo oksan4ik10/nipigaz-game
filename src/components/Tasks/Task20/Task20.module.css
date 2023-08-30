@@ -21,6 +21,7 @@
 }
 .numbersActive{
   justify-content: center;
+  margin-left: -15px;
 }
 .numbers>span:last-child{
   color: #B2D2D8;
