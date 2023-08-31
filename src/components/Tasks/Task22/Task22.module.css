@@ -1,0 +1,45 @@
+.taskInfo{
+    margin-top: 20px;
+    position: relative;
+}
+
+.form{
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.input{
+    appearance: none;
+    width: 78px;
+    height: 68px;
+    background-repeat: none;
+    background-size: cover;
+}
+.value1{
+    background-image: url("../../../assets/images/2008.png");
+}
+.value2{
+    background-image: url("../../../assets/images/2009.png");
+}
+.value3{
+    background-image: url("../../../assets/images/2010.png");
+}
+.value4{
+    background-image: url("../../../assets/images/2011.png");
+}
+.label{
+    position: relative;
+}
+.label svg{
+    position: absolute;
+    top: -2px;
+    left: 0px;
+    opacity: 0;
+    transition: .2s ease-out;
+}
+.input:checked~svg{
+    display: block;
+    opacity: 1;
+}
