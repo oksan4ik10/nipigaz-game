@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import urlImg from "../../../assets/images/cart.png";
+import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 interface IProps {
     selectAnswer: () => void;
     checkClick: boolean;
@@ -14,12 +15,25 @@ function Task01(props: IProps) {
     const {selectAnswer, checkClick} = props;
 
     const ref = useRef<HTMLDivElement>(null);
-    let stateX = 0, stateY = 0;
+    const refCart = useRef<HTMLImageElement>(null);
+    let stateX = 0, stateY = 0, stateXCart = 0;
+    const [level, setLevel] = useState(0);
     useEffect(()=> {
         if(ref.current){
           const data = ref.current.getBoundingClientRect();
-          stateX = data.left;
-          stateY = data.top;
+          if(refCart.current){
+            const dataCart = refCart.current.getBoundingClientRect();
+            stateX = data.left;
+           
+            if(level === 0) {
+                stateXCart = dataCart.left - data.left - 40;
+                
+            } else{
+                stateXCart = dataCart.left - data.left;
+            }
+            stateY = data.top;
+          }
+
             
         }
         
@@ -61,7 +75,7 @@ function Task01(props: IProps) {
 
                 targetDrag.style.color = "#008C95";
                 targetDrag.style.top = 36  + "px";
-                saveX = stateX + (66 - targetDrag.offsetWidth)/2 + "px"; 
+                saveX = stateXCart + (80 - targetDrag.offsetWidth)/2 + "px"; 
                 targetDrag.style.left = saveX;
 
             } else{
@@ -79,6 +93,8 @@ function Task01(props: IProps) {
                 return;
             }
             const value = targetDrag.getAttribute("data-value");
+            setLevel(1);
+
             if(value) {
                 setArrAnswers(arrAnswers.map((item, index)=> {
                     if (index + "" === value) item.check = true;
@@ -102,6 +118,7 @@ function Task01(props: IProps) {
   return (
     <>
                 <div className={styles.taskInfo}>
+                {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи выбранный вариант ответа в корзину</h4>
                         <div className={styles.task} ref={ref}>
                             {arrAnswers.map((item, index) => 
@@ -121,8 +138,8 @@ function Task01(props: IProps) {
                                 </span>
                             </div>
                             )}
-                            <div className={styles.cart} >
-                                <img src={urlImg} alt="cart" />
+                            <div className={styles.cart}>
+                                <img src={urlImg} alt="cart"  ref = {refCart}/>
                             </div>
                         </div>
 
