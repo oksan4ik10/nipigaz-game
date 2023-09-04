@@ -15,20 +15,13 @@ function Task01(props: IProps) {
     const {selectAnswer, checkClick} = props;
 
     const ref = useRef<HTMLDivElement>(null);
-    const refCart = useRef<HTMLImageElement>(null);
-    let stateX = 0, stateY = 0, stateXCart = 0;
-    const [level, setLevel] = useState(0);
+    let stateX = 0, stateY = 0;
+
     useEffect(()=> {
         if(ref.current){
           const data = ref.current.getBoundingClientRect();
-          if(refCart.current){
-            const dataCart = refCart.current.getBoundingClientRect();
             stateX = data.left;
-        
             stateY = data.top;
-          }
-
-            
         }
         
     })
@@ -85,8 +78,6 @@ function Task01(props: IProps) {
                 return;
             }
             const value = targetDrag.getAttribute("data-value");
-            setLevel(1);
-
             if(value) {
                 setArrAnswers(arrAnswers.map((item, index)=> {
                     if (index + "" === value) item.check = true;
@@ -131,7 +122,7 @@ function Task01(props: IProps) {
                             </div>
                             )}
                             <div className={styles.cart}>
-                                <img src={urlImg} alt="cart"  ref = {refCart}/>
+                                <img src={urlImg} alt="cart" />
                             </div>
                         </div>
 
