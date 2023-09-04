@@ -24,13 +24,7 @@ function Task01(props: IProps) {
           if(refCart.current){
             const dataCart = refCart.current.getBoundingClientRect();
             stateX = data.left;
-           
-            if(level === 0) {
-                stateXCart = dataCart.left - data.left - 40;
-                
-            } else{
-                stateXCart = dataCart.left - data.left;
-            }
+        
             stateY = data.top;
           }
 
@@ -46,7 +40,6 @@ function Task01(props: IProps) {
 
     
     let targetDrag: HTMLElement|undefined;
-    let saveX = "";
 
     const dragStart = (e: React.TouchEvent<HTMLSpanElement>) =>{
         const data = e.changedTouches[0]; 
@@ -64,7 +57,7 @@ function Task01(props: IProps) {
         const data = e.changedTouches[0];
         
         if(targetDrag){
-            if((targetDrag.style.top === "36px")) return;
+            if((targetDrag.style.top === "50%")) return;
             const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
             const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
@@ -72,11 +65,10 @@ function Task01(props: IProps) {
             if(((y > 14) && (y < 140)) && ((x > 90) && (x < 170))){
                 const value = targetDrag.getAttribute("data-value");
                 if(value === "1") targetDrag.style.fontSize = "20px";
-
                 targetDrag.style.color = "#008C95";
-                targetDrag.style.top = 36  + "px";
-                saveX = stateXCart + (80 - targetDrag.offsetWidth)/2 + "px"; 
-                targetDrag.style.left = saveX;
+                targetDrag.style.top = "50%";
+                targetDrag.style.left = "50%";
+                targetDrag.style.transform = "translateX(-50%) translateY(-50%)";
 
             } else{
                 targetDrag.style.color = "#fff";
@@ -88,7 +80,7 @@ function Task01(props: IProps) {
     const dragEnd = (e: React.TouchEvent<HTMLSpanElement>) =>{
         e.preventDefault();
         if(targetDrag){
-            if((targetDrag.style.top !== "36px") && (targetDrag.style.left !== saveX)){
+            if((targetDrag.style.top !== "50%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
                 return;
             }
