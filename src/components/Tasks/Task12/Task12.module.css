@@ -1,0 +1,91 @@
+.taskInfo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
+    margin-left: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.numbers{
+    position: relative;
+    transform: translate(-4px, -8px);
+}
+.numbers>span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .5;
+}
+.numbers>span:nth-child(12){
+    transform: translate(0px, -50px);
+ 
+}
+.numbers>span:nth-child(6){
+    transform: translate(0px, 50px);
+}
+.numbers>span:nth-child(3){
+    transform: translate(50px, 0px);
+}
+.numbers>span:nth-child(9){
+    transform: translate(-50px, 0px);
+}
+.numbers>span:nth-child(1){
+    transform: translate(29px, -43.3px);
+   
+}
+.numbers>span:nth-child(5){
+    transform: translate(25px, 43.3px);
+}
+.numbers>span:nth-child(7){
+    transform: translate(-25px, 43.3px);
+}
+.numbers>span:nth-child(11){
+    transform: translate(-25px, -43.3px);
+}
+
+.numbers>span:nth-child(2){
+    transform: translate(43.3px, -25px);
+}
+.numbers>span:nth-child(4){
+    transform: translate(43.3px, 25px);
+}
+.numbers>span:nth-child(8){
+    transform: translate(-43.3px, 25px);
+}
+.numbers>span:nth-child(10){
+    transform: translate(-43.3px, -25px);
+}
+
+.arrows{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    width: 90px;
+    height: 90px;
+    transform: translate(-50%, -50%) rotate(0deg);
+    z-index: 2;
+    transform-origin: 53% 50%;
+}
+.hour{
+
+}
+.minutes{
+    position: absolute;
+    top: -30px;
+    left: 23px;
+    z-index: 1;
+
+}
+
