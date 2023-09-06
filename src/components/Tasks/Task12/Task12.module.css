@@ -26,6 +26,9 @@
     left: 0;
     opacity: .5;
 }
+.numbers>span.check {
+    opacity: 1;
+}
 .numbers>span:nth-child(12){
     transform: translate(0px, -50px);
  
@@ -36,6 +39,7 @@
 .numbers>span:nth-child(3){
     transform: translate(50px, 0px);
 }
+
 .numbers>span:nth-child(9){
     transform: translate(-50px, 0px);
 }
@@ -77,9 +81,7 @@
     transform: translate(-50%, -50%) rotate(0deg);
     z-index: 2;
     transform-origin: 53% 50%;
-}
-.hour{
-
+    transition: .4s ease;
 }
 .minutes{
     position: absolute;
