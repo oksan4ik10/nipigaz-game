@@ -4,7 +4,7 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -22,7 +22,7 @@ function Task20(props: IProps) {
         setSpanWidth(el.value + "%");
         setUserAnswer(el.value);
         setChecked(false);
-        selectAnswer();
+        selectAnswer(true);
         if(el.value === "50"){
             dispatch(setCheckAnswer("true"));
         } else {

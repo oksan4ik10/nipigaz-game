@@ -17,7 +17,7 @@ import imgUrlSpan12 from  "../../../assets/images/numbers/12.svg";
 import imgUrlHour from "../../../assets/images/numbers/hour.svg";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -99,7 +99,7 @@ function Task12(props: IProps) {
 
     }
     const dragEnd = () =>{
-        selectAnswer();
+        selectAnswer(true);
         if(newUserCheck === 180){
             dispatch(setCheckAnswer("true"));
         } else {
@@ -115,7 +115,7 @@ function Task12(props: IProps) {
                 <div className={styles.clock}>
                     <div className={styles.numbers}>
                         {arrAnswers.current.map((item, index) => {
-                        return <span key = {index} className={item.check ? styles.check : ""}><img src={item.src} alt={index + 1} /></span>
+                        return <span key = {index} className={item.check ? styles.check : ""}><img src={item.src} alt={index + 1 + ""} /></span>
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform}>

@@ -58,8 +58,8 @@ function TaskArea(props: IProps) {
     
     //передаем в таски - пока пользователь не сделал выбор кнопка готово не активна
     const [startGame, setStartGame] = useState(false);
-    const selectAnswer = () => {
-        setStartGame(true);
+    const selectAnswer = (data: boolean) => {
+        setStartGame(data);
     }
 
     const [endGame, setEndGame] = useState(false);

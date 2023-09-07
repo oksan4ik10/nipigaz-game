@@ -4,7 +4,7 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -75,7 +75,7 @@ function Task21(props: IProps) {
             if((targetDrag.style.top !== "40px")) return;
 
         }
-        selectAnswer();
+        selectAnswer(true);
 
         setArrAnswers(arrAnswers.map((item, indexAnswer) => {
             if(indexAnswer === index ) item.answer = true;

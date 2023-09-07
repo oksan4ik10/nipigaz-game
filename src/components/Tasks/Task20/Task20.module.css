@@ -109,7 +109,8 @@
   .progress span{
     display: block;
     position: absolute;
-    top: 8px;
+    top: 53%;
+    transform: translateY(-50%);
     left: 0;
     background: #fff;
     height: 5px;

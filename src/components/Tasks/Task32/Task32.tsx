@@ -6,7 +6,7 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
 
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -23,6 +23,7 @@ function Task32(props: IProps) {
     }
 
     const dragStart = (e: React.TouchEvent<HTMLLabelElement>) =>{
+        selectAnswer(false);
         const data = e.changedTouches[0].target as HTMLElement;
         proc = 0;
         targetDrag = data.closest("label");
@@ -47,7 +48,7 @@ function Task32(props: IProps) {
             return;
         }
         if(targetDrag){
-            selectAnswer();
+            selectAnswer(true);
             targetDrag.style.setProperty("--var-width", `100%`);
             if(targetDrag.id === "2"){
                 dispatch(setCheckAnswer("true"));

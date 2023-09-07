@@ -5,7 +5,7 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -16,7 +16,11 @@ function Task02(props: IProps) {
 
     const clickFormTest = ()=>{
         const {name1, name2 , name3, name4} = getValues();
-        selectAnswer(); //пользователь выбрал хотя бы один вариант
+        if(!name1 && !name2 && !name3 && !name4) {
+            selectAnswer(false);
+            return;
+        }
+        selectAnswer(true); 
         if(name1 && name2 && name3 && !name4){
             dispatch(setCheckAnswer("true"));
         } else {

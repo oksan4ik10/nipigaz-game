@@ -8,7 +8,7 @@ import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
 import { StrokeAnswer } from './StrokeAnswer';
 
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -19,7 +19,7 @@ function Task22(props: IProps) {
 
     const clickFormTest = ()=>{
         const {name1} = getValues();
-        selectAnswer(); //пользователь выбрал хотя бы один вариант
+        selectAnswer(true); //пользователь выбрал хотя бы один вариант
         if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
         } else {

@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -15,7 +15,7 @@ function Task10(props: IProps) {
     const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
         const target = e.target as HTMLInputElement;
 
-        selectAnswer(); //пользователь выбрал хотя бы один вариант
+        selectAnswer(true); //пользователь выбрал хотя бы один вариант
 
         if(target.value === "dzen"){
             dispatch(setCheckAnswer("true"));

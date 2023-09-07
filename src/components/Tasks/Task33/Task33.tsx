@@ -1,10 +1,10 @@
 import styles from "./Task33.module.css"
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlCup from "../../../assets/images/cup.svg"
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -55,14 +55,14 @@ function Task33(props: IProps) {
         }
     })
 
-    const [arrUsersAnswer, setArrAnswers] = useState([false, false, false, false]);
+    const arrUsersAnswer = useRef([false, false, false, false]);
 
     const dragStart = (e: React.TouchEvent<HTMLImageElement>) => {
         const data = e.changedTouches[0]; 
         targetDrag = e.changedTouches[0].target as HTMLElement; 
         const index = targetDrag.getAttribute("data-index");
         if(index){
-            setArrAnswers(arrUsersAnswer.map((item, j)=> j === +index ? false : item));
+            arrUsersAnswer.current = arrUsersAnswer.current.map((item, j)=> j === +index ? false : item);
         }
         const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
         const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
@@ -84,6 +84,7 @@ function Task33(props: IProps) {
     }
     const dragEnd = (e: React.TouchEvent<HTMLImageElement>) => {
         e.preventDefault();
+        if(!targetDrag) return;
         const dataTarget = targetDrag.getBoundingClientRect();
         const findIndex = arrAnswers.findIndex((item) => (
             (((item.top - 5) <= dataTarget.top) && ((item.top + 5) >= dataTarget.top)) 
@@ -91,21 +92,20 @@ function Task33(props: IProps) {
         ))
         if(findIndex === -1) {
             targetDrag.style.position = "static";
+            selectAnswer(false);
             return;
         }
         targetDrag.setAttribute("data-index", findIndex + "");
-        setArrAnswers(arrUsersAnswer.map((item, index) => index === findIndex ? true : item))
-        arrUsersAnswer[findIndex] = true;
-
+        arrUsersAnswer.current = arrUsersAnswer.current.map((item, index) => index === findIndex ? true : item);
         let checkAnswers = 0;
-        for (let index = 0; index < arrUsersAnswer.length; index++) {
-            const element = arrUsersAnswer[index];
+        for (let index = 0; index < arrUsersAnswer.current.length; index++) {
+            const element = arrUsersAnswer.current[index];
             if(element) checkAnswers++;
             if(checkAnswers === 3){
-                selectAnswer();
+                selectAnswer(true);
                 if ((index === 3)&& element) dispatch(setCheckAnswer("false"));
                 else dispatch(setCheckAnswer("true"));
-            }
+            } 
         }
 
     }

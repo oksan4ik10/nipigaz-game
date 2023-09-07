@@ -16,11 +16,21 @@
     line-height: 120%;
     display: flex;
     align-items: center;
+    --var-width: 0%;
 }
 .input{
     appearance: none;
 }
-
-.input:checked ~ span{
-    text-decoration: line-through;
+.label span{
+    position: relative;
+}
+.input:checked ~ span::after{
+    content:"";
+    position: absolute;
+    top: 43%;
+    transform: translateY(-48%);
+    left: 0;
+    height: 1px;
+    width: var(--var-width);
+    background: #fff;
 }

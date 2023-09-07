@@ -6,7 +6,7 @@ import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 import { TouchEvent } from 'react';
 
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -15,36 +15,66 @@ function Task03(props: IProps) {
     const {selectAnswer, checkClick} = props;
     const { register, getValues, setValue } = useForm();
 
-    const clickFormTest = ()=>{
-        const {name1} = getValues();
-        selectAnswer(); //пользователь выбрал хотя бы один вариант
-        if(name1 === "2"){
-            dispatch(setCheckAnswer("true"));
-        } else {
-            dispatch(setCheckAnswer("false"));
-        }
+    const clickFormTest = (e: React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
     } 
 
+    let targetDrag: HTMLElement | null = null; 
     let userCheck: HTMLElement | null = null; 
-    
-    const onTouchStart = (e: TouchEvent) => {
+    let proc = 0;
+    const dragStart = (e: TouchEvent) => {
         userCheck = e.target as HTMLElement;
+        selectAnswer(false); 
+        setValue('name1', "");
+        proc = 0;
+        targetDrag = userCheck.closest("label");
+        if(targetDrag) targetDrag.style.setProperty("--var-width", `0%`);
     }
-    const onTouchEnd =  (e: TouchEvent) => {
+    const dragMove = (e: TouchEvent) =>{
         if(!userCheck) return;
         const target = e.target as HTMLElement;
-        if(target === userCheck) {
-            setValue('name1', target.getAttribute("data-value"));
-            clickFormTest();
+        if(target !== userCheck) return;
+
+        if(targetDrag){
+            if(proc === 0) setValue('name1', userCheck.getAttribute("data-value"));
+            proc += 1;
+            if(proc > 100) proc = 100;
+            targetDrag.style.setProperty("--var-width", `${proc}%`);
         }
+        
+
     }
+    const dragEnd =  (e: TouchEvent) => {
+        if(!userCheck) return;
+        const target = e.target as HTMLElement;
+        if((target !== userCheck) || (proc < 50)) {
+            setValue('name1', "");
+            return;
+        }
+        if(targetDrag){
+            targetDrag.style.setProperty("--var-width", `${100}%`);
+            const {name1} = getValues();
+            selectAnswer(true); 
+            if(name1 === "2"){
+                dispatch(setCheckAnswer("true"));
+            } else {
+                dispatch(setCheckAnswer("false"));
+            }
+        }
+
+    }
+    
 
   return (
     <>
                         <div className={styles.taskInfo}>
                         {checkClick && <OpacityTask/>}  
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Вычеркни выбранный ответ</h4>
-                        <form className={styles.form} onChange={(clickFormTest)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                        <form className={styles.form} 
+                        onChange={(e) => clickFormTest(e)} 
+                        onTouchStart={(e) => dragStart(e)} 
+                        onTouchMove = {(e) => dragMove(e)}
+                        onTouchEnd={(e) => dragEnd(e)}>
                             <label className={styles.label} >
                                 <input type="radio" className={styles.input} value={1} {...register("name1")}/>
                                 <span data-value="1">Водоснабжение и канализация</span> 
