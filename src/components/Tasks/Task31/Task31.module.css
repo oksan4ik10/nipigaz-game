@@ -1,0 +1,44 @@
+.taskInfo{
+    margin-top: -30px;
+    position: relative;
+}
+.task{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 20px;
+    position: relative;
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    height: 156px;
+}
+.task>.taskAnswer{
+    z-index: 3;
+}
+.task>.taskAnswer:nth-child(odd)
+{
+    justify-self: start;
+}
+.task>.taskAnswer:nth-child(even)
+{
+    justify-self: end;
+    align-self: center;
+}
+.task>.taskAnswer:nth-child(1){
+    margin-left: 32px;
+}
+.task>.taskAnswer:nth-child(2){
+    margin-right: 32px;
+}
+
+span.danger{
+    color: #C00000;
+}
+.cart{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 2;
+}

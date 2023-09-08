@@ -5,7 +5,7 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import urlImg from "../../../assets/images/cart.png";
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
@@ -91,7 +91,7 @@ function Task01(props: IProps) {
                 }
                 setAnswerIndex(value);
             } 
-            selectAnswer();
+            selectAnswer(true);
         }
         
         
