@@ -60,7 +60,7 @@ function Task31(props: IProps) {
             const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
-            if(((y > 20) && (y < 40)) && ((x > 120) && (x < 145))){
+            if(((y > 20) && (y < 70)) && ((x > 120) && (x < 145))){
                 const value = targetDrag.getAttribute("data-value");
                 targetDrag.style.top = "30%";
                 targetDrag.style.left = "50%";
@@ -86,8 +86,6 @@ function Task31(props: IProps) {
     }
     const dragEnd = (e: TouchEvent) =>{
         e.preventDefault();
-        console.log(targetDrag);
-        
         if(targetDrag){
             if((targetDrag.style.top !== "30%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
