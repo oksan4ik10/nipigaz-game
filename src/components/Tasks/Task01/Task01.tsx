@@ -57,6 +57,20 @@ function Task01(props: IProps) {
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 14) && (y < 140)) && ((x > 90) && (x < 170))){
                 const value = targetDrag.getAttribute("data-value");
+                if((value) && answerIndex !== value) {
+                    setArrAnswers(arrAnswers.map((item, index)=> {
+                        if (index + "" === value) item.check = true;
+                        else item.check = false;
+                        return item
+                    }))
+                    if(value === "2"){
+                        dispatch(setCheckAnswer("true"));
+                    } else {
+                        dispatch(setCheckAnswer("false"));
+                    }
+                    setAnswerIndex(value);
+                } 
+                selectAnswer(true);
                 if(value === "1") targetDrag.style.fontSize = "20px";
                 targetDrag.style.color = "#008C95";
                 targetDrag.style.top = "50%";
@@ -77,21 +91,7 @@ function Task01(props: IProps) {
                 targetDrag.style.position = "static";
                 return;
             }
-            const value = targetDrag.getAttribute("data-value");
-            if(value) {
-                setArrAnswers(arrAnswers.map((item, index)=> {
-                    if (index + "" === value) item.check = true;
-                    else item.check = false;
-                    return item
-                }))
-                if(value === "2"){
-                    dispatch(setCheckAnswer("true"));
-                } else {
-                    dispatch(setCheckAnswer("false"));
-                }
-                setAnswerIndex(value);
-            } 
-            selectAnswer(true);
+
         }
         
         
@@ -114,7 +114,7 @@ function Task01(props: IProps) {
                                 onTouchEnd = {(e) => dragEnd(e)}
                                 data-value = {index}
                                 style={{
-                                    color: !item.check ? "#fff" : checkClick ? (answerIndex === "2") ? "#008C95" : "#C00000" : "#008C95", position: item.check ? "absolute" : "static"}} 
+                                    color: !item.check ? "#fff" : checkClick ? (answerIndex === "2") ? "#008C95" : "#C00000" : "#008C95", position: item.check ? "absolute" : "static", fontSize : (answerIndex === "1" && index === 1) ? "20px" : "25px"}} 
                                 >
                                     {item.value}
                                    
