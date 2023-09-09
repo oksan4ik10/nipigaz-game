@@ -60,7 +60,7 @@ function Task10(props: IProps) {
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 45) && (y < 85)) && ((x > 60) && (x < 227))){
 
-                targetDrag.style.top = 51  + "px";
+                targetDrag.style.top = 59.5  + "px";
                 targetDrag.style.left = 139 + "px"; 
             }
 
@@ -72,7 +72,7 @@ function Task10(props: IProps) {
         e.preventDefault();
         if(targetDrag) {
             targetDrag.style.position = "static";
-            if((targetDrag.style.top !== "51px")) return;
+            if((targetDrag.style.top !== "59.5px")) return;
 
         }
         selectAnswer(true);
@@ -99,7 +99,7 @@ function Task10(props: IProps) {
     <>
                 <div className={styles.taskInfo} ref={ref}>
                         {checkClick && <OpacityTask/>}
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи верное количество нулей в ячейку</h4>
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи часть слова к первой букве так,<br/> чтобы получилось название верного города</h4>
                         <div className={styles.task}>
                             <div className={styles.taskAnswer}>
                                 <span>
