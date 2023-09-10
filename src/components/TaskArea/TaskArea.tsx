@@ -11,7 +11,7 @@ import { setCheckAnswer } from '../../store/reducers/checkAnswerReducer';
 import { removePoints } from '../../store/reducers/arrQuestionsReducer';
 
 import { questionAnswerText } from '../../utils/questionAnswerText';
-
+import { Lamp } from './Lamp';
 interface IProps {
     openFirework: (data: boolean) => void;
     openTask: (data: boolean) => void;
@@ -113,7 +113,7 @@ function TaskArea(props: IProps) {
             <div className="task__wrapper">
                 <div className="task__head">
                     <div className="task__heading" style = {stylesPadding}>
-                        <div className="task__points">{(arrActiveQuestion[1] + 1) * 100}</div>
+                        <div className="task__points">{userAnswerTask === "wait" ? (arrActiveQuestion[1] + 1) * 100 : <Lamp check = {userAnswerTask === "true"}/>}</div>
                         <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles}>{!checkClick ? question:answer}</h3>
                     </div>
                 </div>
