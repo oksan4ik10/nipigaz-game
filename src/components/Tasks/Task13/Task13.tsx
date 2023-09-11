@@ -1,23 +1,29 @@
-import './Task13.css'
-import { FormEvent, useState } from 'react';
+import styles from "./Task13.module.css";
+import { useForm } from "react-hook-form";
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
+
+import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
+import { Maps } from "./Maps";
+import urlImg1 from "../../../assets/images/regions/1.png";
+import urlImg2 from "../../../assets/images/regions/2.png";
+import urlImg3 from "../../../assets/images/regions/3.png";
+import urlImg4 from "../../../assets/images/regions/4.png";
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
 function Task13(props: IProps) {
-    const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
+    const { register, getValues} = useForm();
 
-    const clickFormTest = (e: FormEvent<HTMLFormElement>)=>{
-        const target = e.target as HTMLInputElement;
+    const clickFormTest = ()=>{
 
-        selectAnswer(); //пользователь выбрал хотя бы один вариант
-
-        if(target.value === "dzen"){
+        selectAnswer(true);
+        const {name1} = getValues();
+        if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
         } else {
             dispatch(setCheckAnswer("false"));
@@ -26,15 +32,38 @@ function Task13(props: IProps) {
 
     }
 
+    const arrImages = [urlImg1, urlImg2, urlImg3, urlImg4];
+    const towns = [
+        {nameRU: "Астрахань", 
+        nameEN: "Astrakhan"},
+        {nameRU: "Казань", 
+        nameEN: "Kazan"},
+        {nameRU: "Нижневартовск", 
+        nameEN: "Nizhnevartovsk"},
+        {nameRU: "Комсомольск-на-Амуре", 
+        nameEN: "Komsomolsk-na-Amure"},
+    ]
+
+
   return (
     <>
-                <div className="task__info">
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Расположи полузнок на верной цифре</h4>
-                        <form onChange={clickFormTest}>
-                        <p><b>Какое у вас состояние разума?</b></p>
-                            <p><input name="dzen" type="radio" value="nedzen" defaultChecked={true} onChange={() => setChecked(!checked)}/> Не дзен</p>
-                            <p><input name="dzen" type="radio" value="dzen"/> Дзен</p>
-                            <p><input name="dzen" type="radio" value="pdzen"/> Полный дзен</p>
+                <div className={styles.taskInfo}>
+                    {checkClick && <OpacityTask/>}
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Выбери верный силуэт региона</h4>
+                        <form onChange={clickFormTest} className={styles.task}> 
+                        {
+                            towns.map((item, index) => {
+                                return <label className={styles.label} key = {index}>
+                                <input type="radio" className={styles.input} value={index} {...register("name1")}/>
+                                <div className={styles.answer}>
+                                    <img src={arrImages[index]} alt={item.nameEN} />
+                                    <span>{item.nameRU}</span>
+                                    <Maps value={index} color={checkClick ? getValues().name1 === "2" ? "#99CC00" : "#CC0000": "#008C95"}/>
+                                </div>
+                            </label>
+                            })
+                        }
+
                         </form> 
 
                 </div>

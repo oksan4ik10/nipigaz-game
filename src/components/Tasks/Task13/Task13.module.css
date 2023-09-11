@@ -1,0 +1,68 @@
+.taskInfo{
+    position: relative;
+}
+
+.task{
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 102px;
+
+}
+.label:last-child{
+    height: 112px;
+}
+.input{
+    appearance: none;
+}
+.answer{
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto;
+    align-items: end;
+    justify-items: center;
+    height: 100%;
+}
+.label:first-of-type img, .label:last-of-type img{
+    align-self: start;
+}
+.answer img{
+    opacity: .5;
+}
+.answer svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.answer span{
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.16px;
+    opacity: .5;
+}
+.input:checked~.answer span, .input:checked~.answer img{
+    opacity: 1;
+}
+.label:first-child .answer svg{
+    top: 62px;
+    left: 33px;
+}
+.label:nth-child(2) .answer svg{
+    top: 25px;
+    left: 15px;
+}
+.label:nth-child(3) .answer svg{
+    top: 50px;
+    left: 47px;
+}
+.label:nth-child(4) .answer svg{
+    top: 56px;
+    left: 25px;
+}
