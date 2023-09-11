@@ -19,14 +19,13 @@ import Task33 from '../components/Tasks/Task33/Task33';
 import TaskEnd from '../components/Tasks/TaskEnd/TaskEnd';
 
 interface IProps {
-    selectAnswer: () => void;
+    selectAnswer: (data: boolean) => void;
     checkClick: boolean;
 }
 
 export const Task = (props:IProps) => {
     const active = useAppSelector((state)=>state.activeQuestion).activeQuestion.join("");
-    console.log(active);
-    
+
     switch (active) {
         case "00":{
             return <Task00 {...props}/>;
