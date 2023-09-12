@@ -1,17 +1,13 @@
 .main__task{
     position: absolute;
-    top: 47px;
+    top: 41px;
     left: 10%;
     width: 402px;
     height: 316px;
     background: red;
     z-index: 3;
 }
-@media (max-height: 363px) {
-    .main__task{
-        height: calc(100% - 47px);
-    }
-}
+
 @media (max-width: 740px) {
     .main__task{
         left: 6%;
