@@ -35,10 +35,10 @@ function Task00(props: IProps) {
                         <div className={styles.task}>
                             <input type="range" min="1" max="4" step="1" defaultValue="1" list="list" onChange={changeInput}/>
                             <datalist id="list" className={styles.list}>
-                                <option value="1"className={styles.item} style={checked===1 ? {"opacity": 1} :{"opacity":.5}}>Управление проектированием</option>
-                                <option value="2"className={styles.item} style={checked===2 ? {"opacity": 1} :{"opacity":.5}}>Управление выпуском продукции</option>
-                                <option value="3"className={styles.item} style={checked===3 ? {"opacity": 1} :{"opacity":.5}}>Управление строительством</option>
-                                <option value="4"className={styles.item} style={checked===4 ? {"opacity": 1} :{"opacity":.5}}>Управление поставками и логистикой</option>
+                                <option value="1"className={styles.item} style={checked===1 ? {"opacity": "1"} :{"opacity":".5"}}>Управление проектированием</option>
+                                <option value="2"className={styles.item} style={checked===2 ? {"opacity": "1"} :{"opacity":".5"}}>Управление выпуском продукции</option>
+                                <option value="3"className={styles.item} style={checked===3 ? {"opacity": "1"} :{"opacity":".5"}}>Управление строительством</option>
+                                <option value="4"className={styles.item} style={checked===4 ? {"opacity": "1"} :{"opacity":".5"}}>Управление поставками и логистикой</option>
                             </datalist>
 
                         </div>
