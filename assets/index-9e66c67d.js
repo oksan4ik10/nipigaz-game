@@ -16225,10 +16225,10 @@ function sf(e) {
       const A = g.changedTouches[0];
       if (((C = g.changedTouches[0].target.closest("div")), C)) {
         if (C.style.position === "absolute") return;
-        const f = A.pageY - o - C.offsetHeight / 2,
-          h = A.pageX - s - C.offsetWidth / 2;
-        (C.style.position = "absolute"),
-          (C.style.zIndex = "1"),
+        C.style.position = "absolute";
+        const f = A.clientY - o - C.offsetHeight,
+          h = A.clientX - s - C.offsetWidth;
+        (C.style.zIndex = "1"),
           (C.style.left = h + "px"),
           (C.style.top = f + "px");
       }
@@ -16237,8 +16237,8 @@ function sf(e) {
       const A = g.changedTouches[0];
       if (C) {
         if (C.style.top === "30%") return;
-        const d = A.pageY - o - C.offsetHeight / 2,
-          f = A.pageX - s - C.offsetWidth / 2;
+        const d = A.clientY - o - C.offsetHeight / 2,
+          f = A.clientX - s - C.offsetWidth / 2;
         if (
           (d > 14 && d < 112 && (C.style.top = d + "px"),
           f > 0 && f < 270 && (C.style.left = f + "px"),
