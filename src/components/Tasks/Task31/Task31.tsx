@@ -42,8 +42,8 @@ function Task31(props: IProps) {
         if(targetDrag){
             if(targetDrag.style.position ==="absolute") return;
             targetDrag.style.position = "absolute";
-            const y = data.clientY  - stateY - (targetDrag.offsetHeight);
-            const x = data.clientX - stateX - (targetDrag.offsetWidth);
+            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
+            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
             targetDrag.style.zIndex = "1";
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
