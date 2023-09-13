@@ -41,7 +41,7 @@ function Task32(props: IProps) {
     }
 
     const dragEnd = () =>{
-        if(proc < 50) {
+        if(proc < 5) {
             setValue("name1", "");
             if (targetDrag) targetDrag.style.setProperty("--var-width", `0%`);
             selectAnswer(false);

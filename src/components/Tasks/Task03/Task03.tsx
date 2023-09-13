@@ -47,7 +47,7 @@ function Task03(props: IProps) {
     const dragEnd =  (e: TouchEvent) => {
         if(!userCheck) return;
         const target = e.target as HTMLElement;
-        if((target !== userCheck) || (proc < 50)) {
+        if((target !== userCheck) || (proc < 5)) {
             setValue('name1', "");
             selectAnswer(false); 
             return;

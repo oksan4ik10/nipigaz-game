@@ -15,16 +15,16 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 120%;
-    display: flex;
-    align-items: center;
     --var-width: 0%;
 }
 .input{
     appearance: none;
+    -webkit-appearance: none;
 }
 .input~span{
     opacity: .5;
     position: relative;
+
 }
 .input:checked~span{
     opacity: 1;
@@ -33,7 +33,7 @@
     content: "";
     position: absolute;
     transition: .3s easy;
-    top: calc(100% - 3px);
+    top: 100%;
     left: 0;
     width: var(--var-width);
     height: 1px;

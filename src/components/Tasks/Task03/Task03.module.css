@@ -14,8 +14,6 @@
     font-size: 15px;
     font-weight: 400;
     line-height: 120%;
-    display: flex;
-    align-items: center;
     --var-width: 0%;
 }
 .input{
