@@ -12,6 +12,7 @@
 }
 .input{
     appearance: none;
+    -webkit-appearance: none;
     width: 78px;
     height: 68px;
     background-size: contain;

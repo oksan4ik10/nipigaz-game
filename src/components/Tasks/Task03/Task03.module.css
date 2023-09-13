@@ -20,6 +20,7 @@
 }
 .input{
     appearance: none;
+    -webkit-appearance: none;
 }
 .label span{
     position: relative;
