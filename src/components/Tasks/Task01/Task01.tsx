@@ -39,9 +39,8 @@ function Task01(props: IProps) {
         targetDrag = e.changedTouches[0].target as HTMLElement;        
         if(targetDrag.style.position ==="absolute") return;
         targetDrag.style.position = "absolute";
-        console.log(stateY, data.pageY, targetDrag.offsetHeight);
-        const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
-        const y = data.pageY  - stateY - (targetDrag.offsetHeight/2);
+        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+        const y = data.clientY  - stateY - (targetDrag.offsetHeight/2);
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
@@ -52,8 +51,8 @@ function Task01(props: IProps) {
         
         if(targetDrag){
             if((targetDrag.style.top === "50%")) return;
-            const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
+            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
+            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 14) && (y < 140)) && ((x > 90) && (x < 170))){

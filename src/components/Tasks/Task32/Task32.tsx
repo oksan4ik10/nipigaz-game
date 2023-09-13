@@ -23,7 +23,6 @@ function Task32(props: IProps) {
     }
 
     const dragStart = (e: React.TouchEvent<HTMLLabelElement>) =>{
-        selectAnswer(false);
         const data = e.changedTouches[0].target as HTMLElement;
         proc = 0;
         targetDrag = data.closest("label");
@@ -33,7 +32,7 @@ function Task32(props: IProps) {
     const dragMove = () =>{
         if(targetDrag){
             if(proc === 0) if(targetDrag) setValue("name1", targetDrag.id);
-            proc += 1;
+            proc += 3;
             if(proc > 100) proc = 100;
             targetDrag.style.setProperty("--var-width", `${proc}%`);
         }
@@ -45,6 +44,7 @@ function Task32(props: IProps) {
         if(proc < 50) {
             setValue("name1", "");
             if (targetDrag) targetDrag.style.setProperty("--var-width", `0%`);
+            selectAnswer(false);
             return;
         }
         if(targetDrag){

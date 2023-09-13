@@ -64,9 +64,10 @@ function Task33(props: IProps) {
         if(index){
             arrUsersAnswer.current = arrUsersAnswer.current.map((item, j)=> j === +index ? false : item);
         }
-        const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
         targetDrag.style.position = "absolute";
+        const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
+        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
@@ -74,8 +75,8 @@ function Task33(props: IProps) {
     const dragMove = (e: React.TouchEvent<HTMLImageElement>) => {
         const data = e.changedTouches[0]; 
         targetDrag = e.changedTouches[0].target as HTMLElement; 
-        const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
+        const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
+        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
         targetDrag.style.position = "absolute";
         targetDrag.style.zIndex = "1";
         if((x > 169) &&  (x < 254)) targetDrag.style.left = x + "px";

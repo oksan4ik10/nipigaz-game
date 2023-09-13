@@ -24,7 +24,7 @@ function Task03(props: IProps) {
     let proc = 0;
     const dragStart = (e: TouchEvent) => {
         userCheck = e.target as HTMLElement;
-        selectAnswer(false); 
+
         setValue('name1', "");
         proc = 0;
         targetDrag = userCheck.closest("label");
@@ -37,7 +37,7 @@ function Task03(props: IProps) {
 
         if(targetDrag){
             if(proc === 0) setValue('name1', userCheck.getAttribute("data-value"));
-            proc += 1;
+            proc += 3;
             if(proc > 100) proc = 100;
             targetDrag.style.setProperty("--var-width", `${proc}%`);
         }
@@ -49,6 +49,7 @@ function Task03(props: IProps) {
         const target = e.target as HTMLElement;
         if((target !== userCheck) || (proc < 50)) {
             setValue('name1', "");
+            selectAnswer(false); 
             return;
         }
         if(targetDrag){

@@ -73,8 +73,8 @@ function Task11(props: IProps) {
         checkBg.current = "transparent";
         if(targetDrag){
             width = targetDrag.width.animVal.value;
-            const y = data.pageY  - stateY;
-            const x = data.pageX - stateX - (width / 2);
+            const y = data.clientY  - stateY;
+            const x = data.clientX - stateX - (width / 2);
             targetDrag.style.position = "absolute";
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px"; 
@@ -84,8 +84,8 @@ function Task11(props: IProps) {
     }
     const dragMove = (e: React.TouchEvent<SVGSVGElement>) => {
         const data = e.changedTouches[0]; 
-        const y = data.pageY  - stateY;
-        const x = data.pageX - stateX - (width / 2);
+        const y = data.clientY  - stateY;
+        const x = data.clientX - stateX - (width / 2);
         checkBg.current = "transparent";
         if(targetDrag){
             if((x > 52) &&  (x < 223)) targetDrag.style.left = x + "px";
