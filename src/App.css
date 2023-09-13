@@ -13,6 +13,11 @@
     width: 100%;
     height: 100vh;
     min-height: 357px;
+    -youbkit-touch-callout: none; 
+    -youbkit-user-select: none; 
+    -moz-user-select: none;   
+    -ms-user-select: none;      
+    user-select: none;  
 }
 
 .btn {

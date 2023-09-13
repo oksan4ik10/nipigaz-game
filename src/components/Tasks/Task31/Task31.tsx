@@ -41,9 +41,9 @@ function Task31(props: IProps) {
         
         if(targetDrag){
             if(targetDrag.style.position ==="absolute") return;
-            const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
             targetDrag.style.position = "absolute";
+            const y = data.clientY  - stateY - (targetDrag.offsetHeight);
+            const x = data.clientX - stateX - (targetDrag.offsetWidth);
             targetDrag.style.zIndex = "1";
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
@@ -56,8 +56,8 @@ function Task31(props: IProps) {
         
         if(targetDrag){
             if((targetDrag.style.top === "30%")) return;
-            const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
+            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
+            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 20) && (y < 70)) && ((x > 120) && (x < 145))){
