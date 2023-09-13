@@ -55,9 +55,11 @@ function Task12(props: IProps) {
         const data = e.changedTouches[0]; 
         setX(data.clientX);
         setY(data.clientY);
+        document.body.style.overflow = "hidden";
     }
 
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) =>{
+        
         const data = e.changedTouches[0]; 
         const newX = data.clientX, newY = data.clientY;
         if(rotate.current > 180) origin.current = 55;
@@ -74,31 +76,32 @@ function Task12(props: IProps) {
         else newAnswer = mod*30;
         if(newAnswer === 360) newAnswer = 0;
     
-        if(newAnswer !== newUserCheck) {
-            arrAnswers.current = arrAnswers.current.map((item) => {
-                if (item.deg === newAnswer) item.check = true;
-                else item.check = false;
-                return item;
-            })
-            setNewUserCheck(newAnswer);
-        }
+
         if((
                 ((((deg % 360 >=0)&&(deg % 360 <= 90)) || (deg % 360 > 270)) && (newY <= y)
                 ) || 
                 ((deg % 360 > 90) && (deg % 360 <= 270) && (newY >= y)
                 )) && ((deg % 360 >= 0 && deg % 360 <= 180 && newX >= x) || ((deg % 360 > 180 && newX <= x)))) 
-            rotate.current = rotate.current + 1.5;
+            rotate.current = rotate.current + 2.5;
             else {
-                rotate.current = rotate.current - 1.5;
+                rotate.current = rotate.current - 2.5;
     
             } 
         
-
+            if(newAnswer !== newUserCheck) {
+                arrAnswers.current = arrAnswers.current.map((item) => {
+                    if (item.deg === newAnswer) item.check = true;
+                    else item.check = false;
+                    return item;
+                })
+                setNewUserCheck(newAnswer);
+            }
         setX(newX);
         setY(newY);
 
     }
     const dragEnd = () =>{
+        document.body.style.overflow = "auto";
         selectAnswer(true);
         if(newUserCheck === 180){
             dispatch(setCheckAnswer("true"));
