@@ -38,9 +38,10 @@ function Task01(props: IProps) {
         const data = e.changedTouches[0]; 
         targetDrag = e.changedTouches[0].target as HTMLElement;        
         if(targetDrag.style.position ==="absolute") return;
-        const y = data.pageY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
         targetDrag.style.position = "absolute";
+        console.log(stateY, data.pageY, targetDrag.offsetHeight);
+        const x = data.pageX - stateX - (targetDrag.offsetWidth / 2);
+        const y = data.pageY  - stateY - (targetDrag.offsetHeight/2);
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
