@@ -44,9 +44,9 @@ function Task21(props: IProps) {
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
         const data = e.changedTouches[0];     
         targetDrag = e.changedTouches[0].target as HTMLElement;
+        targetDrag.style.position = "absolute";
         const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
         const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
-        targetDrag.style.position = "absolute";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
     }
