@@ -16226,8 +16226,8 @@ function sf(e) {
       if (((C = g.changedTouches[0].target.closest("div")), C)) {
         if (C.style.position === "absolute") return;
         C.style.position = "absolute";
-        const f = A.clientY - o - C.offsetHeight,
-          h = A.clientX - s - C.offsetWidth;
+        const f = A.clientY - o - C.offsetHeight / 2,
+          h = A.clientX - s - C.offsetWidth / 2;
         (C.style.zIndex = "1"),
           (C.style.left = h + "px"),
           (C.style.top = f + "px");
