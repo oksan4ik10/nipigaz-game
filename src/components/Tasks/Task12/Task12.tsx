@@ -26,10 +26,10 @@ function Task12(props: IProps) {
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
 
-    const rotate = useRef(0);
+    const [rotate, setRotate] = useState(0);
     const origin = useRef(50)
     const styleTransform = {
-        transform: `translate(-50%, -50%) rotate(${rotate.current}deg)`,
+        transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
         transformOrigin: `${origin.current}% 50%`
 
     }
@@ -62,40 +62,41 @@ function Task12(props: IProps) {
         
         const data = e.changedTouches[0]; 
         const newX = data.clientX, newY = data.clientY;
-        if(rotate.current > 180) origin.current = 55;
+        if(rotate > 180) origin.current = 55;
         else origin.current = 53;
         let newAnswer: number;
         let deg: number;
-        if(rotate.current >=0){
-          deg = rotate.current % 360;
+        if(rotate >=0){
+          deg = rotate % 360;
         } else{
-            deg = 360 + (rotate.current % 360);
+            deg = 360 + (rotate % 360);
         }
         const mod = Math.floor(deg / 30);
         if(deg % 30 > 15) newAnswer = mod*30 + 30;
         else newAnswer = mod*30;
         if(newAnswer === 360) newAnswer = 0;
     
-
+        if(newAnswer !== newUserCheck) {
+            arrAnswers.current = arrAnswers.current.map((item) => {
+                if (item.deg === newAnswer) item.check = true;
+                else item.check = false;
+                return item;
+            })
+            setNewUserCheck(newAnswer);
+        }
         if((
                 ((((deg % 360 >=0)&&(deg % 360 <= 90)) || (deg % 360 > 270)) && (newY <= y)
                 ) || 
                 ((deg % 360 > 90) && (deg % 360 <= 270) && (newY >= y)
                 )) && ((deg % 360 >= 0 && deg % 360 <= 180 && newX >= x) || ((deg % 360 > 180 && newX <= x)))) 
-            rotate.current = rotate.current + 2.5;
+                setRotate(rotate + 2);
+        
             else {
-                rotate.current = rotate.current - 2.5;
+                setRotate(rotate - 2);
     
             } 
         
-            if(newAnswer !== newUserCheck) {
-                arrAnswers.current = arrAnswers.current.map((item) => {
-                    if (item.deg === newAnswer) item.check = true;
-                    else item.check = false;
-                    return item;
-                })
-                setNewUserCheck(newAnswer);
-            }
+
         setX(newX);
         setY(newY);
 
