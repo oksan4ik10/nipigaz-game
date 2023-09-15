@@ -18,6 +18,8 @@ function Task01(props: IProps) {
     let stateX = 0, stateY = 0;
 
     useEffect(()=> {
+        
+        
         if(ref.current){
           const data = ref.current.getBoundingClientRect();
             stateX = data.left;
@@ -35,12 +37,18 @@ function Task01(props: IProps) {
     let targetDrag: HTMLElement|undefined;
 
     const dragStart = (e: React.TouchEvent<HTMLSpanElement>) =>{
-        const data = e.changedTouches[0]; 
-        targetDrag = e.changedTouches[0].target as HTMLElement;        
+        document.body.style.overflow = "hidden";
+
+        targetDrag = e.changedTouches[0].target as HTMLElement;    
         if(targetDrag.style.position ==="absolute") return;
+        targetDrag.style.left = "auto";
+        targetDrag.style.top = "auto";
+        targetDrag.style.transform = "none";
+        
         targetDrag.style.position = "absolute";
-        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
-        const y = data.clientY  - stateY - (targetDrag.offsetHeight/2);
+        let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
+        if(x < 0) x = targetDrag.offsetLeft
+        const y = targetDrag.offsetTop;
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
@@ -48,7 +56,6 @@ function Task01(props: IProps) {
 
     const dragMove = (e: React.TouchEvent<HTMLSpanElement>) =>{
         const data = e.changedTouches[0];
-        
         if(targetDrag){
             if((targetDrag.style.top === "50%")) return;
             const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
@@ -85,9 +92,12 @@ function Task01(props: IProps) {
         }
     }
     const dragEnd = () =>{
+        document.body.style.overflow = "auto";
         if(targetDrag){
             if((targetDrag.style.top !== "50%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
+
+
                 return;
             }
 
