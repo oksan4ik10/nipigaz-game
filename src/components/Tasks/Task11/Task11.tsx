@@ -67,6 +67,7 @@ function Task11(props: IProps) {
     let targetDrag: SVGSVGElement | null;
     const dragStart = (e: React.TouchEvent<SVGSVGElement>) => {
         e.preventDefault();
+        document.body.style.overflow = "hidden"; 
         const data = e.changedTouches[0]; 
         const t = e.changedTouches[0].target as HTMLElement;
         targetDrag = t.closest("svg");
@@ -96,6 +97,7 @@ function Task11(props: IProps) {
 
     }
     const dragEnd = () => {
+        document.body.style.overflow = "auto"; 
         if(targetDrag){
            const x = parseInt(targetDrag.style.left);
            const y = parseInt(targetDrag.style.top);

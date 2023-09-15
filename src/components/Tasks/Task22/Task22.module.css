@@ -17,6 +17,8 @@
     height: 68px;
     background-size: contain;
     background-repeat: no-repeat;
+    position: relative;
+    z-index: 4;
 }
 .value1{
     background-image: url("../../../assets/images/2008.png");
@@ -39,8 +41,10 @@
     left: 0px;
     opacity: 0;
     transition: .2s ease-out;
+    z-index: 3;
 }
 .input:checked~svg{
     display: block;
     opacity: 1;
+    z-index: 5;
 }

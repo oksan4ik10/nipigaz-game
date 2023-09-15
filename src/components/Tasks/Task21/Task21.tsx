@@ -42,11 +42,13 @@ function Task21(props: IProps) {
 
     let targetDrag: HTMLElement| undefined;
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
-        const data = e.changedTouches[0];     
+        document.body.style.overflow = "hidden"; 
         targetDrag = e.changedTouches[0].target as HTMLElement;
+        targetDrag.style.left = "auto";
+        targetDrag.style.top = "auto";
         targetDrag.style.position = "absolute";
-        const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+        const x = targetDrag.offsetLeft;
+        const y = targetDrag.offsetTop;
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
     }
@@ -68,8 +70,9 @@ function Task21(props: IProps) {
         
         }
     }
-    const dragEnd = (e: React.TouchEvent<HTMLDivElement>, index: number) => {
-        e.preventDefault();
+    const dragEnd = ( index: number) => {
+        document.body.style.overflow = "auto"; 
+       
         if(targetDrag) {
             targetDrag.style.position = "static";
             if((targetDrag.style.top !== "40px")) return;
@@ -119,7 +122,7 @@ function Task21(props: IProps) {
                                 <div 
                                 onTouchStart = {(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
-                                onTouchEnd={(e) => dragEnd(e, index)}
+                                onTouchEnd={() => dragEnd(index)}
                                 className={styles.zero + " " + (item.answer ? styles.none : "") + " " + (
                                     checkClick ? saveResult ? styles.success : styles.danger:""
                                 )} >{item.value}</div></div>

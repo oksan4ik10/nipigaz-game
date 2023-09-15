@@ -35,15 +35,22 @@ function Task31(props: IProps) {
     
 
     const dragStart = (e: TouchEvent) =>{
-        const data = e.changedTouches[0]; 
+        document.body.style.overflow = "hidden";
         const t = e.changedTouches[0].target as HTMLElement;   
         targetDrag = t.closest("div");
         
         if(targetDrag){
             if(targetDrag.style.position ==="absolute") return;
+            targetDrag.style.left = "auto";
+            targetDrag.style.top = "auto";
+            targetDrag.style.transform = "none";
             targetDrag.style.position = "absolute";
-            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+            let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
+            if(x < 0) x = targetDrag.offsetLeft;
+
+            
+            let y = targetDrag.offsetTop - targetDrag.offsetHeight/2;
+            if ((y < 0) || (y === 56)) y = targetDrag.offsetTop;
             targetDrag.style.zIndex = "1";
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
@@ -84,8 +91,8 @@ function Task31(props: IProps) {
         
         }
     }
-    const dragEnd = (e: TouchEvent) =>{
-        e.preventDefault();
+    const dragEnd = () =>{
+        document.body.style.overflow = "auto";
         if(targetDrag){
             if((targetDrag.style.top !== "30%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
@@ -123,7 +130,7 @@ function Task31(props: IProps) {
                                 <Images index={index} color={checkClick ?  answerIndex === "0" ? "#99CC00" : "#C00000" : "#008C95"} 
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove = {(e) => dragMove(e)}
-                                onTouchEnd = {(e) => dragEnd(e)}
+                                onTouchEnd = {() => dragEnd()}
                                 value = {index}
                                 style = {{position: item ? "absolute" : "static", overflow: item ? "hidden" : "visible", width : item ? "65px" : "auto", height : item ? "18px" : "auto", transform: item ? " translateX(-50%) translateY(-50%)" : "none"}}
                                 />

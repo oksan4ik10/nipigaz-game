@@ -34,39 +34,43 @@ function Task33(props: IProps) {
             stateY = data.top;
         }
         if(refCheck1.current){
-            const dataCheck1 = refCheck1.current.getBoundingClientRect();
-            arrAnswers[0].top = dataCheck1.top;
-            arrAnswers[0].left = dataCheck1.left;
+            arrAnswers[0].top = refCheck1.current.offsetTop;
+            arrAnswers[0].left = refCheck1.current.offsetLeft;
         }
         if(refCheck2.current){
-            const dataCheck1 = refCheck2.current.getBoundingClientRect();
-            arrAnswers[1].top = dataCheck1.top;
-            arrAnswers[1].left = dataCheck1.left;
+            arrAnswers[1].top = refCheck2.current.offsetTop;
+            arrAnswers[1].left = refCheck2.current.offsetLeft;
         }
         if(refCheck3.current){
-            const dataCheck1 = refCheck3.current.getBoundingClientRect();
-            arrAnswers[2].top = dataCheck1.top;
-            arrAnswers[2].left = dataCheck1.left;
+            arrAnswers[2].top = refCheck3.current.offsetTop;
+            arrAnswers[2].left = refCheck3.current.offsetLeft;
         }
         if(refCheck4.current){
-            const dataCheck1 = refCheck4.current.getBoundingClientRect();
-            arrAnswers[3].top = dataCheck1.top;
-            arrAnswers[3].left = dataCheck1.left;
+            arrAnswers[3].top = refCheck4.current.offsetTop;
+            arrAnswers[3].left = refCheck4.current.offsetLeft;
         }
     })
 
     const arrUsersAnswer = useRef([false, false, false, false]);
 
     const dragStart = (e: React.TouchEvent<HTMLImageElement>) => {
-        const data = e.changedTouches[0]; 
+        document.body.style.overflow = "hidden";
         targetDrag = e.changedTouches[0].target as HTMLElement; 
         const index = targetDrag.getAttribute("data-index");
         if(index){
             arrUsersAnswer.current = arrUsersAnswer.current.map((item, j)=> j === +index ? false : item);
         }
-        targetDrag.style.position = "absolute";
-        const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+        let x, y;
+        if(targetDrag.style.position === "static") {
+            y = targetDrag.offsetTop;
+            x = targetDrag.offsetLeft;
+            targetDrag.style.position = "absolute";
+        } else {
+            targetDrag.style.position = "absolute";
+             y = targetDrag.offsetTop;
+             x = targetDrag.offsetLeft;
+        }
+
 
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
@@ -83,16 +87,19 @@ function Task33(props: IProps) {
     
         if( (y > 0) && (y < 112)) targetDrag.style.top = y + "px";
     }
-    const dragEnd = (e: React.TouchEvent<HTMLImageElement>) => {
-        e.preventDefault();
+    const dragEnd = () => {
+        document.body.style.overflow = "auto";
         if(!targetDrag) return;
-        const dataTarget = targetDrag.getBoundingClientRect();
+        const dataTarget = { top: parseFloat(targetDrag.style.top), left: parseFloat (targetDrag.style.left)};
+
         const findIndex = arrAnswers.findIndex((item) => (
             (((item.top - 5) <= dataTarget.top) && ((item.top + 5) >= dataTarget.top)) 
             && ((item.left + 5) >= dataTarget.left)
         ))
         if(findIndex === -1) {
             targetDrag.style.position = "static";
+            targetDrag.style.left = "auto";
+            targetDrag.style.top = "auto";
             selectAnswer(false);
             return;
         }
@@ -139,7 +146,7 @@ function Task33(props: IProps) {
                                 <img src= {imgUrlCup} alt="cup" className="taskCup" 
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
-                                onTouchEnd = {(e) => dragEnd(e)}
+                                onTouchEnd = {() => dragEnd()}
                                 />
                                 </div>
 
@@ -147,7 +154,7 @@ function Task33(props: IProps) {
                                     <img src= {imgUrlCup} alt="cup" className="taskCup" 
                                     onTouchStart={(e) => dragStart(e)}
                                     onTouchMove={(e) => dragMove(e)}
-                                    onTouchEnd = {(e) => dragEnd(e)}
+                                    onTouchEnd = {() => dragEnd()}
                                     />
                                 </div>
 
@@ -155,7 +162,7 @@ function Task33(props: IProps) {
                                 <img src= {imgUrlCup} alt="cup" className="taskCup" 
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
-                                onTouchEnd = {(e) => dragEnd(e)}
+                                onTouchEnd = {() => dragEnd()}
                                 />
                                 </div>
 
