@@ -24,7 +24,7 @@ function Task03(props: IProps) {
     let proc = 0;
     const dragStart = (e: TouchEvent) => {
         userCheck = e.target as HTMLElement;
-
+        document.body.style.overflow = "hidden";
         setValue('name1', "");
         proc = 0;
         targetDrag = userCheck.closest("label");
@@ -45,6 +45,7 @@ function Task03(props: IProps) {
 
     }
     const dragEnd =  (e: TouchEvent) => {
+        document.body.style.overflow = "auto";
         if(!userCheck) return;
         const target = e.target as HTMLElement;
         if((target !== userCheck) || (proc < 5)) {

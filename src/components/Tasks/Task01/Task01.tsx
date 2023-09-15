@@ -84,8 +84,7 @@ function Task01(props: IProps) {
         
         }
     }
-    const dragEnd = (e: React.TouchEvent<HTMLSpanElement>) =>{
-        e.preventDefault();
+    const dragEnd = () =>{
         if(targetDrag){
             if((targetDrag.style.top !== "50%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
@@ -111,7 +110,7 @@ function Task01(props: IProps) {
                                 <span onTouchStart={(e) => dragStart(e)}
                                 onTouchMove = {(e) => dragMove(e)}
                                 
-                                onTouchEnd = {(e) => dragEnd(e)}
+                                onTouchEnd = {() => dragEnd()}
                                 data-value = {index}
                                 style={{
                                     color: !item.check ? "#fff" : checkClick ? (answerIndex === "2") ? "#008C95" : "#C00000" : "#008C95", position: item.check ? "absolute" : "static", fontSize : (answerIndex === "1" && index === 1) ? "20px" : "25px"}} 
