@@ -13917,16 +13917,6 @@ const Mc = "_taskInfo_1kwbn_1",
           stroke: "white",
           strokeWidth: ".8",
           strokeLinecap: "round",
-          children: i.jsx("animate", {
-            id: `${e.id}Animate`,
-            attributeName: "stroke-dasharray",
-            values: "0 382 0 382; 764 0 0 0",
-            dur: ".6s",
-            repeatCount: "1",
-            fill: "freeze",
-            calcMode: "linear",
-            begin: `${e.id}.click`,
-          }),
         }),
       }),
     });
@@ -13940,11 +13930,11 @@ function Tc(e) {
     };
   let a;
   const c = (d) => {
-      a = d.target;
+      (a = d.target), (document.body.style.overflow = "hidden");
     },
     m = (d) => {
       var v;
-      if (!a) return;
+      if (((document.body.style.overflow = "auto"), !a)) return;
       const p = d.target;
       p === a &&
         (o("name1", (v = p.getAttribute("id")) == null ? void 0 : v.slice(3)),
