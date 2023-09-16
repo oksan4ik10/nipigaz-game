@@ -17,7 +17,6 @@ function Task12(props: IProps) {
     const rotate = useRef(0);
     const origin = useRef(50)
     const styleTransform = {
-        transform: `rotateZ(${rotate.current}deg)`,
         transformOrigin: `${origin.current}% 50%`
 
     }
@@ -38,18 +37,13 @@ function Task12(props: IProps) {
     const [y, setY] = useState(0);
 
     const [newUserCheck, setNewUserCheck] = useState(0);
-    const [deg, setDeg] = useState(0);
+
+    let targetData : HTMLElement|null;
 
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) =>{
         const data = e.changedTouches[0]; 
         const target = data.target as HTMLElement;
-        const span = target.closest("span");
-        console.log(target);
-        
-        if(!span) return;
-        console.log(span);
-        
-        
+        targetData = target.closest(`.${styles.arrows}`);
         setX(data.clientX);
         setY(data.clientY);
         document.body.style.overflow = "hidden";
@@ -58,38 +52,19 @@ function Task12(props: IProps) {
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) =>{
         
         const data = e.changedTouches[0]; 
-
+        const target = data.target as HTMLElement;
+        targetData = target.closest(`.${styles.arrows}`);
         const newX = data.clientX, newY = data.clientY;
         if(rotate.current > 180) origin.current = 55;
         else origin.current = 53;
 
-        
-        if(rotate.current >=0){
-            setDeg(rotate.current % 360)
-        } else{
-            setDeg(360 + (rotate.current % 360))
-        }
-
-        const degMod = deg % 360;
-        const chetvert = (degMod >=0 && degMod <90) ? 1 : (degMod >= 90 && degMod < 180) ? 2 : (degMod >=270) ? 4 : 3;
-            if((chetvert === 1) && (x <= newX) && (y >= newY)) rotate.current = rotate.current + 2;
-            else if ((chetvert === 2) && (x <= newX) && (y <= newY)) rotate.current = rotate.current + 2;
-            else if ((chetvert === 3) && (x >= newX) && (y <= newY)) rotate.current = rotate.current + 2;
-            else if((chetvert === 4) && (x >= newX) && (y >= newY)) rotate.current = rotate.current + 2;
-            else rotate.current = rotate.current - 2;
-
-
-    
-            setX(newX);
-            setY(newY);
-
-
-
-
-    }
-    const dragEnd = () =>{
-        document.body.style.overflow = "auto";
         let newAnswer: number;
+        let deg: number;
+        if(rotate.current >=0){
+            deg = rotate.current % 360;
+         } else{
+             deg = 360 + (rotate.current % 360);
+         }
         const mod = Math.floor(deg / 30);
 
         if(deg % 30 > 15) newAnswer = mod*30 + 30;
@@ -107,13 +82,39 @@ function Task12(props: IProps) {
                 return item;
             })
             setNewUserCheck(newAnswer);
-            if(newAnswer === 180){
+        }
+
+        
+
+
+        const degMod = deg % 360;
+        const chetvert = (degMod >=0 && degMod <90) ? 1 : (degMod >= 90 && degMod < 180) ? 2 : (degMod >=270) ? 4 : 3;
+            if((chetvert === 1) && (x <= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+            else if ((chetvert === 2) && (x <= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+            else if ((chetvert === 3) && (x >= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+            else if((chetvert === 4) && (x >= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+            else rotate.current = rotate.current - 2;
+            if(targetData) {
+                targetData.style.setProperty("--rotate", `${rotate.current}deg`);
+            }
+
+    
+            setX(newX);
+            setY(newY);
+
+
+
+
+    }
+    const dragEnd = () =>{
+        document.body.style.overflow = "auto";
+
+            if(newUserCheck === 180){
                 dispatch(setCheckAnswer("true"));
             } else {
                 dispatch(setCheckAnswer("false"));
             }
-            
-        }
+
 
 
         selectAnswer(true);
@@ -125,16 +126,16 @@ function Task12(props: IProps) {
     <>
                 <div className={styles.taskInfo}>
                 {checkClick && <OpacityTask/>}
-                <div className={styles.clock} onTouchStart={(e) => dragStart(e)}
-                        onTouchMove={(e) => dragMove(e)}
-                        onTouchEnd={() => dragEnd()}>
+                <div className={styles.clock} >
                     <div className={styles.numbers} >
                         {arrAnswers.current.map((item, index) => {
                         return <span data-value = {item.value} key = {index} className={item.check ? styles.check : ""}>{item.value}</span>
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform} >
-                        <div className={styles.hour} >
+                        <div className={styles.hour} onTouchStart={(e) => dragStart(e)}
+                        onTouchMove={(e) => dragMove(e)}
+                        onTouchEnd={() => dragEnd()}>
                             <img src={imgUrlHour} alt="hour" />
                         </div>
                     </div>
