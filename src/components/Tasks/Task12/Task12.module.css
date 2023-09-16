@@ -78,7 +78,7 @@
     align-items: center;
     width: 90px;
     height: 90px;
-    transform: rotate(0deg);
+    transform: rotateZ(0deg);
     z-index: 2;
     transform-origin: 53% 50%;
     transition: .4s ease;
