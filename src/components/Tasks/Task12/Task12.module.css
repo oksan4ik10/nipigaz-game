@@ -26,6 +26,7 @@
     top: 0;
     left: 0;
     opacity: .5;
+    color: #fff;
 }
 .numbers>span.check {
     opacity: 1;
@@ -73,13 +74,11 @@
 
 .arrows{
     position: absolute;
-    top: 50%;
-    left: 50%;
     display: flex;
     align-items: center;
     width: 90px;
     height: 90px;
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: rotate(0deg);
     z-index: 2;
     transform-origin: 53% 50%;
     transition: .4s ease;

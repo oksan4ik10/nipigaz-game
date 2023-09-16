@@ -2,18 +2,6 @@ import styles from "./Task12.module.css";
 import { useRef, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
-import imgUrlSpan1 from  "../../../assets/images/numbers/1.svg";
-import imgUrlSpan2 from  "../../../assets/images/numbers/2.svg";
-import imgUrlSpan3 from  "../../../assets/images/numbers/3.svg";
-import imgUrlSpan4 from  "../../../assets/images/numbers/4.svg";
-import imgUrlSpan5 from  "../../../assets/images/numbers/5.svg";
-import imgUrlSpan6 from  "../../../assets/images/numbers/6.svg";
-import imgUrlSpan7 from  "../../../assets/images/numbers/7.svg";
-import imgUrlSpan8 from  "../../../assets/images/numbers/8.svg";
-import imgUrlSpan9 from  "../../../assets/images/numbers/9.svg";
-import imgUrlSpan10 from  "../../../assets/images/numbers/10.svg";
-import imgUrlSpan11 from  "../../../assets/images/numbers/11.svg";
-import imgUrlSpan12 from  "../../../assets/images/numbers/12.svg";
 import imgUrlHour from "../../../assets/images/numbers/hour.svg";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 interface IProps {
@@ -26,25 +14,25 @@ function Task12(props: IProps) {
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
 
-    const [rotate, setRotate] = useState(0);
+    const rotate = useRef(0);
     const origin = useRef(50)
     const styleTransform = {
-        transform: `translate(-50%, -50%) rotate(${rotate}deg)`,
+        transform: `rotate(${rotate.current}deg)`,
         transformOrigin: `${origin.current}% 50%`
 
     }
-    const arrAnswers = useRef( [{src: imgUrlSpan1, check: false, deg: 120}, 
-        {src: imgUrlSpan2, check: false, deg: 150},
-        {src: imgUrlSpan3, check: false, deg: 180},
-        {src: imgUrlSpan4, check: false, deg: 210},
-        {src: imgUrlSpan5, check: false, deg: 240},
-        {src: imgUrlSpan6, check: false, deg: 270},
-        {src: imgUrlSpan7, check: false, deg: 300},
-        {src: imgUrlSpan8, check: false, deg: 330},
-        {src: imgUrlSpan9, check: true, deg: 0},
-        {src: imgUrlSpan10, check: false, deg: 30},
-        {src: imgUrlSpan11, check: false, deg: 60},
-        {src: imgUrlSpan12, check: false, deg: 90}]);
+    const arrAnswers = useRef( [{value: 1, check: false, deg: 120}, 
+        {value: 2, check: false, deg: 150},
+        {value: 3, check: false, deg: 180},
+        {value: 4, check: false, deg: 210},
+        {value: 5, check: false, deg: 240},
+        {value: 6, check: false, deg: 270},
+        {value: 7, check: false, deg: 300},
+        {value: 8, check: false, deg: 330},
+        {value: 9, check: true, deg: 0},
+        {value: 10, check: false, deg: 30},
+        {value: 11, check: false, deg: 60},
+        {value: 12, check: false, deg: 90}]);
 
     const [x, setX] = useState(0);
     const [y, setY] = useState(0);
@@ -61,20 +49,31 @@ function Task12(props: IProps) {
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) =>{
         
         const data = e.changedTouches[0]; 
+
         const newX = data.clientX, newY = data.clientY;
-        if(rotate > 180) origin.current = 55;
+        if(rotate.current > 180) origin.current = 55;
         else origin.current = 53;
         let newAnswer: number;
         let deg: number;
-        if(rotate >=0){
-          deg = rotate % 360;
+        if(rotate.current >=0){
+          deg = rotate.current % 360;
         } else{
-            deg = 360 + (rotate % 360);
+            deg = 360 + (rotate.current % 360);
         }
+
+        const degMod = deg % 360;
+        const chetvert = (degMod >=0 && degMod <90) ? 1 : (degMod >= 90 && degMod < 180) ? 2 : (degMod >=270) ? 4 : 3;
+        if((chetvert === 1) && (x <= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+        else if ((chetvert === 2) && (x <= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+        else if ((chetvert === 3) && (x >= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+        else if((chetvert === 4) && (x >= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+        else rotate.current = rotate.current - 2;
+
         const mod = Math.floor(deg / 30);
         if(deg % 30 > 15) newAnswer = mod*30 + 30;
         else newAnswer = mod*30;
         if(newAnswer === 360) newAnswer = 0;
+    
     
         if(newAnswer !== newUserCheck) {
             arrAnswers.current = arrAnswers.current.map((item) => {
@@ -84,18 +83,7 @@ function Task12(props: IProps) {
             })
             setNewUserCheck(newAnswer);
         }
-        if((
-                ((((deg % 360 >=0)&&(deg % 360 <= 90)) || (deg % 360 > 270)) && (newY <= y)
-                ) || 
-                ((deg % 360 > 90) && (deg % 360 <= 270) && (newY >= y)
-                )) && ((deg % 360 >= 0 && deg % 360 <= 180 && newX >= x) || ((deg % 360 > 180 && newX <= x)))) 
-                setRotate(rotate + 2);
-        
-            else {
-                setRotate(rotate - 2);
-    
-            } 
-        
+
 
         setX(newX);
         setY(newY);
@@ -119,7 +107,7 @@ function Task12(props: IProps) {
                 <div className={styles.clock}>
                     <div className={styles.numbers}>
                         {arrAnswers.current.map((item, index) => {
-                        return <span key = {index} className={item.check ? styles.check : ""}><img src={item.src} alt={index + 1 + ""} /></span>
+                        return <span key = {index} className={item.check ? styles.check : ""}>{item.value}</span>
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform}>
