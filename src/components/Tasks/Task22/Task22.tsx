@@ -49,20 +49,20 @@ function Task22(props: IProps) {
                         {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Обведи календарь с верным годом</h4>
                         <form className={styles.form} onChange={(clickFormTest)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-                            <label className={styles.label}>
-                                <input type="radio" className={styles.input + " " + styles.value1} value={1} {...register("name1")}/>
+                            <label className={styles.label + " " + styles.value1}>
+                                <input type="radio" className={styles.input} value={1} {...register("name1")}/>
                                <StrokeAnswer id={"svg1"}/>
                             </label>
-                            <label className={styles.label}>
-                                <input type="radio" className={styles.input + " " + styles.value2} value={2} {...register("name1")}/>
+                            <label className={styles.label + " " + styles.value2} >
+                                <input type="radio" className={styles.input} value={2} {...register("name1")}/>
                                 <StrokeAnswer id={"svg2"}/>
                             </label>
-                            <label className={styles.label}>
-                                <input type="radio" className={styles.input + " " + styles.value3} value={3} {...register("name1")}/>
+                            <label className={styles.label + " " + styles.value3}>
+                                <input type="radio" className={styles.input} value={3} {...register("name1")}/>
                                 <StrokeAnswer id={"svg3"}/>
                             </label>
-                            <label className={styles.label}>
-                                <input type="radio" className={styles.input + " " + styles.value4} value={4} {...register("name1")}/>
+                            <label className={styles.label + " " + styles.value4}>
+                                <input type="radio" className={styles.input} value={4} {...register("name1")}/>
                                 <StrokeAnswer id={"svg4"}/>
                             </label>
 
