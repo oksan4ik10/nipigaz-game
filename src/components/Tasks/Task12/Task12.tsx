@@ -38,19 +38,10 @@ function Task12(props: IProps) {
     const [y, setY] = useState(0);
 
     const [newUserCheck, setNewUserCheck] = useState(0);
-    const [answer, setAnswer] = useState(9);
-    let checkDrag = false;
+
 
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) =>{
         const data = e.changedTouches[0]; 
-        const target = data.target as HTMLElement;
-
-        const span = target.closest("span");
-        const spanTarget = span ? Number(span.getAttribute("data-value")) === answer : false; 
-        checkDrag = !((spanTarget) || (target.closest("img")))
-        if(checkDrag){
-            return
-        }
         setX(data.clientX);
         setY(data.clientY);
         document.body.style.overflow = "hidden";
@@ -59,9 +50,6 @@ function Task12(props: IProps) {
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) =>{
         
         const data = e.changedTouches[0]; 
-        if(checkDrag){
-            return
-        }
 
         const newX = data.clientX, newY = data.clientY;
         if(rotate.current > 180) origin.current = 55;
@@ -76,33 +64,38 @@ function Task12(props: IProps) {
 
         const degMod = deg % 360;
         const chetvert = (degMod >=0 && degMod <90) ? 1 : (degMod >= 90 && degMod < 180) ? 2 : (degMod >=270) ? 4 : 3;
-        if((chetvert === 1) && (x <= newX) && (y >= newY)) rotate.current = rotate.current + 2;
-        else if ((chetvert === 2) && (x <= newX) && (y <= newY)) rotate.current = rotate.current + 2;
-        else if ((chetvert === 3) && (x >= newX) && (y <= newY)) rotate.current = rotate.current + 2;
-        else if((chetvert === 4) && (x >= newX) && (y >= newY)) rotate.current = rotate.current + 2;
-        else rotate.current = rotate.current - 2;
-
-        const mod = Math.floor(deg / 30);
-        if(deg % 30 > 15) newAnswer = mod*30 + 30;
-        else newAnswer = mod*30;
-        if(newAnswer === 360) newAnswer = 0;
+        try{
+            if((chetvert === 1) && (x <= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+            else if ((chetvert === 2) && (x <= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+            else if ((chetvert === 3) && (x >= newX) && (y <= newY)) rotate.current = rotate.current + 2;
+            else if((chetvert === 4) && (x >= newX) && (y >= newY)) rotate.current = rotate.current + 2;
+            else rotate.current = rotate.current - 2;
+        } finally{
+            const mod = Math.floor(deg / 30);
+            if(deg % 30 > 15) newAnswer = mod*30 + 30;
+            else newAnswer = mod*30;
+            if(newAnswer === 360) newAnswer = 0;
+        
+        
+            if(newAnswer !== newUserCheck) {
+                arrAnswers.current = arrAnswers.current.map((item) => {
+                    if (item.deg === newAnswer) {
+                        item.check = true;
+                       
+                    }
+                    else item.check = false;
+                    return item;
+                })
+                setNewUserCheck(newAnswer);
+            }
     
     
-        if(newAnswer !== newUserCheck) {
-            arrAnswers.current = arrAnswers.current.map((item) => {
-                if (item.deg === newAnswer) {
-                    item.check = true;
-                    setAnswer(item.value);
-                }
-                else item.check = false;
-                return item;
-            })
-            setNewUserCheck(newAnswer);
+            setX(newX);
+            setY(newY);
         }
 
 
-        setX(newX);
-        setY(newY);
+
 
     }
     const dragEnd = () =>{
@@ -120,19 +113,17 @@ function Task12(props: IProps) {
     <>
                 <div className={styles.taskInfo}>
                 {checkClick && <OpacityTask/>}
-                <div className={styles.clock} onTouchStart={(e) => dragStart(e)}
-                        onTouchMove={(e) => dragMove(e)}
-                        onTouchEnd={() => dragEnd()}>
+                <div className={styles.clock} >
                     <div className={styles.numbers} >
                         {arrAnswers.current.map((item, index) => {
                         return <span data-value = {item.value} key = {index} className={item.check ? styles.check : ""}>{item.value}</span>
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform} >
-                        <div className={styles.hour} 
-                        
-                        >
-                            <img src={imgUrlHour} alt="hour" />
+                        <div className={styles.hour} >
+                            <img src={imgUrlHour} alt="hour" onTouchStart={(e) => dragStart(e)}
+                        onTouchMove={(e) => dragMove(e)}
+                        onTouchEnd={() => dragEnd()}/>
                         </div>
                     </div>
                     <div className={styles.minutes}>
