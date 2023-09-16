@@ -19,7 +19,7 @@ function Task22(props: IProps) {
 
     const clickFormTest = ()=>{
         const {name1} = getValues();
-        selectAnswer(true); //пользователь выбрал хотя бы один вариант
+        selectAnswer(true);
         if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
         } else {
@@ -31,8 +31,10 @@ function Task22(props: IProps) {
     
     const onTouchStart = (e: TouchEvent) => {
         userCheck = e.target as HTMLElement;
+        document.body.style.overflow = "hidden";
     }
     const onTouchEnd =  (e: TouchEvent) => {
+        document.body.style.overflow = "auto";
         if(!userCheck) return;
         const target = e.target as HTMLElement;
         if(target === userCheck) {
