@@ -78,11 +78,10 @@
     display: flex;
     align-items: center;
     width: 90px;
-    height: 200px;
-    transform: rotateZ(var(--rotate));
+    height: auto;
+    
     z-index: 9;
-    transform-origin: 53% 50%;
-    transition: .4s ease;
+
 }
 .minutes{
     position: absolute;
@@ -92,3 +91,12 @@
 
 }
 
+.hour{
+    --rotate: 0deg;
+    transform: rotate(var(--rotate));
+    transform-origin: 48px 50%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+
+}

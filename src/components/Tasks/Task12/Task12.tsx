@@ -43,7 +43,7 @@ function Task12(props: IProps) {
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) =>{
         const data = e.changedTouches[0]; 
         const target = data.target as HTMLElement;
-        targetData = target.closest(`.${styles.arrows}`);
+        targetData = target.closest(`.${styles.hour}`);
         setX(data.clientX);
         setY(data.clientY);
         document.body.style.overflow = "hidden";
@@ -53,7 +53,7 @@ function Task12(props: IProps) {
         
         const data = e.changedTouches[0]; 
         const target = data.target as HTMLElement;
-        targetData = target.closest(`.${styles.arrows}`);
+        targetData = target.closest(`.${styles.hour}`);
         const newX = data.clientX, newY = data.clientY;
         if(rotate.current > 180) origin.current = 55;
         else origin.current = 53;
