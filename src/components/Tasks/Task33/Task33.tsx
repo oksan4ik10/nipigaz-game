@@ -77,6 +77,7 @@ function Task33(props: IProps) {
         targetDrag.style.top = y + "px";
     }
     const dragMove = (e: React.TouchEvent<HTMLImageElement>) => {
+        e.preventDefault();
         const data = e.changedTouches[0]; 
         targetDrag = e.changedTouches[0].target as HTMLElement; 
         const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);

@@ -54,6 +54,7 @@ function Task21(props: IProps) {
     }
 
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        e.preventDefault();
         const data = e.changedTouches[0];
         if(targetDrag){
             const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);

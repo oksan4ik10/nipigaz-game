@@ -59,6 +59,7 @@ function Task31(props: IProps) {
     }
 
     const dragMove = (e: TouchEvent) =>{
+        e.preventDefault();
         const data = e.changedTouches[0];
         
         if(targetDrag){

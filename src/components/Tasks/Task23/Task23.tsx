@@ -59,16 +59,6 @@ function Task23(props: IProps) {
                             </div>
                             <Answer click={updateAnswer1} value = {answer1} className = {styles.number} />
                             <Answer click={updateAnswer2} value = {answer2} className = {styles.number} />
-                            {/* <div className={styles.number}>
-                                <img src={imgUrlArrow} alt="arrowUp" />
-                                2
-                                <img src={imgUrlArrow} alt="arrowDown" />
-                            </div>
-                            <div className={styles.number}>
-                                <img src={imgUrlArrow} alt="arrowUp" />
-                                2
-                                <img src={imgUrlArrow} alt="arrowDown" />
-                            </div> */}
 
                             <img src={imgUrlLast} alt="code" className={styles.code}/>
                             <p className={styles.text}>МЛРД М<span>3</span></p>

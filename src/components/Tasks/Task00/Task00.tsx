@@ -15,6 +15,7 @@ function Task00(props: IProps) {
 
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        e.preventDefault();
         const el  = e.currentTarget;
         setChecked(+el.value);
         selectAnswer(true);

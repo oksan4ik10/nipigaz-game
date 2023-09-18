@@ -55,6 +55,7 @@ function Task01(props: IProps) {
     }
 
     const dragMove = (e: React.TouchEvent<HTMLSpanElement>) =>{
+        e.preventDefault();
         const data = e.changedTouches[0];
         if(targetDrag){
             if((targetDrag.style.top === "50%")) return;
