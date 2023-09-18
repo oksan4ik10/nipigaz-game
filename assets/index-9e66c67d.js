@@ -11478,6 +11478,7 @@ function Vu(e) {
     r = M1(),
     { selectAnswer: l, checkClick: s } = e,
     o = (u) => {
+      u.preventDefault();
       const a = u.currentTarget;
       n(+a.value), l(!0), a.value === "2" ? r(Y("true")) : r(Y("false"));
     };
@@ -11580,6 +11581,7 @@ function Yu(e) {
         (d.style.top = C + "px");
     },
     v = (x) => {
+      x.preventDefault();
       const A = x.changedTouches[0];
       if (d) {
         if (d.style.top === "50%") return;
@@ -13811,6 +13813,7 @@ function Mc(e) {
       (v.style.left = f + "px"), (v.style.top = h + "px");
     },
     x = (C) => {
+      C.preventDefault();
       const f = C.changedTouches[0];
       if (v) {
         const h = f.clientY - p - v.offsetHeight / 2,
@@ -16248,6 +16251,7 @@ function Xc(e) {
       }
     },
     v = (x) => {
+      x.preventDefault();
       const A = x.changedTouches[0];
       if (d) {
         if (d.style.top === "30%") return;
@@ -16565,6 +16569,7 @@ function of(e) {
         (d.style.top = w + "px");
     },
     x = (C) => {
+      C.preventDefault();
       const f = C.changedTouches[0];
       d = C.changedTouches[0].target;
       const h = f.clientY - m - d.offsetHeight / 2,
