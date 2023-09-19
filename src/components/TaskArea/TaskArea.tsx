@@ -114,7 +114,7 @@ function TaskArea(props: IProps) {
                 <div className="task__head">
                     <div className="task__heading" style = {stylesPadding}>
                         <div className="task__points">{userAnswerTask === "wait" ? (arrActiveQuestion[1] + 1) * 100 : <Lamp check = {userAnswerTask === "true"}/>}</div>
-                        <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles}>{!checkClick ? question:answer}</h3>
+                        <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles} dangerouslySetInnerHTML={!checkClick ? {__html: question} : {__html: answer}}></h3>
                     </div>
                 </div>
 

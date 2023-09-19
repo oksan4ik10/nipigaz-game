@@ -40,6 +40,9 @@
     #root {
         background-position-x: 33%;
     }
+    .main__btn{
+        display: none;
+    }
 }
 .main {
   display: grid;
