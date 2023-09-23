@@ -35,27 +35,38 @@ function Task01(props: IProps) {
 
     
     let targetDrag: HTMLElement|undefined;
+    const start = () =>{
+        if(targetDrag){
+            if(targetDrag.style.position ==="absolute") return;
+            targetDrag.style.left = "auto";
+            targetDrag.style.top = "auto";
+            targetDrag.style.transform = "none";
+            
+            targetDrag.style.position = "absolute";
+            let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
+            if(x < 0) x = targetDrag.offsetLeft
+            const y = targetDrag.offsetTop;
+            targetDrag.style.zIndex = "1";
+            targetDrag.style.left = x + "px";
+            targetDrag.style.top = y + "px";
+        }
 
+    }
+    const mouseStart = (e: React.MouseEvent<HTMLSpanElement>) => {
+        targetDrag = e.target as HTMLElement;
+        start();
+    }
     const dragStart = (e: React.TouchEvent<HTMLSpanElement>) =>{
         document.body.style.overflow = "hidden";
-
         targetDrag = e.changedTouches[0].target as HTMLElement;    
-        if(targetDrag.style.position ==="absolute") return;
-        targetDrag.style.left = "auto";
-        targetDrag.style.top = "auto";
-        targetDrag.style.transform = "none";
+        start();
+    }
+    const mouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
+        console.log(e);
         
-        targetDrag.style.position = "absolute";
-        let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
-        if(x < 0) x = targetDrag.offsetLeft
-        const y = targetDrag.offsetTop;
-        targetDrag.style.zIndex = "1";
-        targetDrag.style.left = x + "px";
-        targetDrag.style.top = y + "px";
     }
 
     const dragMove = (e: React.TouchEvent<HTMLSpanElement>) =>{
-        e.preventDefault();
         const data = e.changedTouches[0];
         if(targetDrag){
             if((targetDrag.style.top === "50%")) return;
@@ -118,7 +129,10 @@ function Task01(props: IProps) {
                             <div className={styles.taskAnswer} 
 
                             key={index}>
-                                <span onTouchStart={(e) => dragStart(e)}
+                                <span 
+                                onMouseDown={(e) => mouseStart(e)}
+                                onMouseMove={(e) => mouseMove(e)}
+                                onTouchStart={(e) => dragStart(e)}
                                 onTouchMove = {(e) => dragMove(e)}
                                 
                                 onTouchEnd = {() => dragEnd()}
