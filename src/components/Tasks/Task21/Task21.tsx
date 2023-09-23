@@ -29,6 +29,13 @@ function Task21(props: IProps) {
     const [saveResult, setSaveResult] = useState(false);
 
     const ref = useRef<HTMLDivElement>(null);
+    const refAnswer = useRef<HTMLDivElement>(null);
+    const dataAnswerPosition = {
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right:0
+    } 
     let stateX = 0, stateY = 0;
     useEffect(()=> {
         if(ref.current){
@@ -37,15 +44,22 @@ function Task21(props: IProps) {
           stateY = data.top;
             
         }
+        if(refAnswer.current) {
+            const data = refAnswer.current.getBoundingClientRect();
+            dataAnswerPosition.top = Math.round(data.top - stateY);
+            dataAnswerPosition.left = Math.round(data.left - stateX);
+            dataAnswerPosition.bottom = Math.round(dataAnswerPosition.top + data.height);
+            dataAnswerPosition.right = Math.round(dataAnswerPosition.left + data.width);
+        }
         
     })
 
     let targetDrag: HTMLElement| undefined;
+    const [targetDragLast, setTargetDrag]  = useState<HTMLElement | null>(null);
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
         document.body.style.overflow = "hidden"; 
         targetDrag = e.changedTouches[0].target as HTMLElement;
-        targetDrag.style.left = "auto";
-        targetDrag.style.top = "auto";
+        if(targetDrag.style.position === "absolute") return;
         targetDrag.style.position = "absolute";
         const x = targetDrag.offsetLeft;
         const y = targetDrag.offsetTop;
@@ -54,40 +68,43 @@ function Task21(props: IProps) {
     }
 
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) => {
-        e.preventDefault();
         const data = e.changedTouches[0];
         if(targetDrag){
             const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
             const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
-            if(((y > 40) && (y < 80)) && ((x > 40) && (x < 227))){
-
-                targetDrag.style.top = 40  + "px";
-                targetDrag.style.left = 114 + "px"; 
+            
+            if((((dataAnswerPosition.top - 10 < y) && (dataAnswerPosition.bottom + 10) > y)) && 
+            (dataAnswerPosition.left - 10 < x) && (dataAnswerPosition.right + 10 > x)){
+                targetDrag.style.left = dataAnswerPosition.left + "px";
+                targetDrag.style.top = dataAnswerPosition.top + "px";
+                if((targetDragLast) && (targetDragLast !== targetDrag)) {
+                    targetDragLast.style.position = "static";
+                    targetDragLast.style.left = "auto";
+                    targetDragLast.style.top = "auto";
+                }
+                
             }
+
 
             
         
         }
     }
-    const dragEnd = ( index: number) => {
+    const dragEnd = (index: number) => {
         document.body.style.overflow = "auto"; 
-       
-        if(targetDrag) {
-            targetDrag.style.position = "static";
-            if((targetDrag.style.top !== "40px")) return;
+        if(targetDrag){
+            if((targetDrag.offsetTop !== dataAnswerPosition.top) || (targetDrag.offsetLeft !== dataAnswerPosition.left)){
+                targetDrag.style.left = "auto";
+                targetDrag.style.top = "auto";
+                targetDrag.style.position = "static";
+                return;
+            }
 
         }
         selectAnswer(true);
-
-        setArrAnswers(arrAnswers.map((item, indexAnswer) => {
-            if(indexAnswer === index ) item.answer = true;
-            else item.answer = false;
-            return item
-        }))
-        setAnswer(arrAnswers[index]);
-   
+        if(targetDrag) setTargetDrag(targetDrag)
         if(index === 1){
             dispatch(setCheckAnswer("true"));
             setSaveResult(true);
@@ -109,10 +126,8 @@ function Task21(props: IProps) {
                                 <span>
                                     1
                                 </span>
-                                <div className={styles.answer} >
-                                    <div className={styles.zero + " " + (answer.answer ? "" : styles.none) + " " + 
-                                ( checkClick ? saveResult ? styles.success : styles.danger:"")} 
-                                >{answer.value}</div>
+                                <div className={styles.answer} ref = {refAnswer}>
+                                    
                                 </div>
                                 <span>+</span>
                             </div>
@@ -126,7 +141,7 @@ function Task21(props: IProps) {
                                 onTouchEnd={() => dragEnd(index)}
                                 className={styles.zero + " " + (item.answer ? styles.none : "") + " " + (
                                     checkClick ? saveResult ? styles.success : styles.danger:""
-                                )} >{item.value}</div></div>
+                                )} style={index===3 ? {width: "128px"} : {width: "auto"}}>{item.value}</div></div>
                             })}
                         </div>
                         
