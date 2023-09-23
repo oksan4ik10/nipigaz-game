@@ -35,6 +35,7 @@ function Task01(props: IProps) {
 
     
     let targetDrag: HTMLElement|undefined;
+    const startClick = useRef(false);
     const start = () =>{
         if(targetDrag){
             if(targetDrag.style.position ==="absolute") return;
@@ -54,6 +55,7 @@ function Task01(props: IProps) {
     }
     const mouseStart = (e: React.MouseEvent<HTMLSpanElement>) => {
         targetDrag = e.target as HTMLElement;
+        startClick.current = true;
         start();
     }
     const dragStart = (e: React.TouchEvent<HTMLSpanElement>) =>{
@@ -62,16 +64,25 @@ function Task01(props: IProps) {
         start();
     }
     const mouseMove = (e: React.MouseEvent<HTMLSpanElement>) => {
-        console.log(e);
-        
+        if(!startClick.current) return;
+        move(e.pageY, e.pageX, "mouse");
     }
-
     const dragMove = (e: React.TouchEvent<HTMLSpanElement>) =>{
         const data = e.changedTouches[0];
+        move(data.clientY, data.clientX, "");
+
+    }
+    const move = (clientY: number, clientX: number, device: string) =>{
         if(targetDrag){
             if((targetDrag.style.top === "50%")) return;
-            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+            let x: number, y: number;
+            if (device === "phone") {
+                y = clientY  - stateY - (targetDrag.offsetHeight / 2);
+                x = clientX - stateX - (targetDrag.offsetWidth / 2);
+            } else{
+                y = clientY  - stateY - (targetDrag.offsetHeight / 2) + 5;
+                x = clientX - stateX - (targetDrag.offsetWidth / 2);
+            }
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 14) && (y < 140)) && ((x > 90) && (x < 170))){
@@ -102,20 +113,26 @@ function Task01(props: IProps) {
             }
         
         }
+
+    }
+
+    const mouseEnd = () => {
+        startClick.current = false;
+        end();
+
     }
     const dragEnd = () =>{
         document.body.style.overflow = "auto";
+        end();
+    }
+    const end = () => {
         if(targetDrag){
             if((targetDrag.style.top !== "50%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
-
-
                 return;
             }
 
         }
-        
-        
     }
 
 
@@ -132,6 +149,7 @@ function Task01(props: IProps) {
                                 <span 
                                 onMouseDown={(e) => mouseStart(e)}
                                 onMouseMove={(e) => mouseMove(e)}
+                                onMouseUp = {() => mouseEnd()}
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove = {(e) => dragMove(e)}
                                 

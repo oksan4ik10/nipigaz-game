@@ -31,6 +31,7 @@
     font-size: 25px;
     font-weight: 700;
     letter-spacing: 0.5px;
+    cursor: grabbing;
 }
 span.danger{
     color: #C00000;
