@@ -27,17 +27,19 @@ function Task22(props: IProps) {
         }
     }
 
-    let userCheck: HTMLElement | undefined = undefined; 
+    let userCheck: HTMLElement | null = null; 
     
     const onTouchStart = (e: TouchEvent) => {
-        userCheck = e.target as HTMLElement;
+        const target = e.target as HTMLElement;
+        userCheck = target.closest("label");
         document.body.style.overflow = "hidden";
     }
     const onTouchEnd =  (e: TouchEvent) => {
         document.body.style.overflow = "auto";
         if(!userCheck) return;
         const target = e.target as HTMLElement;
-        if(target === userCheck) {
+        const answer = target.closest("label");
+        if(answer === userCheck) {
             setValue('name1', target.getAttribute("id")?.slice(3));
             clickFormTest();
         }
