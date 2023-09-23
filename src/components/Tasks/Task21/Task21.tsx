@@ -12,7 +12,7 @@ function Task21(props: IProps) {
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick} = props;
 
-    const [arrAnswers, setArrAnswers] = useState([
+    const arrAnswers = [
         {value: "0",
         answer:false},
         {value: "00",
@@ -21,10 +21,7 @@ function Task21(props: IProps) {
         answer:false},
         {value: "0000",
         answer:false},
-    ]);
-
-    const [answer, setAnswer] = useState({value: "",
-    answer: false});
+    ];
 
     const [saveResult, setSaveResult] = useState(false);
 
