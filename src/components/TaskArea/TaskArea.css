@@ -28,7 +28,7 @@
     border-radius: 15px;
     border: 5px solid #FFF;
     background: #008C95;
-    padding: 120px 15px 30px 21px;
+    padding: 120px 15px 0px 21px;
 }
 .task__head{
     position: absolute;
