@@ -15,6 +15,7 @@
 }
 .task>.taskAnswer{
     z-index: 3;
+    cursor: grabbing;
 }
 .task>.taskAnswer:nth-child(odd)
 {
