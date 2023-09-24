@@ -4,7 +4,7 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 import { Images } from './Images';
-import { TouchEvent } from 'react';
+import { TouchEvent, MouseEvent } from 'react';
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
@@ -32,13 +32,10 @@ function Task31(props: IProps) {
 
     
     let targetDrag: HTMLElement|null;
+    const startClick = useRef(false);
     
-
-    const dragStart = (e: TouchEvent) =>{
-        document.body.style.overflow = "hidden";
-        const t = e.changedTouches[0].target as HTMLElement;   
+    const start = (t: HTMLElement) => {
         targetDrag = t.closest("div");
-        
         if(targetDrag){
             if(targetDrag.style.position ==="absolute") return;
             targetDrag.style.left = "auto";
@@ -55,17 +52,26 @@ function Task31(props: IProps) {
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
         }
+    }
+    const mouseStart = (e: MouseEvent<HTMLDivElement>) => {
+        const t = e.target as HTMLElement;
+        startClick.current = true;
+        start(t);
+        
+    }
+    const dragStart = (e: TouchEvent) =>{
+        document.body.style.overflow = "hidden";
+        const t = e.changedTouches[0].target as HTMLElement;   
+        start(t);
 
     }
 
-    const dragMove = (e: TouchEvent) =>{
-        e.preventDefault();
-        const data = e.changedTouches[0];
-        
+    const move = (clientY: number, clientX: number) =>{
+
         if(targetDrag){
             if((targetDrag.style.top === "30%")) return;
-            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+            const y = clientY  - stateY - (targetDrag.offsetHeight / 2);
+            const x = clientX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if(((y > 20) && (y < 70)) && ((x > 120) && (x < 145))){
@@ -76,6 +82,7 @@ function Task31(props: IProps) {
                 targetDrag.style.height = "18px";
                 targetDrag.style.width = "65px";
                 targetDrag.style.overflow = "hidden";
+
                 if(value) {
                     if (arrAnswers[+value]) return;
                     setArrAnswers( arrAnswers.map((item, index)=> {
@@ -83,7 +90,16 @@ function Task31(props: IProps) {
                         else item = false;
                         return item
                     }))
-                    setAnswerIndex(value);
+                    if(value !== "-1") {
+                        if(value === "0"){
+                            dispatch(setCheckAnswer("true"));
+                        } else {
+                            dispatch(setCheckAnswer("false"));
+                        }  
+                            selectAnswer(true);
+                            setAnswerIndex(value);
+                    }
+                    
                 }
 
                 
@@ -91,9 +107,21 @@ function Task31(props: IProps) {
             } 
         
         }
+
+
     }
-    const dragEnd = () =>{
-        document.body.style.overflow = "auto";
+    const mouseMove = (e: MouseEvent<HTMLDivElement>) => {
+        if(!startClick) return;
+        move(e.pageY, e.pageX);
+    }
+
+    const dragMove = (e: TouchEvent) =>{
+        const data = e.changedTouches[0];
+        move(data.clientY, data.clientX);    
+
+    }
+
+    const end = () =>{
         if(targetDrag){
             if((targetDrag.style.top !== "30%") && (targetDrag.style.left !== "50%")){
                 targetDrag.style.position = "static";
@@ -101,22 +129,24 @@ function Task31(props: IProps) {
             }
             return;
         }
-        if(answerIndex !== "-1") {
-            if(answerIndex === "0"){
-                dispatch(setCheckAnswer("true"));
-            } else {
-                dispatch(setCheckAnswer("false"));
-            }  
-                selectAnswer(true);
+
+    }
+
+    const mouseUp = () =>{        
+        if(targetDrag){
+            if((targetDrag.style.top !== "30%") && (targetDrag.style.left !== "50%")){
+                targetDrag.style.position = "static";
+            }
         }
+        
+    }
+
+    const dragEnd = () =>{
+        document.body.style.overflow = "auto";
+        end();
 
 
     }
-        
-        
-
-
-
   return (
     <>
                 <div className={styles.taskInfo}>
@@ -128,7 +158,11 @@ function Task31(props: IProps) {
 
                             key={index}>
 
-                                <Images index={index} color={checkClick ?  answerIndex === "0" ? "#99CC00" : "#C00000" : "#008C95"} 
+                                <Images index={index} color={checkClick ?  answerIndex === "0" ? "#99CC00" : "#C00000" : "#008C95"}
+                                onMouseUp = {() => mouseUp()}
+                                
+                                onMouseDown={(e) => mouseStart(e)}
+                                onMouseMove={(e) => mouseMove(e)}
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove = {(e) => dragMove(e)}
                                 onTouchEnd = {() => dragEnd()}
