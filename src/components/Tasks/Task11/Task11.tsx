@@ -3,6 +3,7 @@ import {useRef, useEffect, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
+import { MouseEvent } from 'react';
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
@@ -65,73 +66,108 @@ function Task11(props: IProps) {
     
     let stateX = 0, stateY = 0, width = 0;
     let targetDrag: SVGSVGElement | null;
+    const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<SVGSVGElement>) => {
-        e.preventDefault();
         document.body.style.overflow = "hidden"; 
         const data = e.changedTouches[0]; 
         const t = e.changedTouches[0].target as HTMLElement;
+        start(t, data.clientX, data.clientY);
+    }
+    const mouseStart = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        startClick.current = true;
+        start(target, e.pageX, e.pageY)
+    }
+    const start = (t: HTMLElement, clientX: number, clientY: number) => {
         targetDrag = t.closest("svg");
         checkBg.current = "transparent";
         if(targetDrag){
             targetDrag.style.position = "absolute";
             width = targetDrag.width.animVal.value;
-            const y = data.clientY  - stateY;
-            const x = data.clientX - stateX - (width / 2);
+            const y = clientY  - stateY;
+            const x = clientX - stateX - (width / 2);
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px"; 
         }
-        
-
     }
     const dragMove = (e: React.TouchEvent<SVGSVGElement>) => {
-        e.preventDefault();
-        const data = e.changedTouches[0]; 
-        const y = data.clientY  - stateY;
-        const x = data.clientX - stateX - (width / 2);
+        const data = e.changedTouches[0];
+        move(data.clientX, data.clientY); 
+    }
+    const mouseMove = (e: MouseEvent) => {
+        if(!startClick.current) return;
+        move(e.pageX, e.pageY);
+    }
+    const move = (clientX: number, clientY: number) => {
+        const y = clientY  - stateY;
+        const x = clientX - stateX - (width / 2);
+
+        let xNew: number = x;
+        if(xNew < 32) xNew = 33
+        else if (xNew > 300) xNew = 299;
+        let yNew: number = y;
+        if(yNew < -15) yNew = -15
+        else if (yNew > 112) yNew = 112;
+
         checkBg.current = "transparent";
         if(targetDrag){
-            if((x > 52) &&  (x < 223)) targetDrag.style.left = x + "px";
-            if( (y > -15) && (y < 112)) targetDrag.style.top = y + "px";
+            if((xNew > 32) &&  (xNew < 300)) targetDrag.style.left = xNew + "px";
+            else targetDrag.style.left = 299 + "px";
+            if( (yNew > -15) && (yNew < 112)) targetDrag.style.top = yNew + "px";
+            
         }
-
-
     }
     const dragEnd = () => {
         document.body.style.overflow = "auto"; 
+        end();
+    }
+
+
+    const mouseUp = () => {
+        startClick.current = false;     
+        end();
+         
+    }
+    const mouseOut = () => {
+        if(!startClick.current) return;
+        startClick.current = false;
+        end();
+    }
+    const end = () => {
         if(targetDrag){
-           const x = parseInt(targetDrag.style.left);
-           const y = parseInt(targetDrag.style.top);
-           let j = -3;
-           answerXY.forEach((item, index)=> {
-            if((((item.left + 4) >= x) && ((item.left - 4) <=x)) && (((item.top + 19) >= y)&&((item.top - 7) <= y))) {
-                selectAnswer(true);
-                checkBg.current = "#fff";
-                j = index;
-                if(j === 3){
-                    dispatch(setCheckAnswer("true"));
-                    setAnswer(true);
-                } else {
-                    dispatch(setCheckAnswer("false"));
-                    setAnswer(false);
-                }
+            const x = parseInt(targetDrag.style.left);
+            const y = parseInt(targetDrag.style.top);
+            let j = -3;
+            answerXY.forEach((item, index)=> {
+             if((((item.left + 4) >= x) && ((item.left - 4) <=x)) && (((item.top + 19) >= y)&&((item.top - 7) <= y))) {
+                 selectAnswer(true);
+                 checkBg.current = "#fff";
+                 j = index;
+                 if(j === 3){
+                     dispatch(setCheckAnswer("true"));
+                     setAnswer(true);
+                 } else {
+                     dispatch(setCheckAnswer("false"));
+                     setAnswer(false);
+                 }
+                 
+                 if(targetDrag) {
+                     targetDrag.style.left = item.left + "px";
+                     targetDrag.style.top = item.top + "px";
+                 }
                 
-                if(targetDrag) {
-                    targetDrag.style.left = item.left + "px";
-                    targetDrag.style.top = item.top + "px";
-                }
-               
-                
-            }
-            
-           })
-           if(j === -3) selectAnswer(false);
-           setArrAnswers(arrAnswers.map((item, index) => {
-            if (j===index) item.check = true;
-            else item.check = false;
-            return item;
-        }))
-            
-        }
+                 
+             }
+             
+            })
+            if(j === -3) selectAnswer(false);
+            setArrAnswers(arrAnswers.map((item, index) => {
+             if (j===index) item.check = true;
+             else item.check = false;
+             return item;
+         }))
+             
+         }
     }
 
   return (
@@ -141,7 +177,11 @@ function Task11(props: IProps) {
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи кнопку <br/>на верный город</h4>
                         <div className={styles.task} ref={ref} >
                             <div className={styles.map}>
-                                <svg 
+                                <svg
+                            onMouseLeave = {() => mouseOut()}
+                            onMouseDown={(e) => mouseStart(e)}
+                            onMouseMove={(e) => mouseMove(e)}
+                            onMouseUp = {() => mouseUp()} 
                             onTouchStart={(e) => dragStart(e)}
                             onTouchMove={(e) => dragMove(e)}
                             onTouchEnd={() => dragEnd()}   width="20" height="43" viewBox="0 0 20 43" fill="none" xmlns="http://www.w3.org/2000/svg">
