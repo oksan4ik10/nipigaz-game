@@ -4,6 +4,7 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlHour from "../../../assets/images/numbers/hour.svg";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
+import { MouseEvent } from 'react';
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
@@ -39,22 +40,35 @@ function Task12(props: IProps) {
     const [newUserCheck, setNewUserCheck] = useState(0);
 
     let targetData : HTMLElement|null;
-
+    const startClick = useRef(false);
+    const firstClick = useRef(false);
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) =>{
         const data = e.changedTouches[0]; 
         const target = data.target as HTMLElement;
-        targetData = target.closest(`.${styles.hour}`);
-        setX(data.clientX);
-        setY(data.clientY);
+        start(target, data.clientX, data.clientY)
+
         document.body.style.overflow = "hidden";
+    }
+    const start = (target: HTMLElement, clientX: number, clientY: number) => {
+        targetData = target.closest(`.${styles.hour}`);
+        setX(clientX);
+        setY(clientY);
     }
   
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) =>{
         
         const data = e.changedTouches[0]; 
         const target = data.target as HTMLElement;
+        move(target, data.clientX, data.clientY);
+    }
+    const mouseMove = (e: MouseEvent) => {
+        if(!startClick.current) return;
+        const target = e.target as HTMLElement;
+        move(target, e.pageX, e.pageY)
+    }
+    const move = (target: HTMLElement, clientX: number, clientY: number) => {
         targetData = target.closest(`.${styles.hour}`);
-        const newX = data.clientX, newY = data.clientY;
+        const newX = clientX, newY = clientY;
         if(rotate.current > 180) origin.current = 55;
         else origin.current = 53;
 
@@ -97,6 +111,11 @@ function Task12(props: IProps) {
             if(targetData) {
                 targetData.style.setProperty("--rotate", `${rotate.current}deg`);
             }
+            if(newUserCheck === 180){
+                dispatch(setCheckAnswer("true"));
+            } else {
+                dispatch(setCheckAnswer("false"));
+            }
 
     
             setX(newX);
@@ -104,22 +123,21 @@ function Task12(props: IProps) {
 
 
 
-
     }
     const dragEnd = () =>{
         document.body.style.overflow = "auto";
-
-            if(newUserCheck === 180){
-                dispatch(setCheckAnswer("true"));
-            } else {
-                dispatch(setCheckAnswer("false"));
-            }
-
-
-
         selectAnswer(true);
+    }
 
-
+    const mouseOut = (e: MouseEvent) => {
+        if(!firstClick.current) {
+            selectAnswer(true);
+            const target = e.target as HTMLElement;
+            start(target, e.pageX, e.pageY)
+            startClick.current = true;
+            firstClick.current = true;
+        }
+        
     }
 
   return (
@@ -133,7 +151,10 @@ function Task12(props: IProps) {
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform} >
-                        <div className={styles.hour} onTouchStart={(e) => dragStart(e)}
+                        <div className={styles.hour}
+                        onMouseEnter = {(e) => mouseOut(e)}
+                        onMouseMove={(e) => mouseMove(e)}
+                        onTouchStart={(e) => dragStart(e)}
                         onTouchMove={(e) => dragMove(e)}
                         onTouchEnd={() => dragEnd()}>
                             <img src={imgUrlHour} alt="hour" />
