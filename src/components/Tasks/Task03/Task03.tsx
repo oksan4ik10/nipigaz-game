@@ -3,7 +3,7 @@ import styles from './Task03.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
-import { TouchEvent } from 'react';
+import { TouchEvent, MouseEvent } from 'react';
 
 interface IProps {
     selectAnswer: (data: boolean) => void;
@@ -25,29 +25,54 @@ function Task03(props: IProps) {
     const dragStart = (e: TouchEvent) => {
         userCheck = e.target as HTMLElement;
         document.body.style.overflow = "hidden";
+        start();
+    }
+    const mouseStart = (e: MouseEvent) => {
+        userCheck = e.target as HTMLElement;
+        start();
+        
+    }
+    const start = () => {
         setValue('name1', "");
         proc = 0;
-        targetDrag = userCheck.closest("label");
+        if(userCheck) targetDrag = userCheck.closest("label");
         if(targetDrag) targetDrag.style.setProperty("--var-width", `0%`);
     }
     const dragMove = (e: TouchEvent) =>{
-        if(!userCheck) return;
         const target = e.target as HTMLElement;
-        if(target !== userCheck) return;
+        move(target);
+    }
+    const mouseMove = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        move(target);       
+    }
 
+    const move = (target: HTMLElement) => {
+        if(!targetDrag) return;
+        if(!userCheck) return;
+        if(target !== userCheck) return;
         if(targetDrag){
             if(proc === 0) setValue('name1', userCheck.getAttribute("data-value"));
             proc += 3;
             if(proc > 100) proc = 100;
             targetDrag.style.setProperty("--var-width", `${proc}%`);
         }
-        
-
     }
     const dragEnd =  (e: TouchEvent) => {
         document.body.style.overflow = "auto";
-        if(!userCheck) return;
         const target = e.target as HTMLElement;
+        end(target);     
+    }
+ 
+
+    const mouseUp = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        end(target);     
+    }
+
+    const end = (target: HTMLElement) => {
+        if(!userCheck) return;
+        
         if((target !== userCheck) || (proc < 5)) {
             setValue('name1', "");
             selectAnswer(false); 
@@ -63,7 +88,6 @@ function Task03(props: IProps) {
                 dispatch(setCheckAnswer("false"));
             }
         }
-
     }
     
 
@@ -73,10 +97,14 @@ function Task03(props: IProps) {
                         {checkClick && <OpacityTask/>}  
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Вычеркни выбранный ответ</h4>
                         <form className={styles.form} 
+                        onMouseDown={(e) => mouseStart(e)}
+                        onMouseMove={(e) => mouseMove(e)}
+                        onMouseUp = {(e) => mouseUp(e)}
                         onChange={(e) => clickFormTest(e)} 
                         onTouchStart={(e) => dragStart(e)} 
                         onTouchMove = {(e) => dragMove(e)}
-                        onTouchEnd={(e) => dragEnd(e)}>
+                        onTouchEnd={(e) => dragEnd(e)}
+                        >
                             <label className={styles.label} >
                                 <input type="radio" className={styles.input} value={1} {...register("name1")}/>
                                 <span data-value="1">Водоснабжение и канализация</span> 

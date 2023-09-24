@@ -160,7 +160,6 @@ function Task31(props: IProps) {
 
                                 <Images index={index} color={checkClick ?  answerIndex === "0" ? "#99CC00" : "#C00000" : "#008C95"}
                                 onMouseUp = {() => mouseUp()}
-                                
                                 onMouseDown={(e) => mouseStart(e)}
                                 onMouseMove={(e) => mouseMove(e)}
                                 onTouchStart={(e) => dragStart(e)}
