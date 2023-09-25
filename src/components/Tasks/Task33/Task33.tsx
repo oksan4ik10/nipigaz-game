@@ -149,6 +149,7 @@ function Task33(props: IProps) {
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
                                 onTouchEnd = {() => dragEnd()}
+                                draggable="true"
                                 />
                                 </div>
 
