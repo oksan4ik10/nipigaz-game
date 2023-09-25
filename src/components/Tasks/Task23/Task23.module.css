@@ -31,9 +31,11 @@
     align-items: center;
     justify-content: space-between;
     width: 38px;
+
 }
 .number img{
     opacity: .5;
+    cursor: pointer;
 }
 .number:not(:first-of-type){
     padding: 6px 7px 8px;

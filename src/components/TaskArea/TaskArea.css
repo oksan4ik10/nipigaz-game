@@ -95,6 +95,7 @@
     position: absolute;
     bottom: -4px;
     left: calc(100% / 2 - 61px);
+    cursor: pointer;
     border-radius: 0px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;

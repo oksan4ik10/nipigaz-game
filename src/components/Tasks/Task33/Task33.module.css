@@ -42,4 +42,5 @@
 }
 .taskCups>*{
     flex-basis: 33.33%;
+    cursor: grabbing;
 }

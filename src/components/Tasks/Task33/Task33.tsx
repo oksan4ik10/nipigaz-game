@@ -1,5 +1,5 @@
 import styles from "./Task33.module.css"
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, MouseEvent } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlCup from "../../../assets/images/cup.svg"
@@ -53,9 +53,23 @@ function Task33(props: IProps) {
 
     const arrUsersAnswer = useRef([false, false, false, false]);
 
+    const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<HTMLImageElement>) => {
         document.body.style.overflow = "hidden";
         targetDrag = e.changedTouches[0].target as HTMLElement; 
+        start();
+       
+    }
+
+    const mouseStart = (e: MouseEvent) => {
+        e.preventDefault();
+        startClick.current = true;
+        targetDrag = e.target as HTMLElement;
+        start();
+        
+    }
+
+    const start = () => {
         const index = targetDrag.getAttribute("data-index");
         if(index){
             arrUsersAnswer.current = arrUsersAnswer.current.map((item, j)=> j === +index ? false : item);
@@ -75,20 +89,44 @@ function Task33(props: IProps) {
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
+
     }
+
     const dragMove = (e: React.TouchEvent<HTMLImageElement>) => {
         const data = e.changedTouches[0]; 
-        targetDrag = e.changedTouches[0].target as HTMLElement; 
-        const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-        const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+        move(data.clientX, data.clientY);
+
+    }
+    const mouseMove = (e: MouseEvent) => {
+        if(!startClick.current) return;
+        move(e.pageX, e.pageY);
+        
+    }
+    const move = (clientX: number, clientY: number) => {
+        const y = clientY  - stateY - (targetDrag.offsetHeight / 2);
+        const x = clientX - stateX - (targetDrag.offsetWidth / 2);
         targetDrag.style.position = "absolute";
         targetDrag.style.zIndex = "1";
         if((x > 169) &&  (x < 254)) targetDrag.style.left = x + "px";
     
         if( (y > 0) && (y < 112)) targetDrag.style.top = y + "px";
+
     }
     const dragEnd = () => {
         document.body.style.overflow = "auto";
+       end();
+    }
+
+
+    const mouseUp = () => {
+        console.log(2323);
+        
+        startClick.current = false;
+        end();
+        
+    }
+
+    const end = () => {
         if(!targetDrag) return;
         const dataTarget = { top: parseFloat(targetDrag.style.top), left: parseFloat (targetDrag.style.left)};
 
@@ -120,6 +158,12 @@ function Task33(props: IProps) {
 
     }
 
+    const mouseLeave = () => {
+        startClick.current = false;
+        end();
+        
+    }
+
   return (
     <>
                 <div className={styles.taskInfo}>
@@ -144,8 +188,14 @@ function Task33(props: IProps) {
                                 <div className={styles.taskCheck} ref = {refCheck4}></div>
                             </div>
                             <div className={styles.taskCups}>
-                                <div>
-                                <img src= {imgUrlCup} alt="cup" className="taskCup" 
+                                <div >
+                                <img src= {imgUrlCup} alt="cup" className="taskCup"
+                                onMouseOut={() => mouseLeave()}
+                                
+                                onMouseUp = {() => mouseUp()}
+                                onMouseDown={(e) => mouseStart(e)}
+                                onMouseMove={(e) => mouseMove(e)}
+                                
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
                                 onTouchEnd = {() => dragEnd()}
@@ -154,7 +204,11 @@ function Task33(props: IProps) {
                                 </div>
 
                                 <div>
-                                    <img src= {imgUrlCup} alt="cup" className="taskCup" 
+                                    <img src= {imgUrlCup} alt="cup" className="taskCup"
+                                    onMouseOut={() => mouseLeave()}
+                                    onMouseUp = {() => mouseUp()}
+                                    onMouseDown={(e) => mouseStart(e)}
+                                    onMouseMove={(e) => mouseMove(e)} 
                                     onTouchStart={(e) => dragStart(e)}
                                     onTouchMove={(e) => dragMove(e)}
                                     onTouchEnd = {() => dragEnd()}
@@ -162,7 +216,11 @@ function Task33(props: IProps) {
                                 </div>
 
                                 <div>
-                                <img src= {imgUrlCup} alt="cup" className="taskCup" 
+                                <img src= {imgUrlCup} alt="cup" className="taskCup"
+                                onMouseOut={() => mouseLeave()}
+                                onMouseUp = {() => mouseUp()}
+                                onMouseDown={(e) => mouseStart(e)}
+                                onMouseMove={(e) => mouseMove(e)} 
                                 onTouchStart={(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
                                 onTouchEnd = {() => dragEnd()}

@@ -17,9 +17,11 @@
     display: flex;
     align-items: center;
     gap: 19px;
+
 }
 .input{
     appearance: none;
+    cursor: pointer;
     width: 24px;
     height: 24px;
     background: url("../../../assets/images/logo.svg");
