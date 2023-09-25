@@ -52,6 +52,7 @@
     letter-spacing: 6px;
     line-height: 38px;
     background: #008C95;
+    cursor: grabbing;
 }
 .none{
     opacity: 0;

@@ -3,6 +3,7 @@ import { useRef, useState, useEffect} from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
+import { MouseEvent } from 'react';
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
@@ -53,27 +54,50 @@ function Task21(props: IProps) {
 
     let targetDrag: HTMLElement| undefined;
     const [targetDragLast, setTargetDrag]  = useState<HTMLElement | null>(null);
+
+    const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
         document.body.style.overflow = "hidden"; 
         targetDrag = e.changedTouches[0].target as HTMLElement;
-        if(targetDrag.style.position === "absolute") return;
-        targetDrag.style.position = "absolute";
-        const x = targetDrag.offsetLeft;
-        const y = targetDrag.offsetTop;
-        targetDrag.style.left = x + "px";
-        targetDrag.style.top = y + "px";
+        start();
+
+    }
+    const mouseStart = (e: MouseEvent) => {
+        targetDrag = e.target as HTMLElement;
+        startClick.current = true;
+        start();        
+    }
+
+    const start = () => {
+        if(targetDrag){
+            if(targetDrag.style.position === "absolute") return;
+            targetDrag.style.position = "absolute";
+            const x = targetDrag.offsetLeft;
+            const y = targetDrag.offsetTop;
+            targetDrag.style.left = x + "px";
+            targetDrag.style.top = y + "px";
+        }
+
     }
 
     const dragMove = (e: React.TouchEvent<HTMLDivElement>) => {
         const data = e.changedTouches[0];
+        move(data.clientY, data.clientX);
+
+    }
+    const mouseMove = (e: MouseEvent) => {
+        if(!startClick.current) return;
+        move(e.pageY, e.pageX);        
+    }
+
+    const move = (clientY: number, clientX:number) =>{
         if(targetDrag){
-            const y = data.clientY  - stateY - (targetDrag.offsetHeight / 2);
-            const x = data.clientX - stateX - (targetDrag.offsetWidth / 2);
+            const y = clientY  - stateY - (targetDrag.offsetHeight / 2);
+            const x = clientX - stateX - (targetDrag.offsetWidth / 2);
             if( y > 14 && y < 112 )targetDrag.style.top = y  + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
-            
             if((((dataAnswerPosition.top - 10 < y) && (dataAnswerPosition.bottom + 10) > y)) && 
-            (dataAnswerPosition.left - 10 < x) && (dataAnswerPosition.right + 10 > x)){
+            (dataAnswerPosition.left - 30 < x) && (dataAnswerPosition.right + 30 > x)){
                 targetDrag.style.left = dataAnswerPosition.left + "px";
                 targetDrag.style.top = dataAnswerPosition.top + "px";
                 if((targetDragLast) && (targetDragLast !== targetDrag)) {
@@ -91,6 +115,18 @@ function Task21(props: IProps) {
     }
     const dragEnd = (index: number) => {
         document.body.style.overflow = "auto"; 
+        end(index);
+
+    }
+
+
+
+    const mouseUp = (index: number) => {
+        startClick.current = false;
+        end(index);
+        
+    }
+    const end = (index: number) => {
         if(targetDrag){
             if((targetDrag.offsetTop !== dataAnswerPosition.top) || (targetDrag.offsetLeft !== dataAnswerPosition.left)){
                 targetDrag.style.left = "auto";
@@ -109,9 +145,14 @@ function Task21(props: IProps) {
             dispatch(setCheckAnswer("false"));
             setSaveResult(false);
         }
-
     }
 
+    const mouseOut = (index: number) => {
+        if(!startClick.current) return;
+        startClick.current = false;
+        end(index);
+        
+    }
 
   return (
     <>
@@ -132,7 +173,11 @@ function Task21(props: IProps) {
                         <div className={styles.taskZeros}>
                             { arrAnswers.map((item, index)=>{
                                 return <div key={item.value}>
-                                <div 
+                                <div
+                                onMouseLeave = {() => mouseOut(index)}
+                                onMouseDown={(e) => mouseStart(e)}
+                                onMouseMove={(e) => mouseMove(e)}
+                                onMouseUp = {() => mouseUp(index)} 
                                 onTouchStart = {(e) => dragStart(e)}
                                 onTouchMove={(e) => dragMove(e)}
                                 onTouchEnd={() => dragEnd(index)}
