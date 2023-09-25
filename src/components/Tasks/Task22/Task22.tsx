@@ -2,7 +2,7 @@ import { useForm} from 'react-hook-form';
 import styles from './Task22.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
-import { TouchEvent } from 'react';
+import { TouchEvent, MouseEvent } from 'react';
 
 import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
 import { StrokeAnswer } from './StrokeAnswer';
@@ -29,12 +29,14 @@ function Task22(props: IProps) {
 
     let userCheck: HTMLElement | null = null; 
     
-    const onTouchStart = (e: TouchEvent) => {
+
+    const onTouchStart = (e: TouchEvent | MouseEvent) => {
         const target = e.target as HTMLElement;
         userCheck = target.closest("label");
         document.body.style.overflow = "hidden";
     }
-    const onTouchEnd =  (e: TouchEvent) => {
+    
+    const onTouchEnd =  (e: TouchEvent | MouseEvent) => {
         document.body.style.overflow = "auto";
         if(!userCheck) return;
         const target = e.target as HTMLElement;
@@ -50,7 +52,10 @@ function Task22(props: IProps) {
                         <div className={styles.taskInfo}>
                         {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Обведи календарь с верным годом</h4>
-                        <form className={styles.form} onChange={(clickFormTest)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+                        <form className={styles.form}
+                        onMouseDown={(e) => onTouchStart(e)}
+                        onMouseUp = {(e) => onTouchEnd(e)} 
+                        onChange={(clickFormTest)} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
                             <label className={styles.label + " " + styles.value1}>
                                 <input type="radio" className={styles.input} value={1} {...register("name1")}/>
                                <StrokeAnswer id={"svg1"}/>
