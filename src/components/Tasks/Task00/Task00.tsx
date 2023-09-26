@@ -22,7 +22,7 @@ function Task00(props: IProps) {
         const answerUser: IAnswerUser = {
             arrAnswer: active,
             answerInfo: {
-                answer: +el.value,
+                answer: el.value,
                 correct: false
             }
         }

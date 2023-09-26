@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface answer {
     checkAnswer?: boolean;
-    answer: number;
+    answer: string;
     correct: boolean;
     
 }
@@ -12,84 +12,84 @@ export interface IArrQuestions {
 const initialState: IArrQuestions = {
     arrAnswers: [[ {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }], [ {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }],
     [ {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }],
     [ {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: -1,
+        answer: "-1",
         correct: false
         
     }],]

@@ -2,7 +2,7 @@ import styles from "./Task00.module.css";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { IPropsAnswer } from "../types";
 export const TaskAnswer00 = (props: IPropsAnswer) => {
-    const {answer} = props;
+    const answer = +props.answer;
     return (
         <>
                     <div className={styles.task__info}>

@@ -1,4 +1,4 @@
-import styles from "./Tas23.module.css";
+import styles from "./Task23.module.css";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { IPropsAnswer } from "../types";
 export const TaskAnswer23 = (props: IPropsAnswer) => {
