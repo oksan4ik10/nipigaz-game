@@ -1,23 +1,36 @@
 import styles from "./Task01.module.css";
+import urlImg from "../../../assets/images/cart.png";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { IPropsAnswer } from "../types";
 export const TaskAnswer01 = (props: IPropsAnswer) => {
     const {answer} = props;
+    const arrAnswers = [{
+        value: "EPC", check: false}, 
+        {value: "САПР", check: false}, {value: "UGC", check: false}, {value: "BIM", check: false }];
+        arrAnswers[+answer].check = true;
     return (
         <>
-                    <div className={styles.task__info}>
-                        <OpacityTask/>
-                            <h4 className={"task__subtitle " + "answer" }>Размести ползунок около верного ответае</h4>
+                    <div className={styles.taskInfo}>
+                    {<OpacityTask/>}
+                            <h4 className={"task__subtitle " +  "answer" }>Перетащи выбранный вариант ответа в корзину</h4>
                             <div className={styles.task}>
-                                <input type="range" min="1" max="4" step="1" value={answer + ""} list="list" onChange={e => e.target.value}/>
-                                <ul id="list" className={styles.list}>
-                                    <li className={styles.item} style={answer===1 ? {"opacity": "1"} :{"opacity":".5"}}>Управление проектированием</li>
-                                    <li className={styles.item} style={answer===2 ? {"opacity": "1"} :{"opacity":".5"}}>Управление выпуском продукции</li>
-                                    <li className={styles.item} style={answer===3 ? {"opacity": "1"} :{"opacity":".5"}}>Управление строительством</li>
-                                    <li className={styles.item} style={answer===4 ? {"opacity": "1"} :{"opacity":".5"}}>Управление поставками и логистикой</li>
+                                {arrAnswers.map((item, index) => 
+                                <div className={styles.taskAnswer} 
     
-                                </ul>
-    
+                                key={index}>
+                                    <span 
+                                    style={{
+                                        color: !item.check ? "#fff" : (answer === "2") ? "#008C95" : "#C00000", position: item.check ? "absolute" : "static", fontSize : (answer === "1" && index === 1) ? "20px" : "25px",
+                                    top: (+answer===index) ? "50%" : "", left:(+answer===index) ? "50%" : "", transform: (+answer === index) ? "translateX(-50%) translateY(-50%)":"", zIndex: (+answer === index) ? "2" : "" }} 
+                                    >
+                                        {item.value}
+                                       
+                                    </span>
+                                </div>
+                                )}
+                                <div className={styles.cart}>
+                                    <img src={urlImg} alt="cart" />
+                                </div>
                             </div>
     
                     </div>

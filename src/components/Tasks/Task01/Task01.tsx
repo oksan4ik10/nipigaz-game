@@ -95,7 +95,7 @@ function Task01(props: IProps) {
                     const answerUser: IAnswerUser = {
                         arrAnswer: active,
                         answerInfo: {
-                            answer: +value,
+                            answer: value,
                             correct: false
                         }
                     }
