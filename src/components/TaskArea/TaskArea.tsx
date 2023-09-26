@@ -118,7 +118,7 @@ function TaskArea(props: IProps) {
                     </div>
                 </div>
 
-                <Task selectAnswer = {selectAnswer} checkClick={checkClick}/>
+                <Task selectAnswer = {selectAnswer} checkClick={checkClick} active={arrActiveQuestion}/>
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
 
 

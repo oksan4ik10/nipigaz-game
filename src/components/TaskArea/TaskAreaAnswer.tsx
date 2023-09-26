@@ -5,13 +5,12 @@ import { TaskAnswer } from '../../utils/TaskAnswer';
 import { questionAnswerText } from '../../utils/questionAnswerText';
 import { Lamp } from './Lamp';
 interface IProps {
-    openFirework: (data: boolean) => void;
     openAnswer: (data: boolean) => void;
 }
 
 function TaskAreaAnswer(props: IProps) {
 
-    const {openFirework, openAnswer} = props;
+    const {openAnswer} = props;
 
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const answerUser = useAppSelector((state) => state.answersReducer).arrAnswers;
@@ -30,10 +29,8 @@ function TaskAreaAnswer(props: IProps) {
 
     const closeTask = () => {
         openAnswer(false);
-        openFirework(false);
     }
 
-    if(correct) openFirework(true);
 
   return (
     <>

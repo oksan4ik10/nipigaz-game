@@ -37,7 +37,7 @@ function App() {
       <main className='main'>
         <GameArea openTask = {openModalTask} openAnswer = {openAnswer}/>
         <Points tasksEnd={tasksEnd}/>
-        {openAnswerTask && <TaskAreaAnswer openFirework = {openFirework} openAnswer = {openAnswer} />}
+        {openAnswerTask && <TaskAreaAnswer openAnswer = {openAnswer} />}
         {checkModal && <TaskArea openFirework = {openFirework} openTask = {openModalTask} closePoints={closePoints}/>}
         {checkFirework && <Firework/>}
         <div className={"blur " + (checkModal ? "active" : openAnswerTask ? "active" : "")}></div>

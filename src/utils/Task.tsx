@@ -21,6 +21,7 @@ import TaskEnd from '../components/Tasks/TaskEnd/TaskEnd';
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
+    active: number[];
 }
 
 export const Task = (props:IProps) => {

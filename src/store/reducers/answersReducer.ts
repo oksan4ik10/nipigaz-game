@@ -94,7 +94,7 @@ const initialState: IArrQuestions = {
         
     }],]
 };
-export interface answerUser {
+export interface IAnswerUser {
     arrAnswer: number[];
     answerInfo: answer;
 }
@@ -102,7 +102,7 @@ export const arrQuestionsSlice = createSlice({
   name: 'answers',
   initialState,
   reducers: {
-    addAnswer(state, action: PayloadAction<answerUser>) {
+    addAnswer(state, action: PayloadAction<IAnswerUser>) {
         const {arrAnswer, answerInfo} = action.payload;
         state.arrAnswers[arrAnswer[0]][arrAnswer[1]].checkAnswer = true;
         state.arrAnswers[arrAnswer[0]][arrAnswer[1]].answer = answerInfo.answer;

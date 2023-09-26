@@ -3,15 +3,19 @@ import {useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
+
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from "../../../store/reducers/answersReducer";
 interface IProps {
     selectAnswer: (data: boolean) => void;
     checkClick: boolean;
+    active: number[];
 }
 
 function Task00(props: IProps) {
     const [checked, setChecked] = useState(1);
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
@@ -19,10 +23,20 @@ function Task00(props: IProps) {
         const el  = e.currentTarget;
         setChecked(+el.value);
         selectAnswer(true);
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: +el.value,
+                correct: false
+            }
+        }
         if(el.value === "2"){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))
         }
         
     }
