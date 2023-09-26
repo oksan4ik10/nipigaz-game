@@ -6,11 +6,7 @@ import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 
 import { addAnswer } from "../../../store/reducers/answersReducer";
 import { IAnswerUser } from "../../../store/reducers/answersReducer";
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-    active: number[];
-}
+import { IProps } from "../types";
 
 function Task00(props: IProps) {
     const [checked, setChecked] = useState(1);

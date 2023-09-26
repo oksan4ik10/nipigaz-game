@@ -4,15 +4,14 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import urlImg from "../../../assets/images/cart.png";
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { IProps } from '../types';
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
 
 function Task01(props: IProps) {
 
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const ref = useRef<HTMLDivElement>(null);
     let stateX = 0, stateY = 0;
@@ -93,10 +92,20 @@ function Task01(props: IProps) {
                         else item.check = false;
                         return item
                     }))
+                    const answerUser: IAnswerUser = {
+                        arrAnswer: active,
+                        answerInfo: {
+                            answer: +value,
+                            correct: false
+                        }
+                    }
                     if(value === "2"){
                         dispatch(setCheckAnswer("true"));
+                        answerUser.answerInfo.correct = true;
+                        dispatch(addAnswer(answerUser))
                     } else {
                         dispatch(setCheckAnswer("false"));
+                        dispatch(addAnswer(answerUser))
                     }
                     setAnswerIndex(value);
                 } 
