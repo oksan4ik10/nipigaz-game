@@ -6,22 +6,26 @@ import { Fragment } from 'react';
 
 interface IProps {
   openTask : 	(data: boolean) => void;
+  openAnswer: (data: boolean) => void;
 }
 
 function GameArea(props:IProps) {
     const {arrQuestions} = useAppSelector((state)=>state.arrQuestionsReducer);
+    
+    const {openAnswer, openTask} = props;
     
 
     const dispatch = useAppDispatch();
     const category = ["деятельность", "география", "цифры", "работа у нас" ];
     
     const sendDataTask = (data:number[])=>{
-      if(arrQuestions[data[0]][data[1]] === 0) return;
-      
-      props.openTask(true);
       dispatch(saveActive(data));
-
-      return;
+      if(arrQuestions[data[0]][data[1]] === 0) {
+        openAnswer(true);
+        return;
+      }
+      
+      openTask(true);
     }
 
   return (

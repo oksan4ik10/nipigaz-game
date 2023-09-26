@@ -5,13 +5,15 @@ import arrQuestionsReducer from './reducers/arrQuestionsReducer';
 import activeQuestion from './reducers/activeQuestionReducer';
 import points from './reducers/pointsReducer';
 import checkAnswerReducer from './reducers/checkAnswerReducer';
+import answersReducer from './reducers/answersReducer';
 
 
 const rootReducer = combineReducers({
     arrQuestionsReducer,
     activeQuestion,
     points,
-    checkAnswerReducer
+    checkAnswerReducer,
+    answersReducer
 
 });
 
