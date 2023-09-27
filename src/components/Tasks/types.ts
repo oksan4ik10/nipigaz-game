@@ -5,7 +5,7 @@ export interface IProps {
 }
 
 export interface IPropsAnswer {
-    answer: string;
     correct: boolean;
+    answer: string;
 }
 

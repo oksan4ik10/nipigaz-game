@@ -12,22 +12,22 @@ export interface IArrQuestions {
 const initialState: IArrQuestions = {
     arrAnswers: [[ {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "123",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }], [ {
@@ -105,7 +105,6 @@ export const arrQuestionsSlice = createSlice({
     addAnswer(state, action: PayloadAction<IAnswerUser>) {
         const {arrAnswer, answerInfo} = action.payload;
         state.arrAnswers[arrAnswer[0]][arrAnswer[1]].checkAnswer = true;
-        state.arrAnswers[arrAnswer[0]][arrAnswer[1]].answer = answerInfo.answer;
         state.arrAnswers[arrAnswer[0]][arrAnswer[1]].correct = answerInfo.correct;
     }
   },

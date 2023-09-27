@@ -4,6 +4,7 @@ import { setPoints } from '../../store/reducers/pointsReducer';
 import { saveActive } from '../../store/reducers/activeQuestionReducer';
 
 import { Task } from '../../utils/Task';
+import { TaskAnswer } from '../../utils/TaskAnswer';
 
 import { TStateAnswer } from '../../store/reducers/checkAnswerReducer';
 import { useState } from 'react';
@@ -89,6 +90,8 @@ function TaskArea(props: IProps) {
         }
         if(!startGame) return; //пока пользователь не выбрал ответ
         setUserAnswerTask(useAnswer);
+        console.log(useAnswer);
+        
         if(useAnswer === "true") {
             openFirework(true);
             dispatch(setPoints(activeQuestionPoints));
@@ -118,7 +121,8 @@ function TaskArea(props: IProps) {
                     </div>
                 </div>
 
-                <Task selectAnswer = {selectAnswer} checkClick={checkClick} active={arrActiveQuestion}/>
+                {!checkClick && <Task selectAnswer = {selectAnswer} checkClick={checkClick} active={arrActiveQuestion}/>}
+                {checkClick && <TaskAnswer correct={useAnswer === "true"}/>}
                 <button className="btn task__btn" onClick={answerUser}>{userAnswerTask === "wait" ? "ГОТОВО" : "ОГО"}</button>
 
 

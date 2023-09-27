@@ -1,5 +1,5 @@
 import styles from "./Task00.module.css"
-import {useEffect, useState } from 'react';
+import {useEffect, useState, useRef } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
@@ -12,8 +12,10 @@ function Task00(props: IProps) {
     const [checked, setChecked] = useState(1);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick, active} = props;
+    const check = useRef(true);
 
     useEffect (() => {
+        if(!check.current) return;
         selectAnswer(true);
         const answerUser: IAnswerUser = {
             arrAnswer: active,
@@ -29,6 +31,7 @@ function Task00(props: IProps) {
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
         e.preventDefault();
+        check.current = false;
         const el  = e.currentTarget;
         setChecked(+el.value);
         selectAnswer(true);

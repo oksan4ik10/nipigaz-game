@@ -18,62 +18,63 @@ import { TaskAnswer32 } from '../components/Tasks/Task32/TaskAnswer32';
 import { TaskAnswer33 } from '../components/Tasks/Task33/TaskAnswer33';
 
 interface IProps {
-    answer: string;
     correct: boolean;
 }
 
 export const TaskAnswer = (props:IProps) => {
-
-    const active = useAppSelector((state)=>state.activeQuestion).activeQuestion.join("");
+    const {correct} = props;
+    const arrActive = useAppSelector((state)=>state.activeQuestion).activeQuestion;
+    const active = arrActive.join("");
+    const answerUser = useAppSelector((state) => state.answersReducer).arrAnswers[arrActive[0]][arrActive[1]].answer;
 
     switch (active) {
         case "00":{
-            return <TaskAnswer00 {...props}/>;
+            return <TaskAnswer00 correct = {correct} answer = {answerUser}/>;
         }
         case "01":{
-            return <TaskAnswer01 {...props}/>;
+            return <TaskAnswer01 correct = {correct} answer = {answerUser}/>;
         }
         case "02":{
-            return <TaskAnswer02 {...props}/>;
+            return <TaskAnswer02 correct = {correct} answer = {answerUser}/>;
         }
         case "03":{
-            return <TaskAnswer03 {...props}/>;
+            return <TaskAnswer03 correct = {correct} answer = {answerUser}/>;
         }
         case "10":{
-            return <TaskAnswer10 {...props}/>;
+            return <TaskAnswer10 correct = {correct} answer = {answerUser}/>;
         }
         case "11":{
-            return <TaskAnswer11 {...props}/>;
+            return <TaskAnswer11 correct = {correct} answer = {answerUser}/>;
         }
         case "12":{
-            return <TaskAnswer12 {...props}/>;
+            return <TaskAnswer12 correct = {correct} answer = {answerUser}/>;
         }
         case "13":{
-            return <TaskAnswer13 {...props}/>;
+            return <TaskAnswer13 correct = {correct} answer = {answerUser}/>;
         }
         case "20":{
-            return <TaskAnswer20 {...props}/>;
+            return <TaskAnswer20 correct = {correct} answer = {answerUser}/>;
         }
         case "21":{
-            return <TaskAnswer21 {...props}/>;
+            return <TaskAnswer21 correct = {correct} answer = {answerUser}/>;
         }
         case "22":{
-            return <TaskAnswer22 {...props}/>;
+            return <TaskAnswer22 correct = {correct} answer = {answerUser}/>;
         }
         case "23":{
-            return <TaskAnswer23 {...props}/>;
+            return <TaskAnswer23 correct = {correct} answer = {answerUser}/>;
         }
         case "30":{
-            return <TaskAnswer30 {...props}/>;
+            return <TaskAnswer30 correct = {correct} answer = {answerUser}/>;
         }
         case "31":{
-            return <TaskAnswer31 {...props}/>;
+            return <TaskAnswer31 correct = {correct} answer = {answerUser}/>;
         }
         case "32":{
-            return <TaskAnswer32 {...props}/>;
+            return <TaskAnswer32 correct = {correct} answer = {answerUser}/>;
         }
         case "33":{
-            return <TaskAnswer33 {...props}/>;
+            return <TaskAnswer33 correct = {correct} answer = {answerUser}/>;
         }
     }
     
