@@ -16,10 +16,9 @@ import { TaskAnswer30 } from '../components/Tasks/Task30/TaskAnswer30';
 import { TaskAnswer31 } from '../components/Tasks/Task31/TaskAnswer31';
 import { TaskAnswer32 } from '../components/Tasks/Task32/TaskAnswer32';
 import { TaskAnswer33 } from '../components/Tasks/Task33/TaskAnswer33';
-// import TaskEnd from '../components/Tasks/TaskEnd/TaskEnd';
 
 interface IProps {
-    answer: number;
+    answer: string;
     correct: boolean;
 }
 
