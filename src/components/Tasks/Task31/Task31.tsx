@@ -5,15 +5,14 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 import { Images } from './Images';
 import { TouchEvent, MouseEvent } from 'react';
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task31(props: IProps) {
 
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const ref = useRef<HTMLDivElement>(null);
     let stateX = 0, stateY = 0;
 
@@ -91,10 +90,20 @@ function Task31(props: IProps) {
                         return item
                     }))
                     if(value !== "-1") {
+                        const answerUser: IAnswerUser = {
+                            arrAnswer: active,
+                            answerInfo: {
+                                answer: value,
+                                correct: false
+                            }
+                        }
                         if(value === "0"){
                             dispatch(setCheckAnswer("true"));
+                            answerUser.answerInfo.correct = true;
+                            dispatch(addAnswer(answerUser))  
                         } else {
                             dispatch(setCheckAnswer("false"));
+                            dispatch(addAnswer(answerUser))
                         }  
                             selectAnswer(true);
                             setAnswerIndex(value);
