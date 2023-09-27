@@ -3,15 +3,14 @@ import {  useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task20(props: IProps) {
     const [checked, setChecked] = useState(true);
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const [spanWidth, setSpanWidth] = useState("0%");
     const [userAnswer, setUserAnswer] = useState("0");
@@ -23,10 +22,20 @@ function Task20(props: IProps) {
         setUserAnswer(el.value);
         setChecked(false);
         selectAnswer(true);
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: el.value,
+                correct: false
+            }
+        }
         if(el.value === "50"){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))   
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser)) 
         }
     }
   return (
