@@ -3,14 +3,14 @@ import { useEffect, useRef, MouseEvent } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlCup from "../../../assets/images/cup.svg"
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
+import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 
 function Task33(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const ref = useRef<HTMLDivElement>(null);
     const refCheck1 = useRef<HTMLDivElement>(null);
@@ -119,8 +119,6 @@ function Task33(props: IProps) {
 
 
     const mouseUp = () => {
-        console.log(2323);
-        
         startClick.current = false;
         end();
         
@@ -151,8 +149,22 @@ function Task33(props: IProps) {
             if(element) checkAnswers++;
             if(checkAnswers === 3){
                 selectAnswer(true);
-                if ((index === 3)&& element) dispatch(setCheckAnswer("false"));
-                else dispatch(setCheckAnswer("true"));
+                const answerUser: IAnswerUser = {
+                    arrAnswer: active,
+                    answerInfo: {
+                        answer: arrUsersAnswer.current.join(" "),
+                        correct: false
+                    }
+                }
+                if ((index === 3)&& element) {
+                    dispatch(setCheckAnswer("false"));
+                    dispatch(addAnswer(answerUser));  
+                }
+                else {
+                    answerUser.answerInfo.correct = true;
+                    dispatch(addAnswer(answerUser));
+                    dispatch(setCheckAnswer("true"));  
+                }
             } 
         }
 
@@ -167,6 +179,7 @@ function Task33(props: IProps) {
   return (
     <>
                 <div className={styles.taskInfo}>
+                    {checkClick && <OpacityTask/>}
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетяни кубок к выбранным премиям</h4>
                         <div className={styles.task} ref={ref}>
                             <div className={styles.taskAnswer}>
