@@ -151,3 +151,39 @@
 .end .task__heading{
     padding-right: 21px;
 }
+
+.task__close{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 30px;
+    height: 30px;
+    border: 5px solid #008C95;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.task__close span{
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+
+}
+.task__close::before, .task__close::after{
+    content: "";
+    display: block;
+    height: 13px;
+    width: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 1px;
+    background: #008C95;
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+}
+.task__close::after{
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+}

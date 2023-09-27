@@ -106,7 +106,9 @@ function TaskArea(props: IProps) {
     }
 
 
-
+    const closeTask = () => {
+        openTask(false);
+    }
 
   return (
     <>
@@ -114,6 +116,7 @@ function TaskArea(props: IProps) {
             <div className="task__wrapper">
                 <div className={userAnswerTask === "wait" ? "task__head" : "task__head-answer"}>
                     <div className="task__heading" style = {stylesPadding}>
+                        {userAnswerTask === "wait" && <div onClick = {closeTask} className = "task__close"><span></span></div>}
                         <div className="task__points">{userAnswerTask === "wait" ? (arrActiveQuestion[1] + 1) * 100 : <Lamp check = {userAnswerTask === "true"}/>}</div>
                         <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles} dangerouslySetInnerHTML={!checkClick ? {__html: question} : {__html: answer}}></h3>
                     </div>
