@@ -5,15 +5,13 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 
 import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
-
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task32(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const { register, setValue } = useForm();
 
     let targetDrag: HTMLElement| null;
@@ -67,10 +65,20 @@ function Task32(props: IProps) {
         if(targetDrag){
             selectAnswer(true);
             targetDrag.style.setProperty("--var-width", `100%`);
+            const answerUser: IAnswerUser = {
+                arrAnswer: active,
+                answerInfo: {
+                    answer: targetDrag.id ,
+                    correct: false
+                }
+            }
             if(targetDrag.id === "2"){
                 dispatch(setCheckAnswer("true"));
+                answerUser.answerInfo.correct = true;
+                dispatch(addAnswer(answerUser))
             } else {
                 dispatch(setCheckAnswer("false"));
+                dispatch(addAnswer(answerUser))
             }
         }
     }
