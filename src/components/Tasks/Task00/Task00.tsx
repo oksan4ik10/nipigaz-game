@@ -1,5 +1,5 @@
 import styles from "./Task00.module.css"
-import {useState } from 'react';
+import {useEffect, useState } from 'react';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
@@ -12,6 +12,19 @@ function Task00(props: IProps) {
     const [checked, setChecked] = useState(1);
     const dispatch = useAppDispatch();
     const {selectAnswer, checkClick, active} = props;
+
+    useEffect (() => {
+        selectAnswer(true);
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: "1",
+                correct: false
+            }
+        }
+            dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))
+    })
 
 
     const changeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
@@ -42,7 +55,7 @@ function Task00(props: IProps) {
     <>
                 <div className={styles.task__info}>
                     {checkClick && <OpacityTask/>}
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Размести ползунок около верного ответае</h4>
+                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Размести ползунок около верного ответа</h4>
                         <div className={styles.task}>
                             <input type="range" min="1" max="4" step="1" defaultValue="1" list="list" onChange={changeInput}/>
                             <ul id="list" className={styles.list}>

@@ -70,6 +70,7 @@ function Task33(props: IProps) {
     }
 
     const start = () => {
+        checkMouseEnd.current = false;
         const index = targetDrag.getAttribute("data-index");
         if(index){
             arrUsersAnswer.current = arrUsersAnswer.current.map((item, j)=> j === +index ? false : item);
@@ -89,6 +90,8 @@ function Task33(props: IProps) {
         targetDrag.style.zIndex = "1";
         targetDrag.style.left = x + "px";
         targetDrag.style.top = y + "px";
+
+        
 
     }
 
@@ -117,8 +120,11 @@ function Task33(props: IProps) {
        end();
     }
 
+    const checkMouseEnd = useRef(false); 
 
     const mouseUp = () => {
+        if(checkMouseEnd.current) return;
+        checkMouseEnd.current = true;
         startClick.current = false;
         end();
         
@@ -128,11 +134,12 @@ function Task33(props: IProps) {
         if(!targetDrag) return;
         const dataTarget = { top: parseFloat(targetDrag.style.top), left: parseFloat (targetDrag.style.left)};
 
+
         const findIndex = arrAnswers.findIndex((item) => (
-            (((item.top - 5) <= dataTarget.top) && ((item.top + 5) >= dataTarget.top)) 
-            && ((item.left + 5) >= dataTarget.left)
+            (((item.top - 5) <= dataTarget.top) && ((item.top + 20) >= dataTarget.top)) 
+            && ((item.left + 25) >= dataTarget.left)
         ))
-        if(findIndex === -1) {
+        if((findIndex === -1) || (arrUsersAnswer.current[findIndex])) {
             targetDrag.style.position = "static";
             targetDrag.style.left = "auto";
             targetDrag.style.top = "auto";
@@ -171,6 +178,8 @@ function Task33(props: IProps) {
     }
 
     const mouseLeave = () => {
+        if(checkMouseEnd.current) return;
+        checkMouseEnd.current = true;
         startClick.current = false;
         end();
         
