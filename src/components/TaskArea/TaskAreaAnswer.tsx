@@ -14,7 +14,7 @@ function TaskAreaAnswer(props: IProps) {
 
     const arrActiveQuestion = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const answerUser = useAppSelector((state) => state.answersReducer).arrAnswers;
-    const {answer, correct} = answerUser[arrActiveQuestion[0]][arrActiveQuestion[1]];
+    const {correct} = answerUser[arrActiveQuestion[0]][arrActiveQuestion[1]];
     
     const data = questionAnswerText[arrActiveQuestion[0]][arrActiveQuestion[1]];
     const answerText = data.answer;
@@ -43,7 +43,7 @@ function TaskAreaAnswer(props: IProps) {
                     </div>
                 </div>
 
-                <TaskAnswer answer = {answer} correct={correct}/>
+                <TaskAnswer correct={correct}/>
                 <button className="btn task__btn" onClick={closeTask}>ОГО</button>
 
 
