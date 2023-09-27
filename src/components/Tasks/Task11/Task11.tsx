@@ -4,14 +4,12 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { MouseEvent } from 'react';
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
-
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 function Task11(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const answerXY =  [
         {"top": 0, "left": 0},
         {"top": 0, "left": 0},
@@ -143,12 +141,22 @@ function Task11(props: IProps) {
                  selectAnswer(true);
                  checkBg.current = "#fff";
                  j = index;
+                 const answerUser: IAnswerUser = {
+                    arrAnswer: active,
+                    answerInfo: {
+                        answer: j + "",
+                        correct: false
+                    }
+                }
                  if(j === 3){
                      dispatch(setCheckAnswer("true"));
                      setAnswer(true);
+                     answerUser.answerInfo.correct = true;
+                     dispatch(addAnswer(answerUser))
                  } else {
                      dispatch(setCheckAnswer("false"));
                      setAnswer(false);
+                     dispatch(addAnswer(answerUser))
                  }
                  
                  if(targetDrag) {
