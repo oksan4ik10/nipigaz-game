@@ -3,15 +3,13 @@ import styles from '../Task02/Task02.module.css';
 import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
-
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task30(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const { register, getValues } = useForm();
 
     const clickFormTest = ()=>{
@@ -21,10 +19,26 @@ function Task30(props: IProps) {
             return;
         }
         selectAnswer(true);
+        const answers = getValues();
+        let str = "";
+        for (const key in answers){
+            if(answers[key]) str+=answers[key];           
+        }
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: str,
+                correct: false
+            }
+        }
+        
         if(name1 && name2 && name3 && name4){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))
         }
     
 

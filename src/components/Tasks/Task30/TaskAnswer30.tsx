@@ -1,26 +1,37 @@
-import styles from '../Task02/Task02.module.css';
+
+import styles from "../Task02/Task02.module.css";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { IPropsAnswer } from "../types";
+
 export const TaskAnswer30 = (props: IPropsAnswer) => {
     const {answer} = props;
+    const arrAnswer = ["Доступ в электронную библиотеку", "Скидки на авиабилеты и гостиницы", "Корпоративный спорт", "Обучение за счет компании"]
+    
     return (
         <>
-                    <div className={styles.task__info}>
-                        <OpacityTask/>
-                            <h4 className={"task__subtitle " + "answer" }>Размести ползунок около верного ответае</h4>
-                            <div className={styles.task}>
-                                <input type="range" min="1" max="4" step="1" value={answer + ""} list="list" onChange={e => e.target.value}/>
-                                <ul id="list" className={styles.list}>
-                                    <li className={styles.item} style={answer===1 ? {"opacity": "1"} :{"opacity":".5"}}>Управление проектированием</li>
-                                    <li className={styles.item} style={answer===2 ? {"opacity": "1"} :{"opacity":".5"}}>Управление выпуском продукции</li>
-                                    <li className={styles.item} style={answer===3 ? {"opacity": "1"} :{"opacity":".5"}}>Управление строительством</li>
-                                    <li className={styles.item} style={answer===4 ? {"opacity": "1"} :{"opacity":".5"}}>Управление поставками и логистикой</li>
+                            <div className={styles.taskInfo}>
+                            {<OpacityTask/>}
+                            <h4 className={"task__subtitle " + "answer"}>Нажми на огоньки около верных вариантов ответа</h4>
+                            <form className={styles.form} >
+                                {arrAnswer.map((item, index)=> {
+                                    if(answer.includes((index + 1) + "")) return <label key={index} className={styles.label}>
+                                    <input type="checkbox" className={styles.input} defaultChecked onChange={e => e.target.value}
+                                   />
+                                    {item}
+                                </label> 
+                                return <label key={index} className={styles.label}>
+                                <input type="checkbox" className={styles.input} onChange={e => e.target.value}
+                               />
+                                {item}
+                            </label>                                    
+                                })}
+
     
-                                </ul>
+                            </form>
     
-                            </div>
     
                     </div>
-                </>
+        </>
       )
+
 } 
