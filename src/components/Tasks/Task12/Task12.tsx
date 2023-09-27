@@ -5,15 +5,14 @@ import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlHour from "../../../assets/images/numbers/hour.svg";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { MouseEvent } from 'react';
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task12(props: IProps) {
 
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const rotate = useRef(0);
     const origin = useRef(50)
@@ -111,10 +110,20 @@ function Task12(props: IProps) {
             if(targetData) {
                 targetData.style.setProperty("--rotate", `${rotate.current}deg`);
             }
+            const answerUser: IAnswerUser = {
+                arrAnswer: active,
+                answerInfo: {
+                    answer: newUserCheck + "",
+                    correct: false
+                }
+            }
             if(newUserCheck === 180){
                 dispatch(setCheckAnswer("true"));
+                answerUser.answerInfo.correct = true;
+                dispatch(addAnswer(answerUser))   
             } else {
                 dispatch(setCheckAnswer("false"));
+                dispatch(addAnswer(answerUser)) 
             }
 
     
