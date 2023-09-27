@@ -44,12 +44,13 @@ function Task03(props: IProps) {
         move(target);
     }
     const mouseMove = (e: MouseEvent) => {
+        if(!startClick.current) return;
         const target = e.target as HTMLElement;
         move(target);       
     }
 
     const move = (target: HTMLElement) => {
-        if(!startClick.current) return;
+        
         if(!targetDrag) return;
         if(!userCheck) return;
         if(target !== userCheck) return;

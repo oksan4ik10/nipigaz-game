@@ -90,8 +90,6 @@ function TaskArea(props: IProps) {
         }
         if(!startGame) return; //пока пользователь не выбрал ответ
         setUserAnswerTask(useAnswer);
-        console.log(useAnswer);
-        
         if(useAnswer === "true") {
             openFirework(true);
             dispatch(setPoints(activeQuestionPoints));

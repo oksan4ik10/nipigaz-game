@@ -16,6 +16,7 @@ import { TaskAnswer30 } from '../components/Tasks/Task30/TaskAnswer30';
 import { TaskAnswer31 } from '../components/Tasks/Task31/TaskAnswer31';
 import { TaskAnswer32 } from '../components/Tasks/Task32/TaskAnswer32';
 import { TaskAnswer33 } from '../components/Tasks/Task33/TaskAnswer33';
+import TaskEnd from '../components/Tasks/TaskEnd/TaskEnd';
 
 interface IProps {
     correct: boolean;
@@ -25,7 +26,9 @@ export const TaskAnswer = (props:IProps) => {
     const {correct} = props;
     const arrActive = useAppSelector((state)=>state.activeQuestion).activeQuestion;
     const active = arrActive.join("");
-    const answerUser = useAppSelector((state) => state.answersReducer).arrAnswers[arrActive[0]][arrActive[1]].answer;
+    const arrAnswers = useAppSelector((state) => state.answersReducer).arrAnswers
+    let answerUser = "";
+    if(arrActive[0] !== 4) answerUser = arrAnswers[arrActive[0]][arrActive[1]].answer;
 
     switch (active) {
         case "00":{
@@ -75,6 +78,9 @@ export const TaskAnswer = (props:IProps) => {
         }
         case "33":{
             return <TaskAnswer33 correct = {correct} answer = {answerUser}/>;
+        }
+        case "44":{
+            return <TaskEnd/>;
         }
     }
     

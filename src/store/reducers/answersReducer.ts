@@ -32,64 +32,64 @@ const initialState: IArrQuestions = {
         
     }], [ {
         checkAnswer: false,
-        answer: "-1",
+        answer: "1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "3",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "180",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }],
     [ {
         checkAnswer: false,
-        answer: "-1",
+        answer: "50",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "1",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "37",
         correct: false
         
     }],
     [ {
         checkAnswer: false,
-        answer: "-1",
+        answer: "1234",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "0",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "2",
         correct: false
         
     }, {
         checkAnswer: false,
-        answer: "-1",
+        answer: "true true true false",
         correct: false
         
     }],]
