@@ -9,24 +9,33 @@ import urlImg1 from "../../../assets/images/regions/1.png";
 import urlImg2 from "../../../assets/images/regions/2.png";
 import urlImg3 from "../../../assets/images/regions/3.png";
 import urlImg4 from "../../../assets/images/regions/4.png";
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task13(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const { register, getValues} = useForm();
 
     const clickFormTest = ()=>{
 
         selectAnswer(true);
         const {name1} = getValues();
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: name1,
+                correct: false
+            }
+        }
         if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))     
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))  
         }
     
 
