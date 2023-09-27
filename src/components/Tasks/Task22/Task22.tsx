@@ -7,23 +7,32 @@ import { TouchEvent, MouseEvent } from 'react';
 import { OpacityTask} from '../../../utils/OpacityTask/OpacityTask';
 import { StrokeAnswer } from './StrokeAnswer';
 
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task22(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
     const { register, getValues, setValue } = useForm();
 
     const clickFormTest = ()=>{
         const {name1} = getValues();
         selectAnswer(true);
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: name1,
+                correct: false
+            }
+        }
         if(name1 === "2"){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))  
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))
         }
     }
 
