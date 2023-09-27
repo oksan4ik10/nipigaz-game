@@ -97,27 +97,47 @@ function Task32(props: IProps) {
                         <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Подчеркни верный ответ</h4>
                         <form className={styles.form} onClick={
                             (e) => clickForm(e)} 
+                            >
+                            <label className={styles.label} 
                             onMouseDown={(e) => mouseStart(e)}
                             onMouseMove={() => mouseMove()}
-                            onMouseUp={() => mouseUp()}
+                            onMouseLeave={() => mouseUp()}
                             onTouchStart={(e) => dragStart(e)} 
                             onTouchMove = {() => dragMove()}
-                            onTouchEnd={() => dragEnd()}>
-                            <label className={styles.label} 
+                            onTouchEnd={() => dragEnd()}
                              id="1">
                                 <input type="radio" className={styles.input} value={1} {...register("name1")}/>
                                 <span>Юный инженер</span>
                             </label>
                             <label className={styles.label}
+                                                        onMouseDown={(e) => mouseStart(e)}
+                                                        onMouseMove={() => mouseMove()}
+                                                        onMouseLeave={() => mouseUp()}
+                                                        onTouchStart={(e) => dragStart(e)} 
+                                                        onTouchMove = {() => dragMove()}
+                                                        onTouchEnd={() => dragEnd()}
+                            
                             id="2">
                                 <input type="radio" className={styles.input} value={2} {...register("name1")}/>
                                 <span>Молодой специалист</span>
                             </label>
-                            <label className={styles.label}  id="3">
+                            <label className={styles.label}
+                                                        onMouseDown={(e) => mouseStart(e)}
+                                                        onMouseMove={() => mouseMove()}
+                                                        onMouseLeave={() => mouseUp()}
+                                                        onTouchStart={(e) => dragStart(e)} 
+                                                        onTouchMove = {() => dragMove()}
+                                                        onTouchEnd={() => dragEnd()}id="3">
                                 <input type="radio" className={styles.input} value={3} {...register("name1")}/>
                                 <span>Начинающий эксперт</span>
                             </label>
-                            <label className={styles.label} id="4">
+                            <label className={styles.label} id="4"
+                                                        onMouseDown={(e) => mouseStart(e)}
+                                                        onMouseMove={() => mouseMove()}
+                                                        onMouseLeave={() => mouseUp()}
+                                                        onTouchStart={(e) => dragStart(e)} 
+                                                        onTouchMove = {() => dragMove()}
+                                                        onTouchEnd={() => dragEnd()}>
                                 <input type="radio" className={styles.input} value={4} {...register("name1")}/>
                                 <span>Будущий профессионал</span>
                             </label>
