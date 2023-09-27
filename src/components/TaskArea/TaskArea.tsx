@@ -64,6 +64,7 @@ function TaskArea(props: IProps) {
     }
 
     const [endGame, setEndGame] = useState(false);
+    const [final, setFinal] = useState(true);
 
     //логика работы кнопки готово
     const answerUser = () =>{
@@ -76,6 +77,7 @@ function TaskArea(props: IProps) {
             openTask(false);
             //если все вопросы закончились
             if(arrQuestions.flat().filter((item)=>item===0).length === 16){
+                setFinal(false);
                 dispatch(saveActive([4, 4]));
                 setFontSize("20px");
                 setCheckClick(true);
@@ -116,7 +118,7 @@ function TaskArea(props: IProps) {
             <div className="task__wrapper">
                 <div className={userAnswerTask === "wait" ? "task__head" : "task__head-answer"}>
                     <div className="task__heading" style = {stylesPadding}>
-                        {userAnswerTask === "wait" && <div onClick = {closeTask} className = "task__close"><span></span></div>}
+                        {userAnswerTask === "wait" && final && <div onClick = {closeTask} className = "task__close"><span></span></div>}
                         <div className="task__points">{userAnswerTask === "wait" ? (arrActiveQuestion[1] + 1) * 100 : <Lamp check = {userAnswerTask === "true"}/>}</div>
                         <h3 className={"task__title " + (checkClick ? "answer" : "")} style={styles} dangerouslySetInnerHTML={!checkClick ? {__html: question} : {__html: answer}}></h3>
                     </div>
