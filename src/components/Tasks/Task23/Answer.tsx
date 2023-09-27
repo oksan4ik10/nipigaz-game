@@ -1,7 +1,7 @@
 import imgUrlArrow from "../../../assets/images/arrow-code.png";
 interface IProps {
     value: number;
-    click : (data: number) => void;
+    click?: (data: number) => void;
     className: string;
 }
 export const Answer= (props:IProps) => {
@@ -9,12 +9,12 @@ export const Answer= (props:IProps) => {
     const clickArrowUp = ()=>{
         const newValue = value + 1;
         if (newValue > 9) return;
-        click(newValue)
+        if(click) click(newValue)
     }
     const clickArrowDown = ()=>{
         const newValue = value - 1;
         if(newValue < 0) return;
-        click(newValue)
+        if(click) click(newValue)
     }
     return <div className={className}>
             <img src={imgUrlArrow} alt="arrowUp" onClick={clickArrowUp}/>

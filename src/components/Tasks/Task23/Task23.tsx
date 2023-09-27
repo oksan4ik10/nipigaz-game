@@ -6,16 +6,13 @@ import { Answer } from './Answer';
 import imgUrl from "../../../assets/images/code.png";
 import imgUrlLast from "../../../assets/images/code-last.png";
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
-
-
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 
 function Task23(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const [answer1, setAnswer1] = useState(0);
     const [startTask, setStartTask] = useState(false);
@@ -26,11 +23,22 @@ function Task23(props: IProps) {
         }
         if(ans1 === -1) ans1 = answer1;
         if(ans2 === -1) ans2 = answer2;
-        
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: (ans1 + "") + (ans2 + ""),
+                correct: false
+            }
+        }
+
         if(ans1 === 3 && ans2 === 7){
             dispatch(setCheckAnswer("true"));
+            
+            answerUser.answerInfo.correct = true;
+            dispatch(addAnswer(answerUser))      
         } else {
             dispatch(setCheckAnswer("false"));
+            dispatch(addAnswer(answerUser))
         }
     }
     let ans1 = -1, ans2 = -1;
