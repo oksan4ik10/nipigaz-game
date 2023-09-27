@@ -4,14 +4,12 @@ import {useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from '../../../utils/OpacityTask/OpacityTask';
 import { MouseEvent } from 'react';
-interface IProps {
-    selectAnswer: (data: boolean) => void;
-    checkClick: boolean;
-}
-
+import { addAnswer } from "../../../store/reducers/answersReducer";
+import { IAnswerUser } from '../../../store/reducers/answersReducer';
+import { IProps } from '../types';
 function Task10(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick} = props;
+    const {selectAnswer, checkClick, active} = props;
 
     const [arrAnswers, setArrAnswers] = useState([
         {value: "амбов",
@@ -122,13 +120,24 @@ function Task10(props: IProps) {
             return item
         }))
         setAnswer(arrAnswers[index]);
+
+        const answerUser: IAnswerUser = {
+            arrAnswer: active,
+            answerInfo: {
+                answer: index + "",
+                correct: false
+            }
+        }
    
         if(index === 1){
             dispatch(setCheckAnswer("true"));
+            answerUser.answerInfo.correct = true;
             setSaveResult(true);
+            dispatch(addAnswer(answerUser))
         } else {
             dispatch(setCheckAnswer("false"));
             setSaveResult(false);
+            dispatch(addAnswer(answerUser))
         }
         
     }
