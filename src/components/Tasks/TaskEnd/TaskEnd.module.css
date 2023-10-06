@@ -1,24 +1,27 @@
-.task__info{
+.task__info {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 10px;
 }
-.subtitels{
+
+.subtitels {
     color: #FFF;
     font-size: 21px;
     font-weight: 700;
     letter-spacing: 0.42px;
     text-transform: uppercase;
 }
-.points{
+
+.points {
     color: #FFF;
     font-size: 49px;
     font-weight: 700;
-    letter-spacing: 0.98px; 
+    letter-spacing: 0.98px;
 }
-.contact{
+
+.contact {
     position: absolute;
     width: calc(100% + 10px);
     height: 316px;
@@ -34,20 +37,23 @@
     justify-content: end;
     padding: 0px 30px 55px 44px;
 }
-.contactInfo{
+
+.contactInfo {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap:23px;
+    gap: 23px;
 
 }
+
 .contactText {
     color: #008C95;
     font-size: 15px;
     font-weight: 400;
     letter-spacing: 0.3px;
 }
-.btnEnd{
+
+.btnEnd {
     display: block;
     color: #fff;
     font-family: Nunito Sans;
@@ -69,4 +75,19 @@
     padding: 14px 0px;
     background: #008C95;
     width: 186px;
+}
+
+@media ((max-width: 900px) and (orientation: landscape)) or ((max-width: 450px) and (orientation: portrait)) {
+    .contact {
+        align-items: center;
+        padding-bottom: 65px;
+    }
+
+    .contactInfo img {
+        display: none;
+    }
+
+    .contactText {
+        text-align: center;
+    }
 }
