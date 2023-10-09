@@ -63,11 +63,12 @@ function Task12(props: IProps) {
     }
     const mouseMove = (e: MouseEvent) => {
         if (!startClick.current) return;
+        if (clickHourStart.current) return;
         const target = e.target as HTMLElement;
         move(target, e.pageX, e.pageY)
     }
     const move = (target: HTMLElement, clientX: number, clientY: number) => {
-        if (clickHourStart.current) return;
+
         targetData = target.closest(`.${styles.hour}`);
         const newX = clientX, newY = clientY;
         if (rotate.current > 180) origin.current = 55;
