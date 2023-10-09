@@ -1,5 +1,5 @@
 import styles from "./Task12.module.css";
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import imgUrlHour from "../../../assets/images/numbers/hour.svg";
@@ -49,6 +49,7 @@ function Task12(props: IProps) {
         document.body.style.overflow = "hidden";
     }
     const start = (target: HTMLElement, clientX: number, clientY: number) => {
+
         targetData = target.closest(`.${styles.hour}`);
         setX(clientX);
         setY(clientY);
@@ -66,6 +67,7 @@ function Task12(props: IProps) {
         move(target, e.pageX, e.pageY)
     }
     const move = (target: HTMLElement, clientX: number, clientY: number) => {
+        if (clickHourStart.current) return;
         targetData = target.closest(`.${styles.hour}`);
         const newX = clientX, newY = clientY;
         if (rotate.current > 180) origin.current = 55;
@@ -145,12 +147,15 @@ function Task12(props: IProps) {
             start(target, e.pageX, e.pageY)
             startClick.current = true;
             firstClick.current = true;
+            clickHourStart.current = false;
+        } else {
+            firstClick.current = false;
         }
 
     }
-
+    const hourRef = useRef<HTMLDivElement>(null);
     const clickItemHour = (deg: number) => {
-
+        clickHourStart.current = true;
         if (hourRef.current) hourRef.current.style.setProperty("--rotate", `${deg}deg`);
         rotate.current = deg;
         const answerUser: IAnswerUser = {
@@ -179,14 +184,36 @@ function Task12(props: IProps) {
         }
 
     }
+    const minuteRef = useRef<HTMLDivElement>(null);
+    let minuteX: number, minuteY: number;
+    useEffect(() => {
+        if (minuteRef.current) {
+            const data = minuteRef.current.getBoundingClientRect();
+            minuteX = data.left;
+            minuteY = data.top;
+        }
+    })
 
-    const hourRef = useRef<HTMLDivElement>(null);
+    const clickHourStart = useRef(false);
 
     const clickMinute = (e: MouseEvent<HTMLDivElement>) => {
-        //const target = e.target as HTMLElement;
-        console.dir(e.pageX);
+        const x = e.pageX;
+        const y = e.pageY;
+
+        if ((x > minuteX) && (x < minuteX + 18) && (y > minuteY + 30) && (y < minuteY + 44)) {
+            clickItemHour(60);
+        }
+        if ((x > minuteX + 26) && (x < minuteX + 42) && (y > minuteY + 25) && (y < minuteY + 37)) {
+            clickItemHour(90);
+
+        }
+        if ((x > minuteX + 44) && (x < minuteX + 62) && (y > minuteY + 30) && (y < minuteY + 42)) {
+            clickItemHour(120);
+
+        }
 
     }
+
 
     return (
         <>
@@ -195,7 +222,7 @@ function Task12(props: IProps) {
                 <div className={styles.clock} >
                     <div className={styles.numbers} >
                         {arrAnswers.map((item, index) => {
-                            return <span data-value={item.value} key={index} className={item.check ? styles.check : ""} onClick={() => clickItemHour(item.deg)}>{item.value}</span>
+                            return <span data-value={item.value} key={index} className={item.check ? styles.check : ""} onClick={() => clickItemHour(item.deg)} >{item.value}</span>
                         })}
                     </div>
                     <div className={styles.arrows} style={styleTransform} >
@@ -208,7 +235,7 @@ function Task12(props: IProps) {
                             <img src={imgUrlHour} alt="hour" />
                         </div>
                     </div>
-                    <div className={styles.minutes} onClick={(e) => clickMinute(e)}>
+                    <div className={styles.minutes} onClick={(e) => clickMinute(e)} ref={minuteRef}>
                         <svg width="63" height="95" viewBox="0 0 63 95" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M30.9235 83.1408C30.0093 83.1408 29.3999 82.5314 29.3999 81.6172C29.3999 80.7031 30.0093 80.0936 30.9235 80.0936C31.8376 80.0936 32.4471 80.7031 32.4471 81.6172C32.4471 82.5314 31.8376 83.1408 30.9235 83.1408Z" fill="#008C95" />
                             <path d="M33.0875 78.4396C32.9139 78.6901 32.7019 78.7284 32.4898 78.7668C31.9406 78.7568 31.3146 78.3227 31.1126 77.8118C30.7855 77.2141 30.2463 76.6548 29.6586 76.4328C29.3214 76.3843 28.9842 76.3359 28.7722 76.3743C28.7722 76.3743 28.7338 76.1623 28.8206 76.0371L28.5474 17.0745C28.5574 16.5252 28.8663 15.8124 29.2136 15.3116C29.3004 15.1864 29.3872 15.0612 29.3872 15.0612L30.207 14.1464C30.4674 13.7708 31.0167 13.7808 31.3055 14.1665L32.2203 14.9862C32.6343 15.4587 33.125 16.3552 33.0281 17.0297L33.348 78.064C33.2612 78.1892 33.1743 78.3144 33.0875 78.4396Z" fill={checkClick ? "rgba(255, 255, 255, .3)" : "#299EA6"} />
