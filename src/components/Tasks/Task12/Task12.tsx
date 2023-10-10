@@ -198,6 +198,7 @@ function Task12(props: IProps) {
     const clickHourStart = useRef(false);
 
     const clickMinute = (e: MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
         const x = e.pageX;
         const y = e.pageY;
 
