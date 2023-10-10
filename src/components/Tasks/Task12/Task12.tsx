@@ -205,15 +205,18 @@ function Task12(props: IProps) {
         if ((x > minuteX) && (x < minuteX + 18) && (y > minuteY + 30) && (y < minuteY + 44)) {
             clickItemHour(60);
         }
-        if ((x > minuteX + 26) && (x < minuteX + 42) && (y > minuteY + 25) && (y < minuteY + 37)) {
+        if ((x > minuteX + 26) && (x < minuteX + 42) && (y > minuteY + 20) && (y < minuteY + 40)) {
             clickItemHour(90);
 
         }
-        if ((x > minuteX + 44) && (x < minuteX + 62) && (y > minuteY + 30) && (y < minuteY + 42)) {
+        if ((x > minuteX + 44) && (x < minuteX + 64) && (y > minuteY + 30) && (y < minuteY + 44)) {
             clickItemHour(120);
 
         }
 
+    }
+    const clickMinuteIMG = (e: MouseEvent<HTMLOrSVGElement>) => {
+        e.preventDefault();
     }
 
 
@@ -238,7 +241,7 @@ function Task12(props: IProps) {
                         </div>
                     </div>
                     <div className={styles.minutes} onClick={(e) => clickMinute(e)} ref={minuteRef}>
-                        <svg width="63" height="95" viewBox="0 0 63 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={(e) => clickMinuteIMG(e)} width="63" height="95" viewBox="0 0 63 95" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M30.9235 83.1408C30.0093 83.1408 29.3999 82.5314 29.3999 81.6172C29.3999 80.7031 30.0093 80.0936 30.9235 80.0936C31.8376 80.0936 32.4471 80.7031 32.4471 81.6172C32.4471 82.5314 31.8376 83.1408 30.9235 83.1408Z" fill="#008C95" />
                             <path d="M33.0875 78.4396C32.9139 78.6901 32.7019 78.7284 32.4898 78.7668C31.9406 78.7568 31.3146 78.3227 31.1126 77.8118C30.7855 77.2141 30.2463 76.6548 29.6586 76.4328C29.3214 76.3843 28.9842 76.3359 28.7722 76.3743C28.7722 76.3743 28.7338 76.1623 28.8206 76.0371L28.5474 17.0745C28.5574 16.5252 28.8663 15.8124 29.2136 15.3116C29.3004 15.1864 29.3872 15.0612 29.3872 15.0612L30.207 14.1464C30.4674 13.7708 31.0167 13.7808 31.3055 14.1665L32.2203 14.9862C32.6343 15.4587 33.125 16.3552 33.0281 17.0297L33.348 78.064C33.2612 78.1892 33.1743 78.3144 33.0875 78.4396Z" fill={checkClick ? "rgba(255, 255, 255, .3)" : "#299EA6"} />
                             <path d="M30.7579 0.197183L30.905 0.157751C31.386 0.186618 31.612 0.441517 31.7303 0.883015L31.7773 89.3583C31.7485 89.8392 31.4936 90.0652 31.0521 90.1835C30.5711 90.1547 30.3451 89.8998 30.2268 89.4583L30.1798 0.983019C30.2086 0.502087 30.4635 0.276049 30.7579 0.197183Z" fill="#66BABF" fillOpacity={checkClick ? ".3" : "1"} />
