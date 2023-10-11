@@ -56,6 +56,8 @@ function Task31(props: IProps) {
                 targetDrag.style.position = "static";
                 targetDrag.style.height = "auto";
                 targetDrag.style.width = "auto";
+                selectAnswer(false);
+                startClick.current = false;
                 return
             }
             targetDrag.style.position = "absolute";

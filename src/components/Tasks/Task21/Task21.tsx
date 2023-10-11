@@ -89,7 +89,14 @@ function Task21(props: IProps) {
 
     const start = () => {
         if (targetDrag) {
-            if (targetDrag.style.position === "absolute") return;
+            if (targetDrag.style.position === "absolute") {
+                targetDrag.style.position = "static";
+                targetDrag.style.left = "auto";
+                targetDrag.style.top = "auto";
+                selectAnswer(false);
+                startClick.current = false;
+                return;
+            }
             targetDrag.style.position = "absolute";
             const x = targetDrag.offsetLeft;
             const y = targetDrag.offsetTop;
@@ -141,6 +148,7 @@ function Task21(props: IProps) {
 
 
     const mouseUp = (index: number) => {
+        if (!startClick.current) return;
         startClick.current = false;
         end(index);
 
@@ -177,6 +185,7 @@ function Task21(props: IProps) {
     }
 
     const mouseOut = (index: number) => {
+
         if (!startClick.current) return;
         startClick.current = false;
         end(index);

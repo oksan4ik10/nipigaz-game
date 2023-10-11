@@ -62,6 +62,8 @@ function Task01(props: IProps) {
             targetDrag.style.transform = "none";
             if (targetDrag.style.position === "absolute") {
                 targetDrag.style.position = "static";
+                selectAnswer(false);
+                startClick.current = false;
                 return;
             }
             targetDrag.style.position = "absolute";
