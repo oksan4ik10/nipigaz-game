@@ -49,10 +49,15 @@ function Task31(props: IProps) {
     const start = (t: HTMLElement) => {
         targetDrag = t.closest("div");
         if (targetDrag) {
-            if (targetDrag.style.position === "absolute") return;
             targetDrag.style.left = "auto";
             targetDrag.style.top = "auto";
             targetDrag.style.transform = "none";
+            if (targetDrag.style.position === "absolute") {
+                targetDrag.style.position = "static";
+                targetDrag.style.height = "auto";
+                targetDrag.style.width = "auto";
+                return
+            }
             targetDrag.style.position = "absolute";
             let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
             if (x < 0) x = targetDrag.offsetLeft;
@@ -156,12 +161,17 @@ function Task31(props: IProps) {
     }
 
     const mouseUp = () => {
+        startClick.current = false;
         if (targetDrag) {
             if ((targetDrag.style.top !== "30%") && (targetDrag.style.left !== "50%")) {
                 targetDrag.style.position = "static";
             }
         }
 
+    }
+    const mouseOut = (e: MouseEvent<HTMLDivElement>) => {
+        if (!startClick.current) return;
+        if (e.target === targetDrag) end();
     }
 
     const dragEnd = () => {
@@ -184,6 +194,7 @@ function Task31(props: IProps) {
 
                             <Images index={index} color={checkClick ? answerIndex === "0" ? "#99CC00" : "#C00000" : "#008C95"}
                                 onMouseUp={() => mouseUp()}
+                                onMouseOut={(e) => mouseOut(e)}
                                 onMouseDown={(e) => mouseStart(e)}
                                 onMouseMove={(e) => mouseMove(e)}
                                 onTouchStart={(e) => dragStart(e)}
