@@ -1,25 +1,28 @@
-.taskInfo{
-    margin-top: 15px;
+.taskInfo {
+    margin-top: 10px;
     position: relative;
 }
-.task{
-    margin-top: 10px;
+
+.task {
+    margin-top: 5px;
     display: flex;
     gap: 2px;
     align-items: center;
 }
-.text{
+
+.text {
     color: #FFF;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0.4px;
 }
-.text span{
+
+.text span {
     vertical-align: 0.5em;
 
 }
 
-.number{
+.number {
     color: #FFF;
     font-size: 40px;
     font-weight: 700;
@@ -33,17 +36,21 @@
     width: 38px;
 
 }
-.number img{
+
+.number img {
     opacity: .5;
     cursor: pointer;
 }
-.number:not(:first-of-type){
+
+.number:not(:first-of-type) {
     padding: 6px 7px 8px;
 }
-.number img:first-child{
+
+.number img:first-child {
     margin-bottom: 4px;
 }
-.number img:last-child{
+
+.number img:last-child {
     transform: rotate(180deg);
     margin-top: -4px;
 }

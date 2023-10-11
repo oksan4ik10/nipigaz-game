@@ -254,7 +254,7 @@ function Task12(props: IProps) {
 
                 </div>
 
-                <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Передвинь часовую стрелку в верное положение</h4>
+                <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Передвинь часовую стрелку в верное положение, нажав на число на часах</h4>
 
 
             </div>
