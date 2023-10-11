@@ -21,7 +21,7 @@ function TaskEnd() {
           <p className={styles.contactText}>
             Хочешь у нас работать?<br />Присоединяйся к команде!
           </p>
-          <a href="http://career.nipigas.ru/studentam/programma-molodoy-spetsialist/ " className={styles.btnEnd}>откликнуться</a>
+          <a href="https://vk.cc/crvlFm" className={styles.btnEnd}>откликнуться</a>
         </div>
 
       </div>
