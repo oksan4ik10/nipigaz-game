@@ -1,13 +1,15 @@
-.taskInfo{
+.taskInfo {
     margin-top: -20px;
     position: relative;
 }
-.form{
+
+.form {
     display: flex;
     flex-direction: column;
     margin-top: 9px;
 }
-.label{
+
+.label {
     color: #FFF;
     font-family: Nipigaz Basic;
     font-size: 15px;
@@ -15,18 +17,23 @@
     line-height: 120%;
     --var-width: 0%;
     padding: 7px 0px;
+    cursor: pointer;
 }
-.input{
+
+.input {
     appearance: none;
     -webkit-appearance: none;
     width: 0;
     height: 0;
 }
-.label span{
+
+.label span {
     position: relative;
+
 }
-.input:checked ~ span::after{
-    content:"";
+
+.input:checked~span::after {
+    content: "";
     position: absolute;
     top: 43%;
     transform: translateY(-48%);
