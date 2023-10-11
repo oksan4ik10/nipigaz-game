@@ -83,7 +83,7 @@
     width: 186px;
 }
 
-@media ((max-height: 800px) and (orientation: landscape)) or ((max-width: 450px) and (orientation: portrait)) {
+@media ((max-height: 550px) and (orientation: landscape)) {
     .contact {
         align-items: center;
         padding-bottom: 65px;
