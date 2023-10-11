@@ -46,6 +46,12 @@
 
 }
 
+.contactInfo img {
+    width: 61px;
+    height: 61px;
+    object-fit: cover;
+}
+
 .contactText {
     color: #008C95;
     font-size: 15px;
