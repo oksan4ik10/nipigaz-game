@@ -1,23 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
 @import url('assets/fonts/fonts.css');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Nipigaz Basic', sans-serif;
 }
-#root{
-    background: linear-gradient(rgba(0, 140, 149, 0.80), rgba(0, 140, 149, 0.80)), url('./assets/images/bg.png');
+
+#root {
+    background: linear-gradient(rgba(0, 140, 149, 0.93), rgba(0, 140, 149, 0.93)), url('./assets/images/bg.png');
     background-repeat: repeat, no-repeat;
     background-size: cover;
     width: 100%;
     height: 100vh;
     min-height: 357px;
-    -youbkit-touch-callout: none; 
-    -youbkit-user-select: none; 
-    -moz-user-select: none;   
-    -ms-user-select: none;      
-    user-select: none;  
+    -youbkit-touch-callout: none;
+    -youbkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .btn {
@@ -38,33 +40,36 @@
     cursor: pointer;
 }
 
-@media ((max-width: 900px) and (orientation: landscape)) or ((max-width: 450px) and (orientation: portrait)){
+@media ((max-width: 900px) and (orientation: landscape)) or ((max-width: 450px) and (orientation: portrait)) {
     #root {
-        background: linear-gradient(rgba(0, 140, 149, 0.80), rgba(0, 140, 149, 0.80)), url('./assets/images/bg-mobile.png');
+        background: linear-gradient(rgba(0, 140, 149, 0.93), rgba(0, 140, 149, 0.93)), url('./assets/images/bg-mobile.png');
         background-repeat: repeat, no-repeat;
         background-size: cover;
     }
 }
+
 @media screen and (orientation:portrait) {
     #root {
         background-position-x: 33%;
     }
-    .main__btn{
+
+    .main__btn {
         display: none;
     }
 }
+
 .main {
-  display: grid;
-  grid-template-columns: auto auto ;
-  margin: auto;
-  padding-top: 41px;
-  width: 95%;
-  height: 100%;
-  justify-items: center;
-  position: relative;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: auto;
+    padding-top: 41px;
+    width: 95%;
+    height: 100%;
+    justify-items: center;
+    position: relative;
 }
 
-.blur{
+.blur {
     position: absolute;
     top: 0;
     width: 100vw;
@@ -73,7 +78,8 @@
     backdrop-filter: blur(5px);
     z-index: 1;
     display: none;
- }
- .blur.active{
+}
+
+.blur.active {
     display: block;
- }
+}
