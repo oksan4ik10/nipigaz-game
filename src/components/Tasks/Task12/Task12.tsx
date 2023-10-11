@@ -156,6 +156,7 @@ function Task12(props: IProps) {
     }
     const hourRef = useRef<HTMLDivElement>(null);
     const clickItemHour = (deg: number) => {
+        selectAnswer(true);
         clickHourStart.current = true;
         if (hourRef.current) hourRef.current.style.setProperty("--rotate", `${deg}deg`);
         rotate.current = deg;
