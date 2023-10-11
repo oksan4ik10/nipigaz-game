@@ -1,61 +1,76 @@
-.taskInfo{
+.taskInfo {
     position: relative;
     margin-top: -15px;
 }
-.task{
+
+.task {
     display: grid;
     grid-template-columns: .9fr 1.1fr;
     align-items: center;
     margin-top: -10px;
 }
 
-.map{
+.map {
     display: flex;
     align-items: center;
     justify-content: start;
     margin-left: 39px;
     cursor: grabbing;
 }
-.towns{
+
+.map svg {
+    z-index: 999;
+}
+
+.towns {
     display: flex;
     align-items: start;
     justify-content: start;
     flex-direction: column;
 
 }
-.town{
+
+.town {
     display: grid;
-    grid-template-columns: 14px auto;
+    grid-template-columns: 24px auto;
     grid-column-gap: 8px;
-    align-items: end;
+    align-items: center;
 }
-.answer{
+
+.answer {
     border-radius: 50%;
-    width: 15px;
-    height: 14px;
+    width: 24px;
+    height: 24px;
     border: 1px solid #fff;
-    flex: 0 1 14px;
+    flex: 0 1 24px;
 
 }
-.name{
+
+.name {
     color: #FFF;
     font-size: 10px;
     font-weight: 400;
     line-height: 120%;
     letter-spacing: 0.2px;
+    margin-top: 5px;
 }
-.town:nth-child(1){
-    margin-bottom: 30px;
+
+.town:nth-child(1) {
+    margin-bottom: 13px;
     margin-left: 59px;
+    margin-top: -10px;
 }
-.town:nth-child(2){
-    margin-bottom: 25px;
+
+.town:nth-child(2) {
+    margin-bottom: 13px;
     margin-left: 38px;
 }
-.town:nth-child(3){
-    margin-bottom: 8px;
+
+.town:nth-child(3) {
+    margin-bottom: 13px;
     margin-left: 10px;
 }
-.town:nth-child(4)>.answer{
-    width: 14px;
+
+.town:nth-child(4) {
+    margin-left: -10px;
 }

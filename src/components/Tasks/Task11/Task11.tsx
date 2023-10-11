@@ -35,23 +35,23 @@ function Task11(props: IProps) {
 
             if (refCheck1.current) {
                 const dataCheck1 = refCheck1.current.getBoundingClientRect();
-                answerXY[0].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
-                answerXY[0].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
+                answerXY[0].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 42;
+                answerXY[0].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 17);
             }
             if (refCheck2.current) {
                 const dataCheck1 = refCheck2.current.getBoundingClientRect();
-                answerXY[1].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
-                answerXY[1].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
+                answerXY[1].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 42;
+                answerXY[1].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 17);
             }
             if (refCheck3.current) {
                 const dataCheck1 = refCheck3.current.getBoundingClientRect();
-                answerXY[2].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
-                answerXY[2].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
+                answerXY[2].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 42;
+                answerXY[2].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 17);
             }
             if (refCheck4.current) {
                 const dataCheck1 = refCheck4.current.getBoundingClientRect();
-                answerXY[3].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
-                answerXY[3].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
+                answerXY[3].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 42;
+                answerXY[3].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 17);
             }
         }
 
@@ -77,10 +77,6 @@ function Task11(props: IProps) {
         document.body.style.overflow = "hidden";
         const data = e.changedTouches[0];
         const t = e.changedTouches[0].target as HTMLElement;
-        console.log(data);
-
-        console.log(data.clientY, stateY);
-
         start(t, data.clientX, data.clientY);
     }
     const mouseStart = (e: MouseEvent) => {
@@ -96,8 +92,6 @@ function Task11(props: IProps) {
             targetDrag.style.position = "absolute";
             width = targetDrag.width.animVal.value;
             const y = clientY - stateY;
-            console.log(stateY, y);
-
             const x = clientX - stateX - (width / 2);
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
@@ -119,14 +113,13 @@ function Task11(props: IProps) {
         if (xNew < 32) xNew = 33
         else if (xNew > 300) xNew = 299;
         let yNew: number = y;
-        if (yNew < -15) yNew = -15
-        else if (yNew > 112) yNew = 112;
+        if (yNew < -60) yNew = -60
+        else if (yNew > 90) yNew = 90;
 
         checkBg.current = "transparent";
         if (targetDrag) {
-            if ((xNew > 32) && (xNew < 300)) targetDrag.style.left = xNew + "px";
-            else targetDrag.style.left = 299 + "px";
-            if ((yNew > -15) && (yNew < 112)) targetDrag.style.top = yNew + "px";
+            targetDrag.style.left = xNew + "px";
+            targetDrag.style.top = yNew + "px";
 
         }
     }
@@ -135,6 +128,7 @@ function Task11(props: IProps) {
         document.body.style.overflow = "auto";
         end();
     }
+
 
 
     const mouseUp = () => {
@@ -153,7 +147,7 @@ function Task11(props: IProps) {
             const y = parseInt(targetDrag.style.top);
             let j = -3;
             answerXY.forEach((item, index) => {
-                if ((((item.left + 4) >= x) && ((item.left - 4) <= x)) && (((item.top + 19) >= y) && ((item.top - 7) <= y))) {
+                if ((((item.left + 10) >= x) && ((item.left - 10) <= x)) && (((item.top + 19) >= y) && ((item.top - 17) <= y))) {
                     selectAnswer(true);
                     checkBg.current = "#fff";
                     j = index;
@@ -208,10 +202,11 @@ function Task11(props: IProps) {
                             onMouseUp={() => mouseUp()}
                             onTouchStart={(e) => dragStart(e)}
                             onTouchMove={(e) => dragMove(e)}
-                            onTouchEnd={() => dragEnd()} width="20" height="43" viewBox="0 0 20 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 42.4463C13.115 42.4463 15.6402 41.9333 15.6402 41.3005C15.6402 40.6677 13.115 40.1547 10 40.1547C6.885 40.1547 4.35979 40.6677 4.35979 41.3005C4.35979 41.9333 6.885 42.4463 10 42.4463Z" fill="white" fillOpacity={.5} />
-                            <path d="M8.22972 39.5961L7.25865 15.434H12.7442L11.7731 39.5961C11.7359 40.5471 10.951 41.3005 9.99999 41.3005C9.04897 41.3005 8.26696 40.5471 8.22972 39.5961Z" fill={checkClick ? answer ? "#DEFF7B" : "#EEA7A7" : "#9CE4E8"} />
-                            <path d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="white" />
+                            onTouchEnd={() => dragEnd()}
+                            width="32" height="68" viewBox="0 0 32 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 67.914C20.984 67.914 25.0244 67.0932 25.0244 66.0807C25.0244 65.0682 20.984 64.2474 16 64.2474C11.016 64.2474 6.97566 65.0682 6.97566 66.0807C6.97566 67.0932 11.016 67.914 16 67.914Z" fill="white" fillOpacity={.5} />
+                            <path d="M13.1676 63.3537L11.6138 24.6943H20.3907L18.837 63.3537C18.7774 64.8754 17.5216 66.0808 16 66.0808C14.4784 66.0808 13.2271 64.8754 13.1676 63.3537Z" fill={checkClick ? answer ? "#DEFF7B" : "#EEA7A7" : "#9CE4E8"} />
+                            <path d="M16 32C24.8366 32 32 24.8366 32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32Z" fill="white" stroke={checkClick ? answer ? "#99CC00" : "#C00000" : "#008C95"} />
                         </svg>
 
                     </div>
