@@ -67,6 +67,7 @@ function Task10(props: IProps) {
     let targetDrag: HTMLElement | undefined;
     const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        disablePageScroll();
         document.body.style.overflow = "hidden";
         targetDrag = e.changedTouches[0].target as HTMLElement;
         start();
@@ -79,7 +80,7 @@ function Task10(props: IProps) {
 
     const start = () => {
         if (targetDrag) {
-            disablePageScroll();
+
             targetDrag.style.left = "auto";
             targetDrag.style.top = "auto";
             targetDrag.style.position = "absolute";
@@ -124,7 +125,6 @@ function Task10(props: IProps) {
 
 
     const mouseUp = () => {
-        enablePageScroll();
         startClick.current = false;
         if (targetDrag) {
             targetDrag.style.position = "static";
@@ -171,7 +171,6 @@ function Task10(props: IProps) {
     }
 
     const mouseOut = (e: MouseEvent, index: number) => {
-        enablePageScroll();
         if (!startClick.current) return;
         if (e.target === targetDrag) end(index);
     }

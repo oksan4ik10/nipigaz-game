@@ -1,5 +1,5 @@
 import styles from './Task01.module.css'
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, MouseEvent } from 'react';
 import { useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import urlImg from "../../../assets/images/cart.png";
@@ -54,11 +54,16 @@ function Task01(props: IProps) {
     const start = () => {
         disablePageScroll();
         if (targetDrag) {
-            if (targetDrag.style.position === "absolute") return;
+
             targetDrag.style.left = "auto";
             targetDrag.style.top = "auto";
+            targetDrag.style.color = "#fff";
+            targetDrag.style.fontSize = "25px";
             targetDrag.style.transform = "none";
-
+            if (targetDrag.style.position === "absolute") {
+                targetDrag.style.position = "static";
+                return;
+            }
             targetDrag.style.position = "absolute";
             let x = targetDrag.offsetLeft - targetDrag.offsetWidth;
             if (x < 0) x = targetDrag.offsetLeft
@@ -66,7 +71,7 @@ function Task01(props: IProps) {
             targetDrag.style.zIndex = "1";
             targetDrag.style.left = x + "px";
             targetDrag.style.top = y + "px";
-        } else enablePageScroll();
+        }
 
     }
     const mouseStart = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -143,10 +148,13 @@ function Task01(props: IProps) {
     }
 
     const mouseEnd = () => {
-        enablePageScroll();
         startClick.current = false;
         end();
 
+    }
+    const mouseOut = (e: MouseEvent) => {
+        if (!startClick.current) return;
+        if (e.target === targetDrag) end();
     }
     const dragEnd = () => {
         enablePageScroll();
@@ -178,6 +186,7 @@ function Task01(props: IProps) {
 
                             key={index}>
                             <span
+                                onMouseOut={(e) => mouseOut(e)}
                                 onMouseDown={(e) => mouseStart(e)}
                                 onMouseMove={(e) => mouseMove(e)}
                                 onMouseUp={() => mouseEnd()}
