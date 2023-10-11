@@ -600,19 +600,19 @@ span._danger_at5wk_71 {
     z-index: 0
 }
 
-._taskInfo_16yfz_1 {
+._taskInfo_8ju8s_1 {
     margin-top: -20px;
     position: relative
 }
 
-._form_16yfz_9 {
+._form_8ju8s_11 {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 11px
 }
 
-._label_16yfz_21 {
+._label_8ju8s_25 {
     color: #fff;
     font-family: Nipigaz Basic;
     font-size: 13px;
@@ -623,7 +623,7 @@ span._danger_at5wk_71 {
     gap: 19px
 }
 
-._input_16yfz_43 {
+._input_8ju8s_49 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -632,38 +632,39 @@ span._danger_at5wk_71 {
     height: 24px;
     background: url(./logo-2083e589.svg);
     background-size: cover;
-    opacity: .5;
+    opacity: .3;
     flex-grow: 0;
     flex-shrink: 0;
     align-self: start
 }
 
-._input_16yfz_43:checked {
+._input_8ju8s_49:checked {
     opacity: 1
 }
 
-._taskInfo_zbjsx_1 {
+._taskInfo_1lz5x_1 {
     margin-top: -20px;
     position: relative
 }
 
-._form_zbjsx_9 {
+._form_1lz5x_11 {
     display: flex;
     flex-direction: column;
     margin-top: 9px
 }
 
-._label_zbjsx_19 {
+._label_1lz5x_23 {
     color: #fff;
     font-family: Nipigaz Basic;
     font-size: 15px;
     font-weight: 400;
     line-height: 120%;
     --var-width: 0%;
-    padding: 7px 0
+    padding: 7px 0;
+    cursor: pointer
 }
 
-._input_zbjsx_37 {
+._input_1lz5x_45 {
     -moz-appearance: none;
     appearance: none;
     -webkit-appearance: none;
@@ -671,11 +672,11 @@ span._danger_at5wk_71 {
     height: 0
 }
 
-._label_zbjsx_19 span {
+._label_1lz5x_23 span {
     position: relative
 }
 
-._input_zbjsx_37:checked~span:after {
+._input_1lz5x_45:checked~span:after {
     content: "";
     position: absolute;
     top: 43%;
@@ -1275,30 +1276,30 @@ span._danger_at5wk_71 {
     z-index: 5
 }
 
-._taskInfo_1q1st_1 {
-    margin-top: 15px;
+._taskInfo_knzmv_1 {
+    margin-top: 10px;
     position: relative
 }
 
-._task_1q1st_1 {
-    margin-top: 10px;
+._task_knzmv_1 {
+    margin-top: 5px;
     display: flex;
     gap: 2px;
     align-items: center
 }
 
-._text_1q1st_21 {
+._text_knzmv_25 {
     color: #fff;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: .4px
 }
 
-._text_1q1st_21 span {
+._text_knzmv_25 span {
     vertical-align: .5em
 }
 
-._number_1q1st_43 {
+._number_knzmv_49 {
     color: #fff;
     font-size: 40px;
     font-weight: 700;
@@ -1312,20 +1313,20 @@ span._danger_at5wk_71 {
     width: 38px
 }
 
-._number_1q1st_43 img {
+._number_knzmv_49 img {
     opacity: .5;
     cursor: pointer
 }
 
-._number_1q1st_43:not(:first-of-type) {
+._number_knzmv_49:not(:first-of-type) {
     padding: 6px 7px 8px
 }
 
-._number_1q1st_43 img:first-child {
+._number_knzmv_49 img:first-child {
     margin-bottom: 4px
 }
 
-._number_1q1st_43 img:last-child {
+._number_knzmv_49 img:last-child {
     transform: rotate(180deg);
     margin-top: -4px
 }
@@ -1380,28 +1381,29 @@ span._danger_n0eaj_71 {
     z-index: 2
 }
 
-._taskInfo_sk5qx_1 {
+._taskInfo_17d71_1 {
     margin-top: -20px;
     position: relative
 }
 
-._form_sk5qx_11 {
+._form_17d71_13 {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-top: 11px
 }
 
-._label_sk5qx_23 {
+._label_17d71_27 {
     color: #fff;
     font-family: Nipigaz Basic;
     font-size: 13px;
     font-weight: 400;
     line-height: 120%;
-    --var-width: 0%
+    --var-width: 0%;
+    cursor: pointer
 }
 
-._input_sk5qx_39 {
+._input_17d71_47 {
     -moz-appearance: none;
     appearance: none;
     -webkit-appearance: none;
@@ -1409,23 +1411,23 @@ span._danger_n0eaj_71 {
     height: 0
 }
 
-._input_sk5qx_39~span {
+._input_17d71_47~span {
     opacity: .5;
     position: relative
 }
 
-._input_sk5qx_39:checked~span {
+._input_17d71_47:checked~span {
     opacity: 1
 }
 
-._label_sk5qx_23 ._input_sk5qx_39:checked~span:after {
+._label_17d71_27 ._input_17d71_47:checked~span:after {
     content: "";
     position: absolute;
     transition: .3s easy;
     top: 100%;
     left: 0;
     width: var(--var-width);
-    height: 1px;
+    height: .5px;
     background: #fff
 }
 
