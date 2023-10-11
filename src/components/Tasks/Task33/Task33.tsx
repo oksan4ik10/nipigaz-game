@@ -20,7 +20,6 @@ function Task33(props: IProps) {
     const refCheck2 = useRef<HTMLDivElement>(null);
     const refCheck3 = useRef<HTMLDivElement>(null);
     const refCheck4 = useRef<HTMLDivElement>(null);
-    let stateX = 0, stateY = 0;
     let targetDrag: HTMLElement;
 
     const arrAnswers = [
@@ -29,12 +28,26 @@ function Task33(props: IProps) {
         { "top": 0, "left": 0 },
         { "top": 0, "left": 0 }
     ];
+    const stateX = useRef(0), stateY = useRef(0);
+    useEffect(() => {
+        const onScroll = () => {
+            if (ref.current) {
+                const data = ref.current.getBoundingClientRect();
+                stateX.current = data.left;
+                stateY.current = data.top;
+            }
+        };
+        window.removeEventListener('scroll', onScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
     useEffect(() => {
+
         if (ref.current) {
             const data = ref.current.getBoundingClientRect();
-            stateX = data.left;
-            stateY = data.top;
+            stateX.current = data.left;
+            stateY.current = data.top;
         }
         if (refCheck1.current) {
             arrAnswers[0].top = refCheck1.current.offsetTop;
@@ -58,6 +71,7 @@ function Task33(props: IProps) {
 
     const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<HTMLImageElement>) => {
+        disablePageScroll();
         document.body.style.overflow = "hidden";
         targetDrag = e.changedTouches[0].target as HTMLElement;
         start();
@@ -74,26 +88,16 @@ function Task33(props: IProps) {
 
     const start = () => {
         checkMouseEnd.current = false;
-        disablePageScroll();
         const index = targetDrag.getAttribute("data-index");
         if (index) {
             arrUsersAnswer.current = arrUsersAnswer.current.map((item, j) => j === +index ? false : item);
         }
-        let x, y;
         if (targetDrag.style.position === "static") {
-            y = targetDrag.offsetTop;
-            x = targetDrag.offsetLeft;
             targetDrag.style.position = "absolute";
-        } else {
-            targetDrag.style.position = "absolute";
-            y = targetDrag.offsetTop;
-            x = targetDrag.offsetLeft;
         }
-
-
         targetDrag.style.zIndex = "1";
-        targetDrag.style.left = x + "px";
-        targetDrag.style.top = y + "px";
+        targetDrag.style.left = targetDrag.offsetLeft + "px";
+        targetDrag.style.top = targetDrag.offsetTop + "px";
 
 
 
@@ -110,8 +114,8 @@ function Task33(props: IProps) {
 
     }
     const move = (clientX: number, clientY: number) => {
-        const y = clientY - stateY - (targetDrag.offsetHeight / 2);
-        const x = clientX - stateX - (targetDrag.offsetWidth / 2);
+        const y = clientY - stateY.current - (targetDrag.offsetHeight / 2);
+        const x = clientX - stateX.current - (targetDrag.offsetWidth / 2);
         targetDrag.style.position = "absolute";
         targetDrag.style.zIndex = "1";
         if ((x > 169) && (x < 254)) targetDrag.style.left = x + "px";
@@ -128,7 +132,6 @@ function Task33(props: IProps) {
     const checkMouseEnd = useRef(false);
 
     const mouseUp = () => {
-        enablePageScroll();
         if (checkMouseEnd.current) return;
         checkMouseEnd.current = true;
         startClick.current = false;
@@ -141,11 +144,9 @@ function Task33(props: IProps) {
         if (!targetDrag) return;
 
         const dataTarget = { top: parseFloat(targetDrag.style.top), left: parseFloat(targetDrag.style.left) };
-
-
         const findIndex = arrAnswers.findIndex((item) => (
             (((item.top - 5) <= dataTarget.top) && ((item.top + 20) >= dataTarget.top))
-            && ((item.left + 25) >= dataTarget.left)
+            && ((((item.left - 10) < dataTarget.left)) && ((item.left + 25) >= dataTarget.left))
         ))
         if ((findIndex === -1) || (arrUsersAnswer.current[findIndex])) {
             targetDrag.style.position = "static";

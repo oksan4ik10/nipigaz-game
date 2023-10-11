@@ -1,20 +1,22 @@
 import styles from "./Task11.module.css";
-import {useRef, useEffect, useState } from 'react';
-import {useAppDispatch } from '../../../store/store';
+import { useRef, useEffect, useState } from 'react';
+import { useAppDispatch } from '../../../store/store';
 import { setCheckAnswer } from '../../../store/reducers/checkAnswerReducer';
 import { OpacityTask } from "../../../utils/OpacityTask/OpacityTask";
 import { MouseEvent } from 'react';
 import { addAnswer } from "../../../store/reducers/answersReducer";
 import { IAnswerUser } from '../../../store/reducers/answersReducer';
 import { IProps } from '../types';
+
+import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 function Task11(props: IProps) {
     const dispatch = useAppDispatch();
-    const {selectAnswer, checkClick, active} = props;
-    const answerXY =  [
-        {"top": 0, "left": 0},
-        {"top": 0, "left": 0},
-        {"top": 0, "left": 0},
-        {"top": 0, "left": 0}
+    const { selectAnswer, checkClick, active } = props;
+    const answerXY = [
+        { "top": 0, "left": 0 },
+        { "top": 0, "left": 0 },
+        { "top": 0, "left": 0 },
+        { "top": 0, "left": 0 }
     ];
     const ref = useRef<HTMLDivElement>(null);
     const refCheck1 = useRef<HTMLSpanElement>(null);
@@ -22,53 +24,63 @@ function Task11(props: IProps) {
     const refCheck3 = useRef<HTMLSpanElement>(null);
     const refCheck4 = useRef<HTMLSpanElement>(null);
 
-    useEffect(()=> {
-        if(ref.current){
+
+
+
+    useEffect(() => {
+        if (ref.current) {
             const data = ref.current.getBoundingClientRect();
-              stateX = data.left;
-              stateY = data.top;
-              if(refCheck1.current){
+            stateX = data.left;
+            stateY = data.top;
+
+            if (refCheck1.current) {
                 const dataCheck1 = refCheck1.current.getBoundingClientRect();
                 answerXY[0].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
                 answerXY[0].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
             }
-            if(refCheck2.current){
+            if (refCheck2.current) {
                 const dataCheck1 = refCheck2.current.getBoundingClientRect();
                 answerXY[1].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
                 answerXY[1].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
             }
-            if(refCheck3.current){
+            if (refCheck3.current) {
                 const dataCheck1 = refCheck3.current.getBoundingClientRect();
                 answerXY[2].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
                 answerXY[2].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
             }
-            if(refCheck4.current){
+            if (refCheck4.current) {
                 const dataCheck1 = refCheck4.current.getBoundingClientRect();
                 answerXY[3].top = dataCheck1.top + dataCheck1.height / 2 - data.top - 21.5;
                 answerXY[3].left = Math.ceil(dataCheck1.left + dataCheck1.width / 2 - data.left - 10);
             }
-          }
+        }
 
-        
+
+
     })
 
 
     const [arrAnswers, setArrAnswers] = useState([
-        {name: "Санкт-Петербург", check: false},
-        {name: "Москва" , check: false},
-        {name: "Ростов-на-Дону", check: false},
-        {name: "Краснодар" , check: false},
+        { name: "Санкт-Петербург", check: false },
+        { name: "Москва", check: false },
+        { name: "Ростов-на-Дону", check: false },
+        { name: "Краснодар", check: false },
     ])
     const checkBg = useRef("transparent");
     const [answer, setAnswer] = useState(false);
-    
+
     let stateX = 0, stateY = 0, width = 0;
     let targetDrag: SVGSVGElement | null;
     const startClick = useRef(false);
     const dragStart = (e: React.TouchEvent<SVGSVGElement>) => {
-        document.body.style.overflow = "hidden"; 
-        const data = e.changedTouches[0]; 
+        disablePageScroll();
+        document.body.style.overflow = "hidden";
+        const data = e.changedTouches[0];
         const t = e.changedTouches[0].target as HTMLElement;
+        console.log(data);
+
+        console.log(data.clientY, stateY);
+
         start(t, data.clientX, data.clientY);
     }
     const mouseStart = (e: MouseEvent) => {
@@ -77,142 +89,146 @@ function Task11(props: IProps) {
         start(target, e.pageX, e.pageY)
     }
     const start = (t: HTMLElement, clientX: number, clientY: number) => {
+
         targetDrag = t.closest("svg");
         checkBg.current = "transparent";
-        if(targetDrag){
+        if (targetDrag) {
             targetDrag.style.position = "absolute";
             width = targetDrag.width.animVal.value;
-            const y = clientY  - stateY;
+            const y = clientY - stateY;
+            console.log(stateY, y);
+
             const x = clientX - stateX - (width / 2);
             targetDrag.style.left = x + "px";
-            targetDrag.style.top = y + "px"; 
+            targetDrag.style.top = y + "px";
         }
     }
     const dragMove = (e: React.TouchEvent<SVGSVGElement>) => {
         const data = e.changedTouches[0];
-        move(data.clientX, data.clientY); 
+        move(data.clientX, data.clientY);
     }
     const mouseMove = (e: MouseEvent) => {
-        if(!startClick.current) return;
+        if (!startClick.current) return;
         move(e.pageX, e.pageY);
     }
     const move = (clientX: number, clientY: number) => {
-        const y = clientY  - stateY;
+        const y = clientY - stateY;
         const x = clientX - stateX - (width / 2);
 
         let xNew: number = x;
-        if(xNew < 32) xNew = 33
+        if (xNew < 32) xNew = 33
         else if (xNew > 300) xNew = 299;
         let yNew: number = y;
-        if(yNew < -15) yNew = -15
+        if (yNew < -15) yNew = -15
         else if (yNew > 112) yNew = 112;
 
         checkBg.current = "transparent";
-        if(targetDrag){
-            if((xNew > 32) &&  (xNew < 300)) targetDrag.style.left = xNew + "px";
+        if (targetDrag) {
+            if ((xNew > 32) && (xNew < 300)) targetDrag.style.left = xNew + "px";
             else targetDrag.style.left = 299 + "px";
-            if( (yNew > -15) && (yNew < 112)) targetDrag.style.top = yNew + "px";
-            
+            if ((yNew > -15) && (yNew < 112)) targetDrag.style.top = yNew + "px";
+
         }
     }
     const dragEnd = () => {
-        document.body.style.overflow = "auto"; 
+        enablePageScroll();
+        document.body.style.overflow = "auto";
         end();
     }
 
 
     const mouseUp = () => {
-        startClick.current = false;     
+        startClick.current = false;
         end();
-         
+
     }
     const mouseOut = () => {
-        if(!startClick.current) return;
+        if (!startClick.current) return;
         startClick.current = false;
         end();
     }
     const end = () => {
-        if(targetDrag){
+        if (targetDrag) {
             const x = parseInt(targetDrag.style.left);
             const y = parseInt(targetDrag.style.top);
             let j = -3;
-            answerXY.forEach((item, index)=> {
-             if((((item.left + 4) >= x) && ((item.left - 4) <=x)) && (((item.top + 19) >= y)&&((item.top - 7) <= y))) {
-                 selectAnswer(true);
-                 checkBg.current = "#fff";
-                 j = index;
-                 const answerUser: IAnswerUser = {
-                    arrAnswer: active,
-                    answerInfo: {
-                        answer: j + "",
-                        correct: false
+            answerXY.forEach((item, index) => {
+                if ((((item.left + 4) >= x) && ((item.left - 4) <= x)) && (((item.top + 19) >= y) && ((item.top - 7) <= y))) {
+                    selectAnswer(true);
+                    checkBg.current = "#fff";
+                    j = index;
+                    const answerUser: IAnswerUser = {
+                        arrAnswer: active,
+                        answerInfo: {
+                            answer: j + "",
+                            correct: false
+                        }
                     }
+                    if (j === 3) {
+                        dispatch(setCheckAnswer("true"));
+                        setAnswer(true);
+                        answerUser.answerInfo.correct = true;
+                        dispatch(addAnswer(answerUser))
+                    } else {
+                        dispatch(setCheckAnswer("false"));
+                        setAnswer(false);
+                        dispatch(addAnswer(answerUser))
+                    }
+
+                    if (targetDrag) {
+                        targetDrag.style.left = item.left + "px";
+                        targetDrag.style.top = item.top + "px";
+                    }
+
+
                 }
-                 if(j === 3){
-                     dispatch(setCheckAnswer("true"));
-                     setAnswer(true);
-                     answerUser.answerInfo.correct = true;
-                     dispatch(addAnswer(answerUser))
-                 } else {
-                     dispatch(setCheckAnswer("false"));
-                     setAnswer(false);
-                     dispatch(addAnswer(answerUser))
-                 }
-                 
-                 if(targetDrag) {
-                     targetDrag.style.left = item.left + "px";
-                     targetDrag.style.top = item.top + "px";
-                 }
-                
-                 
-             }
-             
+
             })
-            if(j === -3) selectAnswer(false);
+            if (j === -3) selectAnswer(false);
             setArrAnswers(arrAnswers.map((item, index) => {
-             if (j===index) item.check = true;
-             else item.check = false;
-             return item;
-         }))
-             
-         }
+                if (j === index) item.check = true;
+                else item.check = false;
+                return item;
+            }))
+
+        }
     }
 
-  return (
-    <>
-                <div className={styles.taskInfo}>
-                        {checkClick && <OpacityTask/>}
-                        <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи кнопку <br/>на верный город</h4>
-                        <div className={styles.task} ref={ref} >
-                            <div className={styles.map}>
-                                <svg
-                            onMouseLeave = {() => mouseOut()}
+    return (
+        <>
+            <div className={styles.taskInfo}>
+                {checkClick && <OpacityTask />}
+                <h4 className={"task__subtitle " + (checkClick ? "answer" : "")}>Перетащи кнопку <br />на верный город</h4>
+                <div className={styles.task} ref={ref} >
+                    <div className={styles.map}>
+                        <svg
+                            onMouseLeave={() => mouseOut()}
                             onMouseDown={(e) => mouseStart(e)}
                             onMouseMove={(e) => mouseMove(e)}
-                            onMouseUp = {() => mouseUp()} 
+                            onMouseUp={() => mouseUp()}
                             onTouchStart={(e) => dragStart(e)}
                             onTouchMove={(e) => dragMove(e)}
-                            onTouchEnd={() => dragEnd()}   width="20" height="43" viewBox="0 0 20 43" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10 42.4463C13.115 42.4463 15.6402 41.9333 15.6402 41.3005C15.6402 40.6677 13.115 40.1547 10 40.1547C6.885 40.1547 4.35979 40.6677 4.35979 41.3005C4.35979 41.9333 6.885 42.4463 10 42.4463Z"  fill="white" fillOpacity={.5}/>
-                                    <path d="M8.22972 39.5961L7.25865 15.434H12.7442L11.7731 39.5961C11.7359 40.5471 10.951 41.3005 9.99999 41.3005C9.04897 41.3005 8.26696 40.5471 8.22972 39.5961Z" fill={checkClick ? answer ? "#DEFF7B" : "#EEA7A7" : "#9CE4E8" } />
-                                    <path d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="white"/>
-                                </svg>
+                            onTouchEnd={() => dragEnd()} width="20" height="43" viewBox="0 0 20 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 42.4463C13.115 42.4463 15.6402 41.9333 15.6402 41.3005C15.6402 40.6677 13.115 40.1547 10 40.1547C6.885 40.1547 4.35979 40.6677 4.35979 41.3005C4.35979 41.9333 6.885 42.4463 10 42.4463Z" fill="white" fillOpacity={.5} />
+                            <path d="M8.22972 39.5961L7.25865 15.434H12.7442L11.7731 39.5961C11.7359 40.5471 10.951 41.3005 9.99999 41.3005C9.04897 41.3005 8.26696 40.5471 8.22972 39.5961Z" fill={checkClick ? answer ? "#DEFF7B" : "#EEA7A7" : "#9CE4E8"} />
+                            <path d="M10 20C15.5228 20 20 15.5228 20 10C20 4.47715 15.5228 0 10 0C4.47715 0 0 4.47715 0 10C0 15.5228 4.47715 20 10 20Z" fill="white" />
+                        </svg>
 
+                    </div>
+                    <div className={styles.towns}>
+                        {arrAnswers.map((item, index) => {
+                            return <div className={styles.town} key={index}>
+                                <span style={{ background: item.check ? checkBg.current : "transparent" }} className={styles.answer} ref={index === 0 ? refCheck1 : index === 1 ? refCheck2 : index === 2 ? refCheck3 : refCheck4}></span>
+                                <span className={styles.name}>{item.name}</span>
                             </div>
-                            <div className={styles.towns}>
-                                {arrAnswers.map((item, index) => {
-                                    return <div className={styles.town} key = {index}>
-                                    <span style = {{background: item.check ? checkBg.current : "transparent"}} className={styles.answer} ref = {index === 0 ? refCheck1 : index === 1 ? refCheck2 : index === 2 ? refCheck3 : refCheck4}></span>
-                                    <span className={styles.name}>{item.name}</span>
-                                </div>
-                                })}
+                        })}
 
-                            </div>
-                        </div>
-
+                    </div>
                 </div>
-            </>
-  )
+
+            </div>
+        </>
+    )
 }
 
 export default Task11;

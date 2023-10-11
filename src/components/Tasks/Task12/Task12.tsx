@@ -186,30 +186,44 @@ function Task12(props: IProps) {
 
     }
     const minuteRef = useRef<HTMLDivElement>(null);
-    let minuteX: number, minuteY: number;
+    const minuteX = useRef(0), minuteY = useRef(0);
+    useEffect(() => {
+        const onScroll = () => {
+            if (minuteRef.current) {
+                const data = minuteRef.current.getBoundingClientRect();
+                minuteX.current = data.left;
+                minuteY.current = data.top;
+            }
+        };
+        // clean up code
+        window.removeEventListener('scroll', onScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
     useEffect(() => {
         if (minuteRef.current) {
             const data = minuteRef.current.getBoundingClientRect();
-            minuteX = data.left;
-            minuteY = data.top;
+            minuteX.current = data.left;
+            minuteY.current = data.top;
         }
     })
+
 
     const clickHourStart = useRef(false);
 
     const clickMinute = (e: MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
         const x = e.pageX;
-        const y = e.pageY;
+        const y = e.clientY;
 
-        if ((x > minuteX) && (x < minuteX + 18) && (y > minuteY + 30) && (y < minuteY + 44)) {
+        if ((x > minuteX.current) && (x < minuteX.current + 18) && (y > minuteY.current + 30) && (y < minuteY.current + 44)) {
             clickItemHour(60);
         }
-        if ((x > minuteX + 26) && (x < minuteX + 42) && (y > minuteY + 20) && (y < minuteY + 40)) {
+        if ((x > minuteX.current + 26) && (x < minuteX.current + 42) && (y > minuteY.current + 20) && (y < minuteY.current + 40)) {
             clickItemHour(90);
 
         }
-        if ((x > minuteX + 44) && (x < minuteX + 64) && (y > minuteY + 30) && (y < minuteY + 44)) {
+        if ((x > minuteX.current + 44) && (x < minuteX.current + 64) && (y > minuteY.current + 30) && (y < minuteY.current + 44)) {
             clickItemHour(120);
 
         }
