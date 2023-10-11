@@ -1488,7 +1488,7 @@ span._danger_n0eaj_71 {
     cursor: grabbing
 }
 
-._task__info_1yhwa_1 {
+._task__info_1ja2b_1 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1496,7 +1496,7 @@ span._danger_n0eaj_71 {
     gap: 10px
 }
 
-._subtitels_1yhwa_17 {
+._subtitels_1ja2b_17 {
     color: #fff;
     font-size: 21px;
     font-weight: 700;
@@ -1504,14 +1504,14 @@ span._danger_n0eaj_71 {
     text-transform: uppercase
 }
 
-._points_1yhwa_33 {
+._points_1ja2b_33 {
     color: #fff;
     font-size: 49px;
     font-weight: 700;
     letter-spacing: .98px
 }
 
-._contact_1yhwa_47 {
+._contact_1ja2b_47 {
     position: absolute;
     width: calc(100% + 10px);
     height: 316px;
@@ -1528,21 +1528,27 @@ span._danger_n0eaj_71 {
     padding: 0 30px 55px 44px
 }
 
-._contactInfo_1yhwa_81 {
+._contactInfo_1ja2b_81 {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 23px
 }
 
-._contactText_1yhwa_97 {
+._contactInfo_1ja2b_81 img {
+    width: 61px;
+    height: 61px;
+    object-fit: cover
+}
+
+._contactText_1ja2b_109 {
     color: #008c95;
     font-size: 15px;
     font-weight: 400;
     letter-spacing: .3px
 }
 
-._btnEnd_1yhwa_111 {
+._btnEnd_1ja2b_123 {
     display: block;
     color: #fff;
     font-family: Nunito Sans;
@@ -1565,16 +1571,16 @@ span._danger_n0eaj_71 {
 }
 
 @media ((max-width: 900px) and (orientation: landscape)) or ((max-width: 450px) and (orientation: portrait)) {
-    ._contact_1yhwa_47 {
+    ._contact_1ja2b_47 {
         align-items: center;
         padding-bottom: 65px
     }
 
-    ._contactInfo_1yhwa_81 img {
+    ._contactInfo_1ja2b_81 img {
         display: none
     }
 
-    ._contactText_1yhwa_97 {
+    ._contactText_1ja2b_109 {
         text-align: center
     }
 }
