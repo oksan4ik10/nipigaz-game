@@ -126,6 +126,7 @@ function Task21(props: IProps) {
                 (dataAnswerPosition.left - 30 < x) && (dataAnswerPosition.right + 30 > x)) {
                 targetDrag.style.left = dataAnswerPosition.left + "px";
                 targetDrag.style.top = dataAnswerPosition.top + "px";
+
                 if ((targetDragLast) && (targetDragLast !== targetDrag)) {
                     targetDragLast.style.position = "static";
                     targetDragLast.style.left = "auto";
@@ -160,10 +161,13 @@ function Task21(props: IProps) {
                 targetDrag.style.top = "auto";
                 targetDrag.style.position = "static";
                 return;
+            } else {
+                selectAnswer(true);
             }
 
         }
-        selectAnswer(true);
+
+
         if (targetDrag) setTargetDrag(targetDrag);
         const answerUser: IAnswerUser = {
             arrAnswer: active,

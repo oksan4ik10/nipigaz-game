@@ -109,8 +109,10 @@ function Task01(props: IProps) {
             if (y > 14 && y < 112) targetDrag.style.top = y + "px";
             if (x > 0 && x < 270) targetDrag.style.left = x + "px";
             if (((y > 14) && (y < 140)) && ((x > 90) && (x < 170))) {
+                selectAnswer(true);
                 const value = targetDrag.getAttribute("data-value");
                 if ((value) && answerIndex !== value) {
+
                     setArrAnswers(arrAnswers.map((item, index) => {
                         if (index + "" === value) item.check = true;
                         else item.check = false;
@@ -133,7 +135,7 @@ function Task01(props: IProps) {
                     }
                     setAnswerIndex(value);
                 }
-                selectAnswer(true);
+
                 if (value === "1") targetDrag.style.fontSize = "20px";
                 targetDrag.style.color = "#008C95";
                 targetDrag.style.top = "50%";
@@ -172,7 +174,6 @@ function Task01(props: IProps) {
                 targetDrag.style.position = "static";
                 return;
             }
-
         }
     }
 

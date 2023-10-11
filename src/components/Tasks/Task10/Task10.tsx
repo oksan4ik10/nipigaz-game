@@ -175,6 +175,14 @@ function Task10(props: IProps) {
         if (e.target === targetDrag) end(index);
     }
 
+    const removeAnswer = () => {
+        selectAnswer(false);
+        setArrAnswers(arrAnswers.map((item) => {
+            item.answer = false;
+            return item
+        }))
+    }
+
     return (
         <>
             <div className={styles.taskInfo} ref={ref}>
@@ -188,7 +196,7 @@ function Task10(props: IProps) {
                         <div className={styles.answer} >
                             <div className={styles.zero + " " + (answer.answer ? "" : styles.none) + " " +
                                 (checkClick ? saveResult ? styles.success : styles.danger : "")}
-                            >{answer.value}</div>
+                                onClick={removeAnswer} onTouchStart={removeAnswer}>{answer.value}</div>
                         </div>
                     </div>
                 </div>

@@ -102,6 +102,7 @@ function Task31(props: IProps) {
                 targetDrag.style.height = "18px";
                 targetDrag.style.width = "65px";
                 targetDrag.style.overflow = "hidden";
+                selectAnswer(true);
 
                 if (value) {
                     if (arrAnswers[+value]) return;
@@ -126,7 +127,7 @@ function Task31(props: IProps) {
                             dispatch(setCheckAnswer("false"));
                             dispatch(addAnswer(answerUser))
                         }
-                        selectAnswer(true);
+
                         setAnswerIndex(value);
                     }
 
