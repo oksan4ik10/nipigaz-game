@@ -76,7 +76,7 @@ function TaskArea(props: IProps) {
             setFontSize("15px");
             openTask(false);
             //если все вопросы закончились
-            if (arrQuestions.flat().filter((item) => item === 0).length === 1) {
+            if (arrQuestions.flat().filter((item) => item === 0).length === 16) {
                 setFinal(false);
                 dispatch(saveActive([4, 4]));
                 setFontSize("20px");
